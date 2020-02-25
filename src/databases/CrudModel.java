@@ -6,6 +6,7 @@
 package databases;
 
 import static applaporan.Form_master_barang.jTable_barang;
+import static applaporan.Form_master_karyawan.jTable_karyawan;
 import static applaporan.Form_master_outlet.jTable_outlet;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,6 +24,41 @@ import javax.swing.table.DefaultTableModel;
 public class CrudModel extends ConfigDatabase {
     public static final Connection conn = new ConfigDatabase().getConn();
     
+    public static void readDataKaryawan(String var_selected, String var_keywords, JTable table){
+        DefaultTableModel tabmode = getDatatabel(table);
+        String sql = null;
+        try {
+            if (var_selected != null && var_keywords != null) {
+                //query search
+                sql = "SELECT * FROM tbl_master_karyawan WHERE nm_karyawan LIKE '%" + var_keywords + "%' ";
+            } else {
+                //query select smua data 
+                sql = "SELECT * FROM tbl_master_karyawan";
+            }
+            System.out.println(sql);
+
+            ResultSet hasil = null;
+            try {
+                Statement stmt = conn.createStatement();
+                hasil = stmt.executeQuery(sql);
+            } catch (SQLException ex) {
+                Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            int NUMBERS = 1;
+            while (hasil.next()) {
+                String col1 = hasil.getString("nik");
+                String col2 = hasil.getString("jabatan");                
+                String col3 = hasil.getString("nm_karyawan");
+                String col4 = hasil.getString("alamat_karyawan");
+               
+                Object[] data = {NUMBERS, col1, col2, col3, col4};
+                tabmode.addRow(data);
+                NUMBERS++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /*
      *  CRUD AREA OUTLET
      */
@@ -119,6 +155,10 @@ public class CrudModel extends ConfigDatabase {
             Object[] baris = {"No", "Nama outlet", "kota", "alamat outlet"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_outlet.setModel(tabmode);
+        } else if (tableName.equals(jTable_karyawan)) {
+            Object[] baris = {"No", "Nik", "jabatan", "nama", "alamat"};
+            tabmode = new DefaultTableModel(null, baris);
+            jTable_karyawan.setModel(tabmode);
         } 
         
 
