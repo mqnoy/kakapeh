@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 25, 2020 at 06:10 PM
+-- Generation Time: Feb 25, 2020 at 06:32 PM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.1.29
 
@@ -47,9 +47,9 @@ CREATE TABLE `tbl_brg_keluar` (
 
 CREATE TABLE `tbl_brg_masuk` (
   `id_brg_masuk` int(11) NOT NULL,
+  `kd_order` varchar(20) NOT NULL,
   `outlet_id` int(11) NOT NULL,
   `order` int(11) NOT NULL,
-  `id_outlet` int(11) NOT NULL,
   `det_stock_kd` varchar(20) NOT NULL,
   `barang_id` int(11) NOT NULL,
   `karyawan_id` int(11) NOT NULL,
@@ -60,8 +60,9 @@ CREATE TABLE `tbl_brg_masuk` (
 -- Dumping data for table `tbl_brg_masuk`
 --
 
-INSERT INTO `tbl_brg_masuk` (`id_brg_masuk`, `outlet_id`, `order`, `id_outlet`, `det_stock_kd`, `barang_id`, `karyawan_id`, `tgl_brg_masuk`) VALUES
-(1, 1, 100, 1, 'stk_asem', 1, 1, '2020-02-25');
+INSERT INTO `tbl_brg_masuk` (`id_brg_masuk`, `kd_order`, `outlet_id`, `order`, `det_stock_kd`, `barang_id`, `karyawan_id`, `tgl_brg_masuk`) VALUES
+(1, 'ODR02262020', 1, 100, 'DTL02262020', 1, 1, '2020-02-26'),
+(2, 'ODR02262020', 1, 20, 'DTL02262020', 2, 1, '2020-02-26');
 
 -- --------------------------------------------------------
 
@@ -82,7 +83,8 @@ CREATE TABLE `tbl_detail_stock` (
 --
 
 INSERT INTO `tbl_detail_stock` (`id_det_stock`, `kd_det_stock`, `stock_awal`, `stock_akhir`, `barang_id`) VALUES
-(1, 'stk_asem', 100, 0, 1);
+(1, 'DTL02262020', 100, 0, 1),
+(2, 'DTL02262020', 20, 0, 2);
 
 -- --------------------------------------------------------
 
@@ -286,13 +288,13 @@ ALTER TABLE `tbl_brg_keluar`
 -- AUTO_INCREMENT for table `tbl_brg_masuk`
 --
 ALTER TABLE `tbl_brg_masuk`
-  MODIFY `id_brg_masuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_brg_masuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_detail_stock`
 --
 ALTER TABLE `tbl_detail_stock`
-  MODIFY `id_det_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_det_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_master_barang`
