@@ -40,9 +40,9 @@ git clone https://github.com/mqnoy/kakapeh.git
 
 import database
 
-[lap_iki_mysql_create.sql.sql](https://github.com/mqnoy/kakapeh/blob/master/databases/lap_iki_mysql_create.sql) in databases folder
+[db_app_kkp.sql](https://raw.githubusercontent.com/mqnoy/kakapeh/master/databases/db_app_kkp.sql) in databases folder
 ```
-mysql -u yourusername -p db_app_kkp < lap_iki_mysql_create.sql.sql
+mysql -u yourusername -p db_app_kkp < db_app_kkp.sql.sql
 ```
 
 import project 
