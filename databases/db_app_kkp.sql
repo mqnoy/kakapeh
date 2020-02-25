@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 25, 2020 at 06:01 PM
+-- Generation Time: Feb 25, 2020 at 06:10 PM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.1.29
 
@@ -50,6 +50,7 @@ CREATE TABLE `tbl_brg_masuk` (
   `outlet_id` int(11) NOT NULL,
   `order` int(11) NOT NULL,
   `id_outlet` int(11) NOT NULL,
+  `det_stock_kd` varchar(20) NOT NULL,
   `barang_id` int(11) NOT NULL,
   `karyawan_id` int(11) NOT NULL,
   `tgl_brg_masuk` date NOT NULL
@@ -59,8 +60,8 @@ CREATE TABLE `tbl_brg_masuk` (
 -- Dumping data for table `tbl_brg_masuk`
 --
 
-INSERT INTO `tbl_brg_masuk` (`id_brg_masuk`, `outlet_id`, `order`, `id_outlet`, `barang_id`, `karyawan_id`, `tgl_brg_masuk`) VALUES
-(1, 1, 100, 1, 1, 1, '2020-02-25');
+INSERT INTO `tbl_brg_masuk` (`id_brg_masuk`, `outlet_id`, `order`, `id_outlet`, `det_stock_kd`, `barang_id`, `karyawan_id`, `tgl_brg_masuk`) VALUES
+(1, 1, 100, 1, 'stk_asem', 1, 1, '2020-02-25');
 
 -- --------------------------------------------------------
 
@@ -220,34 +221,15 @@ CREATE TABLE `tbl_master_outlet` (
   `id_outlet` int(11) NOT NULL,
   `nm_outlet` text NOT NULL,
   `kota` text NOT NULL,
-  `alamat_outlet` text NOT NULL,
-  `stock_id` int(11) NOT NULL DEFAULT '0'
+  `alamat_outlet` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_master_outlet`
 --
 
-INSERT INTO `tbl_master_outlet` (`id_outlet`, `nm_outlet`, `kota`, `alamat_outlet`, `stock_id`) VALUES
-(1, 'Let\'s Go Chicken  Outlet ASEM BARIS', 'jakarta', 'Jl. Tebet Timur Dalam Raya No.4, RW.3, Tebet Tim., Kec. Tebet, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12820', 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_stock`
---
-
-CREATE TABLE `tbl_stock` (
-  `id_stock` int(11) NOT NULL,
-  `stock_det_kd` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_stock`
---
-
-INSERT INTO `tbl_stock` (`id_stock`, `stock_det_kd`) VALUES
-(1, 'stk_asem');
+INSERT INTO `tbl_master_outlet` (`id_outlet`, `nm_outlet`, `kota`, `alamat_outlet`) VALUES
+(1, 'Let\'s Go Chicken  Outlet ASEM BARIS', 'jakarta', 'Jl. Tebet Timur Dalam Raya No.4, RW.3, Tebet Tim., Kec. Tebet, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12820');
 
 --
 -- Indexes for dumped tables
@@ -291,12 +273,6 @@ ALTER TABLE `tbl_master_outlet`
   ADD PRIMARY KEY (`id_outlet`);
 
 --
--- Indexes for table `tbl_stock`
---
-ALTER TABLE `tbl_stock`
-  ADD PRIMARY KEY (`id_stock`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -335,12 +311,6 @@ ALTER TABLE `tbl_master_karyawan`
 --
 ALTER TABLE `tbl_master_outlet`
   MODIFY `id_outlet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `tbl_stock`
---
-ALTER TABLE `tbl_stock`
-  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
