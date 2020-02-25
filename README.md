@@ -28,7 +28,7 @@ jasperreports-core-renderer.jar
 ### Installing
 
 download the file
-[kakapehfile](https://github.com/mqnoy/kakapeh/archive/master.zipl) 
+[kakapehfile](https://github.com/mqnoy/kakapeh/archive/master.zip) 
 
 
 or clone the repository
