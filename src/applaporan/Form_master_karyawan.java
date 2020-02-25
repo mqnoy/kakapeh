@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package applaporan;
-import static databases.CrudModel.readDataBarang;
+import static databases.CrudModel.readDataKaryawan;
+
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
@@ -12,11 +13,11 @@ import static databases.CrudModel.readDataBarang;
 public class Form_master_karyawan extends javax.swing.JFrame {
 
     /**
-     * Creates new form Form_master_barang
+     * Creates new form Form_master_karyawan
      */
     public Form_master_karyawan() {
         initComponents();
-        readDataBarang(null,null,jTable_barang);
+        readDataKaryawan(null,null,jTable_karyawan);
     }
 
     /**
@@ -36,7 +37,7 @@ public class Form_master_karyawan extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable_barang = new javax.swing.JTable();
+        jTable_karyawan = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -73,7 +74,7 @@ public class Form_master_karyawan extends javax.swing.JFrame {
 
         jLabel4.setText("alamat");
 
-        jTable_barang.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_karyawan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -81,7 +82,7 @@ public class Form_master_karyawan extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable_barang);
+        jScrollPane1.setViewportView(jTable_karyawan);
 
         jButton2.setText("tambah");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -316,7 +317,7 @@ public class Form_master_karyawan extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable_barang;
+    public static javax.swing.JTable jTable_karyawan;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField txt_brg_cari;
     private javax.swing.JTextField txt_brg_nm_barang;
