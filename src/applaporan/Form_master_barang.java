@@ -42,14 +42,16 @@ public class Form_master_barang extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         txt_brg_cari = new javax.swing.JTextField();
-        cb_brg_satuan = new javax.swing.JComboBox<>();
+        cb_brg_satuan = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
-        cb_brg_satuan1 = new javax.swing.JComboBox<>();
+        cb_brg_satuan1 = new javax.swing.JComboBox<String>();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
 
         jButton1.setText("ubah");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -103,11 +105,11 @@ public class Form_master_barang extends javax.swing.JFrame {
             }
         });
 
-        cb_brg_satuan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Kg", "Lbr", "Pack", "Pcs", "Pack", "Lembar", "Carton", "ROLL", "Kantong", "buku", "Satu" }));
+        cb_brg_satuan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Kg", "Lbr", "Pack", "Pcs", "Pack", "Lembar", "Carton", "ROLL", "Kantong", "buku", "Satu" }));
 
         jLabel5.setText("kategori");
 
-        cb_brg_satuan1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Beverage", "Food", "Paket" }));
+        cb_brg_satuan1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Beverage", "Food", "Paket" }));
 
         jLabel6.setText("harga");
 
