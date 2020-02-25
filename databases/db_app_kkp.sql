@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 25, 2020 at 06:32 PM
+-- Generation Time: Feb 25, 2020 at 07:12 PM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.1.29
 
@@ -201,6 +201,7 @@ INSERT INTO `tbl_master_barang` (`id_barang`, `nm_barang`, `ktg_barang`, `hrg_po
 CREATE TABLE `tbl_master_karyawan` (
   `id_karyawan` int(11) NOT NULL,
   `nik` varchar(20) NOT NULL,
+  `jabatan` enum('staff','manager') NOT NULL,
   `nm_karyawan` text NOT NULL,
   `akses_password` varchar(50) NOT NULL,
   `alamat_karyawan` text NOT NULL
@@ -210,8 +211,8 @@ CREATE TABLE `tbl_master_karyawan` (
 -- Dumping data for table `tbl_master_karyawan`
 --
 
-INSERT INTO `tbl_master_karyawan` (`id_karyawan`, `nik`, `nm_karyawan`, `akses_password`, `alamat_karyawan`) VALUES
-(1, '201643502057', 'rifky', 'e10adc3949ba59abbe56e057f20f883e', 'jl.warungsilah');
+INSERT INTO `tbl_master_karyawan` (`id_karyawan`, `nik`, `jabatan`, `nm_karyawan`, `akses_password`, `alamat_karyawan`) VALUES
+(1, '201643502057', 'staff', 'rifky', 'e10adc3949ba59abbe56e057f20f883e', 'jl.warungsilah');
 
 -- --------------------------------------------------------
 
