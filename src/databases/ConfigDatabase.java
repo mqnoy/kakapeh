@@ -30,9 +30,9 @@ public class ConfigDatabase {
         return koneksi;
     }
     protected static void setConf() {
-        ConfigDatabase.host     = "imzazmi.com";
-        ConfigDatabase.username = "dev_imza";
-        ConfigDatabase.password = "dev_imza";
+        ConfigDatabase.host     = "localhost";
+        ConfigDatabase.username = "root";
+        ConfigDatabase.password = "";
         ConfigDatabase.driver   = "mysql";
         ConfigDatabase.database = "db_app_kkp";
         ConfigDatabase.port     = 3306;
