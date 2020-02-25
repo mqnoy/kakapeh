@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 25, 2020 at 05:14 PM
+-- Generation Time: Feb 25, 2020 at 06:01 PM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.1.29
 
@@ -35,7 +35,7 @@ CREATE TABLE `tbl_brg_keluar` (
   `terpakai` int(11) NOT NULL,
   `terjual` int(11) NOT NULL,
   `karyawan_id` int(11) NOT NULL,
-  `tgl_brg_keluar` datetime NOT NULL,
+  `tgl_brg_keluar` date NOT NULL,
   `selisih` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -52,8 +52,15 @@ CREATE TABLE `tbl_brg_masuk` (
   `id_outlet` int(11) NOT NULL,
   `barang_id` int(11) NOT NULL,
   `karyawan_id` int(11) NOT NULL,
-  `tgl_brg_masuk` int(11) NOT NULL
+  `tgl_brg_masuk` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_brg_masuk`
+--
+
+INSERT INTO `tbl_brg_masuk` (`id_brg_masuk`, `outlet_id`, `order`, `id_outlet`, `barang_id`, `karyawan_id`, `tgl_brg_masuk`) VALUES
+(1, 1, 100, 1, 1, 1, '2020-02-25');
 
 -- --------------------------------------------------------
 
@@ -68,6 +75,13 @@ CREATE TABLE `tbl_detail_stock` (
   `stock_akhir` int(11) NOT NULL,
   `barang_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_detail_stock`
+--
+
+INSERT INTO `tbl_detail_stock` (`id_det_stock`, `kd_det_stock`, `stock_awal`, `stock_akhir`, `barang_id`) VALUES
+(1, 'stk_asem', 100, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -229,6 +243,13 @@ CREATE TABLE `tbl_stock` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `tbl_stock`
+--
+
+INSERT INTO `tbl_stock` (`id_stock`, `stock_det_kd`) VALUES
+(1, 'stk_asem');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -289,13 +310,13 @@ ALTER TABLE `tbl_brg_keluar`
 -- AUTO_INCREMENT for table `tbl_brg_masuk`
 --
 ALTER TABLE `tbl_brg_masuk`
-  MODIFY `id_brg_masuk` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_brg_masuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_detail_stock`
 --
 ALTER TABLE `tbl_detail_stock`
-  MODIFY `id_det_stock` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_det_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_master_barang`
@@ -319,7 +340,7 @@ ALTER TABLE `tbl_master_outlet`
 -- AUTO_INCREMENT for table `tbl_stock`
 --
 ALTER TABLE `tbl_stock`
-  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
