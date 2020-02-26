@@ -5,18 +5,23 @@
  */
 package applaporan;
 import static databases.CrudModel.readDataBarang;
+import static databases.CrudModel.countData;
+
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Form_master_barang extends javax.swing.JFrame {
-
+    public int total_barang = 0;
     /**
      * Creates new form Form_master_barang
      */
     public Form_master_barang() {
         initComponents();
         readDataBarang(null,null,jTable_barang);
+//        total_barang = countData("id_barang", "tbl_master_barang");
+        total_barang = jTable_barang.getRowCount();
+        total_data_brg.setText(String.valueOf(total_barang));
     }
 
     /**
@@ -47,7 +52,7 @@ public class Form_master_barang extends javax.swing.JFrame {
         cb_brg_satuan1 = new javax.swing.JComboBox<String>();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        total_data_brg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -115,7 +120,7 @@ public class Form_master_barang extends javax.swing.JFrame {
 
         jLabel7.setText("Total :");
 
-        jLabel8.setText("0");
+        total_data_brg.setText("0");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -163,7 +168,7 @@ public class Form_master_barang extends javax.swing.JFrame {
                 .addGap(2, 2, 2)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(total_data_brg, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -207,7 +212,7 @@ public class Form_master_barang extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(total_data_brg, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(168, 168, 168)
@@ -300,10 +305,10 @@ public class Form_master_barang extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable jTable_barang;
+    private javax.swing.JLabel total_data_brg;
     private javax.swing.JTextField txt_brg_cari;
     private javax.swing.JTextField txt_brg_harga;
     private javax.swing.JTextField txt_brg_nm_barang;

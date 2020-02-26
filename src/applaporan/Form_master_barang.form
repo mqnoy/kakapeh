@@ -101,7 +101,7 @@
                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                   <Component id="jLabel7" min="-2" pref="41" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel8" min="-2" pref="65" max="-2" attributes="0"/>
+                  <Component id="total_data_brg" min="-2" pref="65" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
@@ -154,7 +154,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="jLabel7" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="jLabel8" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                      <Component id="total_data_brg" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
@@ -309,7 +309,7 @@
             <Property name="text" type="java.lang.String" value="Total :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel8">
+        <Component class="javax.swing.JLabel" name="total_data_brg">
           <Properties>
             <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
