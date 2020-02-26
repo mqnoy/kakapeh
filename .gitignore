@@ -5,3 +5,4 @@
 /nbproject/private/*.properties
 /nbproject/private/*.xml
 /nbproject/private/
+/databases/mysql-workbench-community-6.3.7-src/library/sql.parser/yy_purify-tool/dist/
