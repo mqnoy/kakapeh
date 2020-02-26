@@ -143,7 +143,7 @@ public class CrudModel extends ConfigDatabase {
     /* END CRUD AREA BARANG */
     
     /*
-     *  CRUD AREA BARANG
+     *  otentikasi user dengan database
      */
     public HashMap loginModel(String nik,String pass){
         String sql = null;
@@ -170,7 +170,7 @@ public class CrudModel extends ConfigDatabase {
         }
         return data;
     }
-    /* END CRUD AREA BARANG */
+    /* otentikasi user dengan database */
     
     
     /*
