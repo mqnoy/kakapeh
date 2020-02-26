@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
@@ -137,6 +139,36 @@ public class CrudModel extends ConfigDatabase {
     
     public void getKategoryToCb(){
         
+    }
+    /* END CRUD AREA BARANG */
+    
+    /*
+     *  CRUD AREA BARANG
+     */
+    public HashMap loginModel(String nik,String pass){
+        String sql = null;
+        HashMap<String,String> data = new HashMap<String,String>();
+        try {
+            //query select
+            sql = "SELECT * FROM tbl_master_karyawan WHERE nik ='" + nik + "' AND akses_password='"+pass+"' ";
+            System.out.println(sql);
+
+            ResultSet hasil = null;
+            try {
+                Statement stmt = conn.createStatement();
+                hasil = stmt.executeQuery(sql);
+            } catch (SQLException ex) {
+                Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            while (hasil.next()) {
+                data.put("nik",hasil.getString("nik"));
+                data.put("jabatan",hasil.getString("jabatan"));                
+                data.put("password",hasil.getString("akses_password"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return data;
     }
     /* END CRUD AREA BARANG */
     
