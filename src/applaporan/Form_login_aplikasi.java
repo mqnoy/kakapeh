@@ -5,13 +5,17 @@
  */
 package applaporan;
 
-import javax.swing.JFrame;
+import controller.FrameController;
+import controller.Otentikasi;
+import static controller.Otentikasi.getGrant;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Form_login_aplikasi extends javax.swing.JFrame {
+    FrameController frame = new FrameController();
 
     /**
      * Creates new form Form_login_aplikasi
@@ -36,12 +40,12 @@ public class Form_login_aplikasi extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        i_nik = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        i_pass = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Login");
         setName("frame_login"); // NOI18N
         setUndecorated(true);
@@ -100,8 +104,6 @@ public class Form_login_aplikasi extends javax.swing.JFrame {
 
         jLabel1.setText("Password");
 
-        jPasswordField1.setText("jPasswordField1");
-
         jLabel3.setText("Nik");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -113,9 +115,9 @@ public class Form_login_aplikasi extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField1)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                        .addComponent(i_nik)
+                        .addComponent(i_pass)
                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(65, Short.MAX_VALUE))
         );
@@ -125,11 +127,11 @@ public class Form_login_aplikasi extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(i_nik, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(i_pass, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -170,6 +172,24 @@ public class Form_login_aplikasi extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        Otentikasi otentikasi = new Otentikasi();
+        String inputNik = i_nik.getText().trim();//ambil input nik
+        char[] rawPass = i_pass.getPassword();
+        String inputPass = new String(rawPass);
+        
+        System.out.println("inputan =>>" +inputNik+ " - " +inputPass);
+        otentikasi.setNik(inputNik);
+        otentikasi.setPass(inputPass);
+        otentikasi.login();//otentikasi di mulai
+        System.out.println("akses =>"+getGrant());
+
+        if (getGrant()) {
+            this.dispose();
+            frame.showDashboard();
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "nik atau password salah", "tidak ada akses", 1);
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -213,6 +233,8 @@ public class Form_login_aplikasi extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField i_nik;
+    private javax.swing.JPasswordField i_pass;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -222,7 +244,5 @@ public class Form_login_aplikasi extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
