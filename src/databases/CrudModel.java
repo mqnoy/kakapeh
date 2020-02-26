@@ -26,6 +26,32 @@ import javax.swing.table.DefaultTableModel;
 public class CrudModel extends ConfigDatabase {
     public static final Connection conn = new ConfigDatabase().getConn();
     
+    
+    /*
+     *  global query
+     */
+    public static int countData(String pk, String table){
+        int totalData = 0;
+        String sql = "SELECT count("+pk+") as total_data FROM "+table+"";
+        ResultSet hasil;
+        try {
+            Statement stmt = conn.createStatement();
+            hasil = stmt.executeQuery(sql);
+            while(hasil.next()){
+                totalData = hasil.getInt("total_data");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(sql+"=> "+ totalData);
+
+        return totalData;
+    
+    }
+    /* end global query */
+    /*
+     *  CRUD AREA KARYAWAN
+     */
     public static void readDataKaryawan(String var_selected, String var_keywords, JTable table){
         DefaultTableModel tabmode = getDatatabel(table);
         String sql = null;
@@ -61,6 +87,8 @@ public class CrudModel extends ConfigDatabase {
             Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    /* END CRUD AREA BARANG */
+    
     /*
      *  CRUD AREA OUTLET
      */
