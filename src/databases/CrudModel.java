@@ -8,6 +8,8 @@ package databases;
 import static applaporan.Form_master_barang.jTable_barang;
 import static applaporan.Form_master_karyawan.jTable_karyawan;
 import static applaporan.Form_master_outlet.jTable_outlet;
+import static applaporan.Form_order.jTable_barang_2;
+import static applaporan.Form_order.jTable_outlet_2;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -96,7 +98,7 @@ public class CrudModel extends ConfigDatabase {
         DefaultTableModel tabmode = getDatatabel(table);
         String sql = null;
         try {
-            if (var_selected != null && var_keywords != null) {
+            if (var_keywords != null) {
                 //query search
                 sql = "SELECT * FROM tbl_master_outlet WHERE nm_outlet LIKE '%" + var_keywords + "%' ";
             } else {
@@ -134,7 +136,7 @@ public class CrudModel extends ConfigDatabase {
         DefaultTableModel tabmode = getDatatabel(table);
         String sql = null;
         try {
-            if (var_selected != null && var_keywords != null) {
+            if (var_keywords != null) {
                 //query search
                 sql = "SELECT * FROM tbl_master_barang WHERE nm_barang LIKE '%" + var_keywords + "%' ";
             } else {
@@ -211,10 +213,18 @@ public class CrudModel extends ConfigDatabase {
             Object[] baris = {"No", "Nama barang", "kategory ", "harga(Rp)"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_barang.setModel(tabmode);
-        } else if (tableName.equals(jTable_outlet)) {
+        }else if (tableName.equals(jTable_barang_2)) {
+            Object[] baris = {"No", "Nama barang", "kategory ", "harga(Rp)"};
+            tabmode = new DefaultTableModel(null, baris);
+            jTable_barang_2.setModel(tabmode);
+        }  else if (tableName.equals(jTable_outlet)) {
             Object[] baris = {"No", "Nama outlet", "kota", "alamat outlet"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_outlet.setModel(tabmode);
+        } else if (tableName.equals(jTable_outlet_2)) {
+            Object[] baris = {"No", "Nama outlet", "kota", "alamat outlet"};
+            tabmode = new DefaultTableModel(null, baris);
+            jTable_outlet_2.setModel(tabmode);
         } else if (tableName.equals(jTable_karyawan)) {
             Object[] baris = {"No", "Nik", "jabatan", "nama", "alamat"};
             tabmode = new DefaultTableModel(null, baris);
