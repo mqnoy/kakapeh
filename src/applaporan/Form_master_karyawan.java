@@ -52,7 +52,7 @@ public class Form_master_karyawan extends javax.swing.JFrame {
         txt_brg_nm_barang1 = new javax.swing.JTextField();
         jPasswordField1 = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 153));
 
