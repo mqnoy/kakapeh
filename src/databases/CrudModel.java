@@ -10,6 +10,8 @@ import static applaporan.Form_master_karyawan.jTable_karyawan;
 import static applaporan.Form_master_outlet.jTable_outlet;
 import static applaporan.Form_order.jTable_barang_2;
 import static applaporan.Form_order.jTable_outlet_2;
+import static applaporan.Form_penjualan.jTable_outlet3;
+import static applaporan.Form_penjualan.jTable_barang_3;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -217,7 +219,11 @@ public class CrudModel extends ConfigDatabase {
             Object[] baris = {"No", "Nama barang", "kategory ", "harga(Rp)"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_barang_2.setModel(tabmode);
-        }  else if (tableName.equals(jTable_outlet)) {
+        }  else if (tableName.equals(jTable_barang_3)) {
+            Object[] baris = {"No", "Nama barang", "kategory ", "harga(Rp)"};
+            tabmode = new DefaultTableModel(null, baris);
+            jTable_barang_3.setModel(tabmode);
+        } else if (tableName.equals(jTable_outlet)) {
             Object[] baris = {"No", "Nama outlet", "kota", "alamat outlet"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_outlet.setModel(tabmode);
@@ -225,7 +231,11 @@ public class CrudModel extends ConfigDatabase {
             Object[] baris = {"No", "Nama outlet", "kota", "alamat outlet"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_outlet_2.setModel(tabmode);
-        } else if (tableName.equals(jTable_karyawan)) {
+        }else if (tableName.equals(jTable_outlet3)) {
+            Object[] baris = {"No", "Nama outlet", "kota", "alamat outlet"};
+            tabmode = new DefaultTableModel(null, baris);
+            jTable_outlet3.setModel(tabmode);
+        }  else if (tableName.equals(jTable_karyawan)) {
             Object[] baris = {"No", "Nik", "jabatan", "nama", "alamat"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_karyawan.setModel(tabmode);
