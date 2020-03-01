@@ -5,15 +5,16 @@
  */
 package databases;
 
-import static applaporan.Form_master_barang.jTable_barang;
-import static controller.MainController.*;
 import static applaporan.Form_master_barang.*;
+import static applaporan.Form_master_barang.jTable_barang;
 import static applaporan.Form_master_karyawan.jTable_karyawan;
 import static applaporan.Form_master_outlet.jTable_outlet;
+import static applaporan.Form_master_outlet.*;
 import static applaporan.Form_order.jTable_barang_2;
 import static applaporan.Form_order.jTable_outlet_2;
 import static applaporan.Form_penjualan.jTable_barang_3;
 import static applaporan.Form_penjualan.jTable_outlet3;
+import static controller.MainController.*;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -94,13 +95,33 @@ public class CrudModel extends ConfigDatabase {
     /*
      *  CRUD AREA OUTLET
      */
+    public static void createDataOutlet(){
+        try {
+            boolean check_kdmenu;
+            String sql = "INSERT INTO tbl_master_outlet (nama_outlet,kota,alamat) VALUES (?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, txt_outlet_nama.getText());
+            ps.setString(2, cb_outlet_kota.getSelectedItem().toString());
+            ps.setString(3, txt_outlet_alamat.getText());
+
+            int executeUpdate = ps.executeUpdate();
+            if (executeUpdate > 0) {
+                notifikasi_c_outlet = true;
+            } else {
+                notifikasi_c_outlet = false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public static void readDataOutlet(String var_selected, String var_keywords, JTable table){
         DefaultTableModel tabmode = getDatatabel(table);
         String sql = null;
         try {
             if (var_keywords != null) {
                 //query search
-                sql = "SELECT * FROM tbl_master_outlet WHERE nm_outlet LIKE '%" + var_keywords + "%' ";
+                sql = "SELECT * FROM tbl_master_outlet WHERE nama_outlet LIKE '%" + var_keywords + "%' ";
             } else {
                 //query select smua data 
                 sql = "SELECT * FROM tbl_master_outlet";
@@ -116,13 +137,32 @@ public class CrudModel extends ConfigDatabase {
             }
             int NUMBERS = 1;
             while (hasil.next()) {
-                String col1 = hasil.getString("nm_outlet");
+                int col0 = hasil.getInt("id_outlet");
+                String col1 = hasil.getString("nama_outlet");
                 String col2 = hasil.getString("kota");                
-                String col3 = hasil.getString("alamat_outlet");
+                String col3 = hasil.getString("alamat");
                
-                Object[] data = {NUMBERS, col1, col2, col3};
+                Object[] data = {col0, col1, col2, col3};
                 tabmode.addRow(data);
                 NUMBERS++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public static void updateDataOutlet(int id){
+        try {
+            String sql = "UPDATE tbl_master_outlet SET nama_outlet=?, kota=?, alamat=? WHERE id_outlet=" + id;
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,txt_outlet_nama.getText());
+            ps.setString(2,cb_outlet_kota.getSelectedItem().toString());
+            ps.setString(3,txt_outlet_alamat.getText());
+            
+            int executeUpdate = ps.executeUpdate();
+            if (executeUpdate > 0) {
+                notifikasi_u_outlet = true;
+            } else {
+                notifikasi_u_outlet = false;
             }
         } catch (SQLException ex) {
             Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
