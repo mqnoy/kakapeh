@@ -7,6 +7,7 @@ package applaporan;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -14,6 +15,9 @@ import java.util.Date;
  */
 public class Library {
     
+    public static String strTo_MD5(String var_text) {
+        return DigestUtils.md5Hex(var_text);
+    }
     /**
     *  method untuk parsing jdatechoser  untuk date di sql
      * @param raw_date

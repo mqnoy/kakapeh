@@ -4,27 +4,26 @@
 
 package controller;
 
+import applaporan.Library;
 import databases.CrudModel;
 import java.util.HashMap;
-import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
  * @author qnoy
  */
 public class Otentikasi  {
-    FrameController frame = new FrameController();
-    CrudModel model = new CrudModel();
+    MainController frame = new MainController();
+    CrudModel model = new CrudModel();    
+    Library library = new Library();
+
     
     private String o_nik;
     private String o_pass;
     public String hakakses = null;// staff dan manager
     public static boolean grant = false;
     
-    public static String strTo_MD5(String var_text) {
-        return DigestUtils.md5Hex(var_text);
-    }
-    
+        
     public void logout(){
         grant = false;
         this.hakakses  = null;
@@ -53,7 +52,7 @@ public class Otentikasi  {
         this.o_nik = nik;
     }
     public void setPass(String pass){
-        String md5pass = this.strTo_MD5(pass);
+        String md5pass = library.strTo_MD5(pass);
         this.o_pass = md5pass;
     }
     
