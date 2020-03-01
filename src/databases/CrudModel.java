@@ -6,17 +6,15 @@
 package databases;
 
 import static applaporan.Form_master_barang.jTable_barang;
+import static controller.MainController.*;
+import static applaporan.Form_master_barang.*;
 import static applaporan.Form_master_karyawan.jTable_karyawan;
 import static applaporan.Form_master_outlet.jTable_outlet;
 import static applaporan.Form_order.jTable_barang_2;
 import static applaporan.Form_order.jTable_outlet_2;
-import static applaporan.Form_penjualan.jTable_outlet3;
 import static applaporan.Form_penjualan.jTable_barang_3;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import static applaporan.Form_penjualan.jTable_outlet3;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -134,16 +132,35 @@ public class CrudModel extends ConfigDatabase {
     /*
      *  CRUD AREA BARANG
      */
+    public static void createDataBarang(){
+        try {
+            boolean check_kdmenu;
+            String sql = "INSERT INTO tbl_master_barang (nama_barang,kategori,harga_satuan) VALUES (?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, txt_brg_nm_barang.getText());
+            ps.setString(2, cb_brg_kategori.getSelectedItem().toString());
+            ps.setInt(3, Integer.parseInt(txt_brg_harga.getText().trim()));
+
+            int executeUpdate = ps.executeUpdate();
+            if (executeUpdate > 0) {
+                notifikasi_c_barang = true;
+            } else {
+                notifikasi_c_barang = false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public static void readDataBarang(String var_selected, String var_keywords, JTable table) {
         DefaultTableModel tabmode = getDatatabel(table);
         String sql = null;
         try {
             if (var_keywords != null) {
                 //query search
-                sql = "SELECT * FROM tbl_master_barang WHERE nm_barang LIKE '%" + var_keywords + "%' ";
+                sql = "SELECT * FROM tbl_master_barang WHERE nama_barang LIKE '%" + var_keywords + "%' ";
             } else {
                 //query select smua data menu
-                sql = "SELECT * FROM tbl_master_barang";
+                sql = "SELECT * FROM tbl_master_barang ORDER BY nama_barang ASC";
             }
             System.out.println(sql);
 
@@ -154,19 +171,51 @@ public class CrudModel extends ConfigDatabase {
             } catch (SQLException ex) {
                 Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
             }
-            int NUMBERS = 1;
             while (hasil.next()) {
-                String col1 = hasil.getString("nm_barang");
-                String col2 = hasil.getString("ktg_barang");
-                String col3 = hasil.getString("hrg_pokok_brg");
-                Object[] data = {NUMBERS, col1, col2, col3};
+                int col0 = hasil.getInt("id_barang");                
+                String col1 = hasil.getString("nama_barang");
+                String col2 = hasil.getString("kategori");
+                String col3 = hasil.getString("harga_satuan");
+                Object[] data = {col0, col1, col2, col3};
                 tabmode.addRow(data);
-                NUMBERS++;
             }
         } catch (SQLException ex) {
             Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+    public static void updateDataBarang(int id){
+        try {
+            String sql = "UPDATE tbl_master_barang SET nama_barang=?, kategori=?, harga_satuan=? WHERE id_barang=" + id;
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,txt_brg_nm_barang.getText());
+            ps.setString(2,cb_brg_kategori.getSelectedItem().toString());
+            ps.setInt(3,Integer.parseInt(txt_brg_harga.getText()));
+
+            int executeUpdate = ps.executeUpdate();
+            if (executeUpdate > 0) {
+                notifikasi_u_barang = true;
+            } else {
+                notifikasi_u_barang = false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public static void deleteDataBarang(int id){
+        try {
+            String sql = "DELETE FROM tbl_master_barang WHERE id_barang=" + id;
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            int executeUpdate = ps.executeUpdate();
+            if (executeUpdate > 0) {
+                notifikasi_d_barang = true;
+            } else {
+                notifikasi_d_barang = false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void getKategoryToCb(){
@@ -212,31 +261,31 @@ public class CrudModel extends ConfigDatabase {
 
         DefaultTableModel tabmode = null;
         if (tableName.equals(jTable_barang)) {
-            Object[] baris = {"No", "Nama barang", "kategory ", "harga(Rp)"};
+            Object[] baris = {"id", "Nama barang", "kategory ", "harga(Rp)"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_barang.setModel(tabmode);
         }else if (tableName.equals(jTable_barang_2)) {
-            Object[] baris = {"No", "Nama barang", "kategory ", "harga(Rp)"};
+            Object[] baris = {"id", "Nama barang", "kategory ", "harga(Rp)"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_barang_2.setModel(tabmode);
         }  else if (tableName.equals(jTable_barang_3)) {
-            Object[] baris = {"No", "Nama barang", "kategory ", "harga(Rp)"};
+            Object[] baris = {"id", "Nama barang", "kategory ", "harga(Rp)"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_barang_3.setModel(tabmode);
         } else if (tableName.equals(jTable_outlet)) {
-            Object[] baris = {"No", "Nama outlet", "kota", "alamat outlet"};
+            Object[] baris = {"id", "Nama outlet", "kota", "alamat outlet"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_outlet.setModel(tabmode);
         } else if (tableName.equals(jTable_outlet_2)) {
-            Object[] baris = {"No", "Nama outlet", "kota", "alamat outlet"};
+            Object[] baris = {"id", "Nama outlet", "kota", "alamat outlet"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_outlet_2.setModel(tabmode);
         }else if (tableName.equals(jTable_outlet3)) {
-            Object[] baris = {"No", "Nama outlet", "kota", "alamat outlet"};
+            Object[] baris = {"id", "Nama outlet", "kota", "alamat outlet"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_outlet3.setModel(tabmode);
         }  else if (tableName.equals(jTable_karyawan)) {
-            Object[] baris = {"No", "Nik", "jabatan", "nama", "alamat"};
+            Object[] baris = {"id", "Nik", "jabatan", "nama", "alamat"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_karyawan.setModel(tabmode);
         } 
