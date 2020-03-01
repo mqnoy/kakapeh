@@ -5,8 +5,10 @@
  */
 package applaporan;
 import static controller.MainController.notifikasi_c_outlet;
+import static controller.MainController.notifikasi_d_outlet;
 import static controller.MainController.notifikasi_u_outlet;
 import static databases.CrudModel.createDataOutlet;
+import static databases.CrudModel.deleteDataOutlet;
 import static databases.CrudModel.readDataOutlet;
 import static databases.CrudModel.updateDataOutlet;
 import javax.swing.JOptionPane;
@@ -280,6 +282,22 @@ public class Form_master_outlet extends javax.swing.JFrame {
 
     private void btn_foutlet_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_foutlet_hapusActionPerformed
         // TODO add your handling code here:
+        int bar = jTable_outlet.getSelectedRow();
+        int col1 = Integer.parseInt(jTable_outlet.getModel().getValueAt(bar, 0).toString());
+        int result = JOptionPane.showConfirmDialog(this, "Hapus data " + col1 + " ?", this.getTitle(), JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            deleteDataOutlet(col1);
+            if (notifikasi_d_outlet) {
+                readDataOutlet(null, null, jTable_outlet);
+                JOptionPane.showMessageDialog(this, "data berhasil di hapus", "notifikasi", 1);
+            } else {
+                JOptionPane.showMessageDialog(this, "data berhasil di hapus", "notifikasi", 2);
+            }
+
+        } else if (result == JOptionPane.NO_OPTION) {
+            this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+        }
+        bersih();
     }//GEN-LAST:event_btn_foutlet_hapusActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
