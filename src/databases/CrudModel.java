@@ -8,28 +8,28 @@ package databases;
 import static applaporan.Form_master_barang.*;
 import static applaporan.Form_master_barang.jTable_barang;
 import static applaporan.Form_master_karyawan.jTable_karyawan;
-import static applaporan.Form_master_outlet.jTable_outlet;
+import static applaporan.Form_master_karyawan.*;
 import static applaporan.Form_master_outlet.*;
+import static applaporan.Form_master_outlet.jTable_outlet;
 import static applaporan.Form_order.jTable_barang_2;
 import static applaporan.Form_order.jTable_outlet_2;
 import static applaporan.Form_penjualan.jTable_barang_3;
 import static applaporan.Form_penjualan.jTable_outlet3;
 import static controller.MainController.*;
+import controller.Otentikasi;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
+import static applaporan.Library.strTo_MD5;
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class CrudModel extends ConfigDatabase {
     public static final Connection conn = new ConfigDatabase().getConn();
-    
-    
     /*
      *  global query
      */
@@ -55,16 +55,39 @@ public class CrudModel extends ConfigDatabase {
     /*
      *  CRUD AREA KARYAWAN
      */
+    public static void createDataKaryawan(){
+        char[] rawPass = txt_karyawan_password.getPassword();
+        String inputPass = new String(rawPass);
+        String md5pass = strTo_MD5(inputPass);
+        try {
+            String sql = "INSERT INTO tbl_master_karyawan (nik,posisi,nama_karyawan,akses_password,nmr_tlp) VALUES (?,?,?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, txt_karyawan_nik.getText());
+            ps.setString(2, cb_karyawan_posisi.getSelectedItem().toString());
+            ps.setString(3, txt_karyawan_nama.getText());            
+            ps.setString(4, md5pass);
+            ps.setString(5, txt_karyawan_tlp.getText());
+
+            int executeUpdate = ps.executeUpdate();
+            if (executeUpdate > 0) {
+                notifikasi_c_karyawan = true;
+            } else {
+                notifikasi_c_karyawan = false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public static void readDataKaryawan(String var_selected, String var_keywords, JTable table){
         DefaultTableModel tabmode = getDatatabel(table);
         String sql = null;
         try {
-            if (var_selected != null && var_keywords != null) {
+            if (var_keywords != null) {
                 //query search
-                sql = "SELECT * FROM tbl_master_karyawan WHERE nm_karyawan LIKE '%" + var_keywords + "%' ";
+                sql = "SELECT * FROM tbl_master_karyawan WHERE nama_karyawan LIKE '%" + var_keywords + "%' ";
             } else {
                 //query select smua data 
-                sql = "SELECT * FROM tbl_master_karyawan";
+                sql = "SELECT * FROM tbl_master_karyawan ORDER BY posisi";
             }
             System.out.println(sql);
 
@@ -75,29 +98,81 @@ public class CrudModel extends ConfigDatabase {
             } catch (SQLException ex) {
                 Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
             }
-            int NUMBERS = 1;
             while (hasil.next()) {
+                int col0 = hasil.getInt("id_karyawan");                
                 String col1 = hasil.getString("nik");
-                String col2 = hasil.getString("jabatan");                
-                String col3 = hasil.getString("nm_karyawan");
-                String col4 = hasil.getString("alamat_karyawan");
+                String col2 = hasil.getString("posisi");                
+                String col3 = hasil.getString("nama_karyawan");
+                String col4 = hasil.getString("nmr_tlp");
                
-                Object[] data = {NUMBERS, col1, col2, col3, col4};
+                Object[] data = {col0, col1, col2, col3, col4};
                 tabmode.addRow(data);
-                NUMBERS++;
             }
         } catch (SQLException ex) {
             Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    /* END CRUD AREA BARANG */
+    public static void updateDataKaryawan(int id,boolean ganti_pass){
+        String sql = "";
+        String inputPass="" ,md5pass="";
+        if (ganti_pass) {
+            char[] rawPass = txt_karyawan_password.getPassword();
+            inputPass = new String(rawPass);
+            md5pass = strTo_MD5(inputPass);
+            sql = "UPDATE tbl_master_karyawan SET nik=?, posisi=?, nama_karyawan=?,akses_password=?, nmr_tlp=? WHERE id_karyawan=" + id;
+        }else{
+            sql = "UPDATE tbl_master_karyawan SET nik=?, posisi=?, nama_karyawan=?, nmr_tlp=? WHERE id_karyawan=" + id;
+        }
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            if (ganti_pass) {
+                ps.setString(1,txt_karyawan_nik.getText());
+                ps.setString(2,cb_karyawan_posisi.getSelectedItem().toString());
+                ps.setString(3,txt_karyawan_nama.getText());               
+                ps.setString(4,md5pass);                  
+                ps.setString(5,txt_karyawan_tlp.getText());  
+
+            }else{
+                ps.setString(1,txt_karyawan_nik.getText());
+                ps.setString(2,cb_karyawan_posisi.getSelectedItem().toString());
+                ps.setString(3,txt_karyawan_nama.getText());               
+                ps.setString(4,txt_karyawan_tlp.getText());                
+            }
+            
+            int executeUpdate = ps.executeUpdate();
+            if (executeUpdate > 0) {
+                notifikasi_u_karyawan = true;
+            } else {
+                notifikasi_u_karyawan = false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public static void deleteDataKaryawan(int id){
+        try {
+            String sql = "DELETE FROM tbl_master_karyawan WHERE id_karyawan=" + id;
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            int executeUpdate = ps.executeUpdate();
+            if (executeUpdate > 0) {
+                notifikasi_d_karyawan = true;
+            } else {
+                notifikasi_d_karyawan = false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    /* END CRUD AREA KARYAWAN */
     
     /*
      *  CRUD AREA OUTLET
      */
     public static void createDataOutlet(){
         try {
-            boolean check_kdmenu;
+            
             String sql = "INSERT INTO tbl_master_outlet (nama_outlet,kota,alamat) VALUES (?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, txt_outlet_nama.getText());
@@ -189,7 +264,7 @@ public class CrudModel extends ConfigDatabase {
      */
     public static void createDataBarang(){
         try {
-            boolean check_kdmenu;
+            
             String sql = "INSERT INTO tbl_master_barang (nama_barang,kategori,harga_satuan) VALUES (?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, txt_brg_nm_barang.getText());
@@ -298,7 +373,7 @@ public class CrudModel extends ConfigDatabase {
             }
             while (hasil.next()) {
                 data.put("nik",hasil.getString("nik"));
-                data.put("jabatan",hasil.getString("jabatan"));                
+                data.put("jabatan",hasil.getString("posisi"));                
                 data.put("password",hasil.getString("akses_password"));
             }
         } catch (SQLException ex) {
