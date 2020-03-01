@@ -5,7 +5,7 @@
  */
 package applaporan;
 
-import controller.FrameController;
+import controller.MainController;
 import controller.Otentikasi;
 import static controller.Otentikasi.getGrant;
 import javax.swing.JOptionPane;
@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Form_login_aplikasi extends javax.swing.JFrame {
-    FrameController frame = new FrameController();
+    MainController frame = new MainController();
 
     /**
      * Creates new form Form_login_aplikasi
