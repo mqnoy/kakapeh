@@ -12,13 +12,21 @@ import applaporan.Form_master_outlet;
 import applaporan.Form_order;
 import applaporan.Form_penjualan;
 import applaporan.Laporan_penjualan;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author qnoy
  */
-public class FrameController {
+public class MainController {
+   
     
+    //untuk crud barang 
+    public static boolean notifikasi_c_barang = false;
+    public static boolean notifikasi_r_barang = false;
+    public static boolean notifikasi_u_barang = false;
+    public static boolean notifikasi_d_barang = false;
+  
     
     //frame form login
     public void showLoginApp(){
