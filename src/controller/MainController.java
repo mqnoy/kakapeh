@@ -12,7 +12,6 @@ import applaporan.Form_master_outlet;
 import applaporan.Form_order;
 import applaporan.Form_penjualan;
 import applaporan.Laporan_penjualan;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,6 +25,12 @@ public class MainController {
     public static boolean notifikasi_r_barang = false;
     public static boolean notifikasi_u_barang = false;
     public static boolean notifikasi_d_barang = false;
+    
+    //untuk crud outlet 
+    public static boolean notifikasi_c_outlet = false;
+    public static boolean notifikasi_r_outlet = false;
+    public static boolean notifikasi_u_outlet = false;
+    public static boolean notifikasi_d_outlet = false;
   
     
     //frame form login
