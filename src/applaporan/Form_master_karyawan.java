@@ -4,21 +4,40 @@
  * and open the template in the editor.
  */
 package applaporan;
+
+import static controller.MainController.notifikasi_c_karyawan;
+import static controller.MainController.notifikasi_d_karyawan;
+import static controller.MainController.notifikasi_u_karyawan;
+import static databases.CrudModel.createDataKaryawan;
+import static databases.CrudModel.deleteDataKaryawan;
 import static databases.CrudModel.readDataKaryawan;
+import static databases.CrudModel.updateDataKaryawan;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Form_master_karyawan extends javax.swing.JFrame {
-
+    private int total_karyawan = 0;
     /**
      * Creates new form Form_master_karyawan
      */
     public Form_master_karyawan() {
         initComponents();
-        readDataKaryawan(null,null,jTable_karyawan);
-        total_data_karyawan.setText(String.valueOf(jTable_karyawan.getRowCount()));
+        readDataKaryawan(null, null, jTable_karyawan);
+        total_karyawan = jTable_karyawan.getRowCount();
+        total_data_karyawan.setText(String.valueOf(total_karyawan));
+
+    }
+
+    private void bersih() {
+        total_karyawan = jTable_karyawan.getRowCount();
+        total_data_karyawan.setText(String.valueOf(total_karyawan));
+        txt_karyawan_nik.setText("");
+        cb_karyawan_posisi.setSelectedIndex(0);
+        txt_karyawan_nama.setText("");       
+        txt_karyawan_tlp.setText("");
     }
 
     /**
@@ -31,8 +50,8 @@ public class Form_master_karyawan extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        txt_brg_nm_barang = new javax.swing.JTextField();
+        btn_fkaryawan_ubah = new javax.swing.JButton();
+        txt_karyawan_nama = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -40,32 +59,33 @@ public class Form_master_karyawan extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_karyawan = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btn_fkaryawan_hapus = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        txt_brg_cari = new javax.swing.JTextField();
+        txt_karyawan_cari = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         total_data_karyawan = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jLabel9 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txt_brg_nm_barang1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txt_karyawan_nik = new javax.swing.JTextField();
+        txt_karyawan_password = new javax.swing.JPasswordField();
+        txt_karyawan_tlp = new javax.swing.JTextField();
+        cb_karyawan_posisi = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 153));
 
-        jButton1.setText("ubah");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_fkaryawan_ubah.setText("ubah");
+        btn_fkaryawan_ubah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_fkaryawan_ubahActionPerformed(evt);
             }
         });
 
-        txt_brg_nm_barang.addActionListener(new java.awt.event.ActionListener() {
+        txt_karyawan_nama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_brg_nm_barangActionPerformed(evt);
+                txt_karyawan_namaActionPerformed(evt);
             }
         });
 
@@ -75,16 +95,30 @@ public class Form_master_karyawan extends javax.swing.JFrame {
 
         jLabel3.setText("nama");
 
-        jLabel4.setText("alamat");
+        jLabel4.setText("no tlp");
 
         jTable_karyawan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "id", "nik", "posisi", "nama karyawan", "akses password", "nomor tlp"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable_karyawan.getTableHeader().setReorderingAllowed(false);
+        jTable_karyawan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_karyawanMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable_karyawan);
 
         jButton2.setText("tambah");
@@ -94,10 +128,10 @@ public class Form_master_karyawan extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("hapus");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btn_fkaryawan_hapus.setText("hapus");
+        btn_fkaryawan_hapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btn_fkaryawan_hapusActionPerformed(evt);
             }
         });
 
@@ -112,19 +146,25 @@ public class Form_master_karyawan extends javax.swing.JFrame {
 
         total_data_karyawan.setText("0");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
-
         jLabel9.setText("password");
 
         jLabel5.setText("nik");
 
-        txt_brg_nm_barang1.addActionListener(new java.awt.event.ActionListener() {
+        txt_karyawan_nik.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_brg_nm_barang1ActionPerformed(evt);
+                txt_karyawan_nikActionPerformed(evt);
             }
         });
+
+        txt_karyawan_tlp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_karyawan_tlpActionPerformed(evt);
+            }
+        });
+
+        cb_karyawan_posisi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "admin", "manager", "kasir" }));
+
+        jLabel6.setText("posisi");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -138,7 +178,7 @@ public class Form_master_karyawan extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txt_brg_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_karyawan_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton4))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -147,30 +187,31 @@ public class Form_master_karyawan extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btn_fkaryawan_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(txt_brg_nm_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(jScrollPane2)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txt_karyawan_nama, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                                    .addComponent(txt_karyawan_tlp, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                                    .addComponent(cb_karyawan_posisi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txt_karyawan_password, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txt_brg_nm_barang1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(txt_karyawan_nik, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(33, 33, 33)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_fkaryawan_ubah, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(19, 19, 19)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -188,28 +229,35 @@ public class Form_master_karyawan extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_brg_nm_barang1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_karyawan_nik, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_brg_nm_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_karyawan_nama, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_karyawan_tlp, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cb_karyawan_posisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_karyawan_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3)
+                    .addComponent(btn_fkaryawan_ubah)
+                    .addComponent(btn_fkaryawan_hapus)
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_brg_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_karyawan_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -237,29 +285,100 @@ public class Form_master_karyawan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_brg_nm_barang1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_brg_nm_barang1ActionPerformed
+    private void txt_karyawan_nikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_karyawan_nikActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_brg_nm_barang1ActionPerformed
+    }//GEN-LAST:event_txt_karyawan_nikActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        String tangkap_val = txt_karyawan_cari.getText();
+  
+        if (!tangkap_val.isEmpty()) {
+            readDataKaryawan(null, tangkap_val, jTable_karyawan);
+        }else{
+            JOptionPane.showMessageDialog(this, "kolom cari tidak boleh kosong", "notifikasi", 3);
+            readDataKaryawan(null, null, jTable_karyawan);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btn_fkaryawan_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fkaryawan_hapusActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        int bar = jTable_karyawan.getSelectedRow();
+        int col1 = Integer.parseInt(jTable_karyawan.getModel().getValueAt(bar, 0).toString());
+        int result = JOptionPane.showConfirmDialog(this, "Hapus data " + col1 + " ?", this.getTitle(), JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            deleteDataKaryawan(col1);
+            if (notifikasi_d_karyawan) {
+                readDataKaryawan(null, null, jTable_karyawan);
+                JOptionPane.showMessageDialog(this, "data berhasil di hapus", "notifikasi", 1);
+            } else {
+                JOptionPane.showMessageDialog(this, "data berhasil di hapus", "notifikasi", 2);
+            }
+
+        } else if (result == JOptionPane.NO_OPTION) {
+            this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+        }
+        bersih();
+    }//GEN-LAST:event_btn_fkaryawan_hapusActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        createDataKaryawan();
+        if (notifikasi_c_karyawan) {
+            JOptionPane.showMessageDialog(this, "data berhasil di tambah", "notifikasi", 1);
+        } else {
+            JOptionPane.showMessageDialog(this, "data gagal di tambah", "notifikasi", 2);
+        }
+        readDataKaryawan(null, null, jTable_karyawan);
+        bersih();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void txt_brg_nm_barangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_brg_nm_barangActionPerformed
+    private void txt_karyawan_namaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_karyawan_namaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_brg_nm_barangActionPerformed
+    }//GEN-LAST:event_txt_karyawan_namaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_fkaryawan_ubahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fkaryawan_ubahActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        int bar = jTable_karyawan.getSelectedRow();
+        int col1 = Integer.parseInt(jTable_karyawan.getModel().getValueAt(bar, 0).toString());
+        if (txt_karyawan_password.getPassword().toString().isEmpty()) {
+            updateDataKaryawan(col1, false);
+        } else {
+            updateDataKaryawan(col1, true);
+
+        }
+        if (notifikasi_u_karyawan) {
+            JOptionPane.showMessageDialog(this, "data berhasil di ubah", "notifikasi", 1);
+        } else {
+            JOptionPane.showMessageDialog(this, "data gagal di ubah", "notifikasi", 2);
+        }
+        readDataKaryawan(null, null, jTable_karyawan);
+        bersih();
+    }//GEN-LAST:event_btn_fkaryawan_ubahActionPerformed
+
+    private void txt_karyawan_tlpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_karyawan_tlpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_karyawan_tlpActionPerformed
+
+    private void jTable_karyawanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_karyawanMouseClicked
+        // TODO add your handling code here:
+        int bar = jTable_karyawan.getSelectedRow();
+        int col1 = Integer.parseInt(jTable_karyawan.getModel().getValueAt(bar, 0).toString());
+        String col2 = jTable_karyawan.getModel().getValueAt(bar, 1).toString();
+        String col3 = jTable_karyawan.getModel().getValueAt(bar, 2).toString();
+        String col4 = jTable_karyawan.getModel().getValueAt(bar, 3).toString();        
+        String col5 = jTable_karyawan.getModel().getValueAt(bar, 4).toString();
+        
+
+
+        txt_karyawan_nik.setText(col2);
+        cb_karyawan_posisi.setSelectedItem(col3);
+        txt_karyawan_nama.setText(col4);       
+        txt_karyawan_tlp.setText(col5);
+
+        btn_fkaryawan_hapus.setEnabled(true);
+        btn_fkaryawan_ubah.setEnabled(true);
+    }//GEN-LAST:event_jTable_karyawanMouseClicked
 
     /**
      * @param args the command line arguments
@@ -300,26 +419,27 @@ public class Form_master_karyawan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_fkaryawan_hapus;
+    private javax.swing.JButton btn_fkaryawan_ubah;
+    public static javax.swing.JComboBox cb_karyawan_posisi;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     public static javax.swing.JTable jTable_karyawan;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel total_data_karyawan;
-    private javax.swing.JTextField txt_brg_cari;
-    private javax.swing.JTextField txt_brg_nm_barang;
-    private javax.swing.JTextField txt_brg_nm_barang1;
+    private javax.swing.JTextField txt_karyawan_cari;
+    public static javax.swing.JTextField txt_karyawan_nama;
+    public static javax.swing.JTextField txt_karyawan_nik;
+    public static javax.swing.JPasswordField txt_karyawan_password;
+    public static javax.swing.JTextField txt_karyawan_tlp;
     // End of variables declaration//GEN-END:variables
 }
