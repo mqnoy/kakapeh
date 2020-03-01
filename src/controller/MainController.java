@@ -19,7 +19,6 @@ import applaporan.Laporan_penjualan;
  */
 public class MainController {
    
-    
     //untuk crud barang 
     public static boolean notifikasi_c_barang = false;
     public static boolean notifikasi_r_barang = false;
@@ -31,6 +30,12 @@ public class MainController {
     public static boolean notifikasi_r_outlet = false;
     public static boolean notifikasi_u_outlet = false;
     public static boolean notifikasi_d_outlet = false;
+    
+    //untuk crud karyawan 
+    public static boolean notifikasi_c_karyawan = false;
+    public static boolean notifikasi_r_karyawan = false;
+    public static boolean notifikasi_u_karyawan = false;
+    public static boolean notifikasi_d_karyawan = false;
   
     
     //frame form login
