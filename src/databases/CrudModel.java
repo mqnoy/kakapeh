@@ -168,6 +168,21 @@ public class CrudModel extends ConfigDatabase {
             Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public static void deleteDataOutlet(int id){
+        try {
+            String sql = "DELETE FROM tbl_master_outlet WHERE id_outlet=" + id;
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            int executeUpdate = ps.executeUpdate();
+            if (executeUpdate > 0) {
+                notifikasi_d_outlet = true;
+            } else {
+                notifikasi_d_outlet = false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /* END CRUD AREA OUTLET */
     /*
      *  CRUD AREA BARANG
