@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 28, 2020 at 04:15 PM
+-- Generation Time: Mar 02, 2020 at 09:18 PM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.1.29
 
@@ -25,66 +25,24 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_brg_keluar`
+-- Table structure for table `tbl_data_stock`
 --
 
-CREATE TABLE `tbl_brg_keluar` (
-  `id_brg_keluar` int(11) NOT NULL,
-  `outlet_id` int(11) NOT NULL,
-  `barang_id` int(11) NOT NULL,
-  `terpakai` int(11) NOT NULL,
-  `terjual` int(11) NOT NULL,
-  `karyawan_id` int(11) NOT NULL,
-  `tgl_brg_keluar` date NOT NULL,
-  `selisih` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_brg_masuk`
---
-
-CREATE TABLE `tbl_brg_masuk` (
-  `id_brg_masuk` int(11) NOT NULL,
-  `kd_order` varchar(20) NOT NULL,
-  `outlet_id` int(11) NOT NULL,
-  `order` int(11) NOT NULL,
-  `det_stock_kd` varchar(20) NOT NULL,
-  `barang_id` int(11) NOT NULL,
-  `karyawan_id` int(11) NOT NULL,
-  `tgl_brg_masuk` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_brg_masuk`
---
-
-INSERT INTO `tbl_brg_masuk` (`id_brg_masuk`, `kd_order`, `outlet_id`, `order`, `det_stock_kd`, `barang_id`, `karyawan_id`, `tgl_brg_masuk`) VALUES
-(1, 'ODR02262020', 1, 100, 'DTL02262020', 1, 1, '2020-02-26'),
-(2, 'ODR02262020', 1, 20, 'DTL02262020', 2, 1, '2020-02-26');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_detail_stock`
---
-
-CREATE TABLE `tbl_detail_stock` (
-  `id_det_stock` int(11) NOT NULL,
-  `kd_det_stock` varchar(20) NOT NULL,
+CREATE TABLE `tbl_data_stock` (
+  `id_stock` int(11) NOT NULL,
+  `id_outlet` int(20) NOT NULL,
   `stock_awal` int(11) NOT NULL,
   `stock_akhir` int(11) NOT NULL,
-  `barang_id` int(11) NOT NULL
+  `id_barang` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_detail_stock`
+-- Dumping data for table `tbl_data_stock`
 --
 
-INSERT INTO `tbl_detail_stock` (`id_det_stock`, `kd_det_stock`, `stock_awal`, `stock_akhir`, `barang_id`) VALUES
-(1, 'DTL02262020', 100, 0, 1),
-(2, 'DTL02262020', 20, 0, 2);
+INSERT INTO `tbl_data_stock` (`id_stock`, `id_outlet`, `stock_awal`, `stock_akhir`, `id_barang`) VALUES
+(1, 0, 100, 0, 1),
+(2, 0, 20, 0, 2);
 
 -- --------------------------------------------------------
 
@@ -94,16 +52,16 @@ INSERT INTO `tbl_detail_stock` (`id_det_stock`, `kd_det_stock`, `stock_awal`, `s
 
 CREATE TABLE `tbl_master_barang` (
   `id_barang` int(11) NOT NULL,
-  `nm_barang` text NOT NULL,
-  `ktg_barang` enum('Beverage','Food','Paket') NOT NULL,
-  `hrg_pokok_brg` int(11) NOT NULL
+  `nama_barang` text NOT NULL,
+  `kategori` text NOT NULL,
+  `harga_satuan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_master_barang`
 --
 
-INSERT INTO `tbl_master_barang` (`id_barang`, `nm_barang`, `ktg_barang`, `hrg_pokok_brg`) VALUES
+INSERT INTO `tbl_master_barang` (`id_barang`, `nama_barang`, `kategori`, `harga_satuan`) VALUES
 (1, 'Air Mineral', 'Beverage', 2000),
 (2, 'Ayam-DADA', 'Food', 11000),
 (3, 'Ayam-DADA SADIZ', 'Food', 13500),
@@ -159,7 +117,7 @@ INSERT INTO `tbl_master_barang` (`id_barang`, `nm_barang`, `ktg_barang`, `hrg_po
 (53, 'Milky Go! Coklat', 'Beverage', 6000),
 (54, 'Milky Go! Green Tea', 'Beverage', 6000),
 (55, 'Milky Go! Taro', 'Beverage', 6000),
-(56, 'Milky Go! Thai Tea', 'Beverage', 0),
+(56, 'Milky Go! Thai Tea', 'Beverage', 3000),
 (57, 'Nasi', 'Food', 4000),
 (58, 'Rice 2 Go BBQ', 'Paket', 11000),
 (59, 'Rice 2 Go Keju', 'Paket', 11000),
@@ -201,18 +159,18 @@ INSERT INTO `tbl_master_barang` (`id_barang`, `nm_barang`, `ktg_barang`, `hrg_po
 CREATE TABLE `tbl_master_karyawan` (
   `id_karyawan` int(11) NOT NULL,
   `nik` varchar(20) NOT NULL,
-  `jabatan` enum('staff','manager') NOT NULL,
-  `nm_karyawan` text NOT NULL,
+  `posisi` enum('admin','manager','kasir') NOT NULL,
+  `nama_karyawan` text NOT NULL,
   `akses_password` varchar(50) NOT NULL,
-  `alamat_karyawan` text NOT NULL
+  `nmr_tlp` char(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_master_karyawan`
 --
 
-INSERT INTO `tbl_master_karyawan` (`id_karyawan`, `nik`, `jabatan`, `nm_karyawan`, `akses_password`, `alamat_karyawan`) VALUES
-(1, '201643502057', 'staff', 'rifky', 'e10adc3949ba59abbe56e057f20f883e', 'jl.warungsilah');
+INSERT INTO `tbl_master_karyawan` (`id_karyawan`, `nik`, `posisi`, `nama_karyawan`, `akses_password`, `nmr_tlp`) VALUES
+(4, '2016', 'manager', 'azmi', 'e10adc3949ba59abbe56e057f20f883e', '82828282');
 
 -- --------------------------------------------------------
 
@@ -222,39 +180,68 @@ INSERT INTO `tbl_master_karyawan` (`id_karyawan`, `nik`, `jabatan`, `nm_karyawan
 
 CREATE TABLE `tbl_master_outlet` (
   `id_outlet` int(11) NOT NULL,
-  `nm_outlet` text NOT NULL,
+  `nama_outlet` text NOT NULL,
   `kota` text NOT NULL,
-  `alamat_outlet` text NOT NULL
+  `alamat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_master_outlet`
 --
 
-INSERT INTO `tbl_master_outlet` (`id_outlet`, `nm_outlet`, `kota`, `alamat_outlet`) VALUES
-(1, 'Let\'s Go Chicken  Outlet ASEM BARIS', 'jakarta', 'Jl. Tebet Timur Dalam Raya No.4, RW.3, Tebet Tim., Kec. Tebet, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12820');
+INSERT INTO `tbl_master_outlet` (`id_outlet`, `nama_outlet`, `kota`, `alamat`) VALUES
+(1, 'Let\'s Go Chicken  Outlet ASEM BARIS', 'Kota Administrasi Jakarta Selatan', 'Jl. Tebet Timur Dalam Raya No.4, RW.3, Tebet Tim., Kec. Tebet, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12820'),
+(3, 'Let\'s Go Chicken Cijantung', 'Kota Administrasi Jakarta Timur', 'mall cijantung ya');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_order_outlet`
+--
+
+CREATE TABLE `tbl_order_outlet` (
+  `id_order_outlet` int(11) NOT NULL,
+  `kd_order` varchar(20) NOT NULL,
+  `outlet_id` int(11) NOT NULL,
+  `jml_order` int(11) NOT NULL,
+  `det_stock_kd` varchar(20) NOT NULL,
+  `id_barang` int(11) NOT NULL,
+  `id_karyawan` int(11) NOT NULL,
+  `tanggal_order` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_order_outlet`
+--
+
+INSERT INTO `tbl_order_outlet` (`id_order_outlet`, `kd_order`, `outlet_id`, `jml_order`, `det_stock_kd`, `id_barang`, `id_karyawan`, `tanggal_order`) VALUES
+(1, 'ODR02262020', 1, 100, 'DTL02262020', 1, 1, '2020-02-26'),
+(2, 'ODR02262020', 1, 20, 'DTL02262020', 2, 1, '2020-02-26');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_transaksi`
+--
+
+CREATE TABLE `tbl_transaksi` (
+  `id_transaksi` int(11) NOT NULL,
+  `id_outlet` int(11) NOT NULL,
+  `id_barang` int(11) NOT NULL,
+  `id_order_outlet` int(11) NOT NULL,
+  `karyawan_id` int(11) NOT NULL,
+  `tgl_brg_keluar` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `tbl_brg_keluar`
+-- Indexes for table `tbl_data_stock`
 --
-ALTER TABLE `tbl_brg_keluar`
-  ADD PRIMARY KEY (`id_brg_keluar`);
-
---
--- Indexes for table `tbl_brg_masuk`
---
-ALTER TABLE `tbl_brg_masuk`
-  ADD PRIMARY KEY (`id_brg_masuk`);
-
---
--- Indexes for table `tbl_detail_stock`
---
-ALTER TABLE `tbl_detail_stock`
-  ADD PRIMARY KEY (`id_det_stock`);
+ALTER TABLE `tbl_data_stock`
+  ADD PRIMARY KEY (`id_stock`);
 
 --
 -- Indexes for table `tbl_master_barang`
@@ -276,26 +263,26 @@ ALTER TABLE `tbl_master_outlet`
   ADD PRIMARY KEY (`id_outlet`);
 
 --
+-- Indexes for table `tbl_order_outlet`
+--
+ALTER TABLE `tbl_order_outlet`
+  ADD PRIMARY KEY (`id_order_outlet`);
+
+--
+-- Indexes for table `tbl_transaksi`
+--
+ALTER TABLE `tbl_transaksi`
+  ADD PRIMARY KEY (`id_transaksi`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `tbl_brg_keluar`
+-- AUTO_INCREMENT for table `tbl_data_stock`
 --
-ALTER TABLE `tbl_brg_keluar`
-  MODIFY `id_brg_keluar` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tbl_brg_masuk`
---
-ALTER TABLE `tbl_brg_masuk`
-  MODIFY `id_brg_masuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `tbl_detail_stock`
---
-ALTER TABLE `tbl_detail_stock`
-  MODIFY `id_det_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `tbl_data_stock`
+  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_master_barang`
@@ -307,13 +294,25 @@ ALTER TABLE `tbl_master_barang`
 -- AUTO_INCREMENT for table `tbl_master_karyawan`
 --
 ALTER TABLE `tbl_master_karyawan`
-  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_karyawan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_master_outlet`
 --
 ALTER TABLE `tbl_master_outlet`
-  MODIFY `id_outlet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_outlet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbl_order_outlet`
+--
+ALTER TABLE `tbl_order_outlet`
+  MODIFY `id_order_outlet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tbl_transaksi`
+--
+ALTER TABLE `tbl_transaksi`
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
