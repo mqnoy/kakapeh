@@ -12,6 +12,7 @@ import applaporan.Form_master_outlet;
 import applaporan.Form_order;
 import applaporan.Form_penjualan;
 import applaporan.Laporan_penjualan;
+import applaporan.Pengaturan;
 
 /**
  *
@@ -84,5 +85,11 @@ public class MainController {
     public void showFormMrOutlet(){
         Form_master_outlet frm_mr_outlet = new Form_master_outlet();
         frm_mr_outlet.setVisible(true);
+    }
+    
+    //frame pengaturan  
+    public void showPengaturan(){
+        Pengaturan pengaturan = new Pengaturan();
+        pengaturan.setVisible(true);
     }
 }
