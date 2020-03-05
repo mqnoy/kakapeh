@@ -58,6 +58,8 @@ public class Library {
             _Prefix = "ODR";//untuk barang masuk outlet ,atau outlet merequest barang ke pusat
         } else if (type == 2) {
             _Prefix = "DTL";//kode detail unntuk apa saja yang di request oleh outlet
+        }else if (type == 3 ){//detail pengeluaran
+            _Prefix = "EXT";
         }
         //2019-04-15
         String[] arrOfStr = tgl.split(" ", -2);
