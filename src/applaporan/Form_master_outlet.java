@@ -66,7 +66,7 @@ public class Form_master_outlet extends javax.swing.JFrame {
         cb_outlet_kota = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 153));
         jPanel1.setToolTipText("");
