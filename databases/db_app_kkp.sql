@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 02, 2020 at 09:18 PM
+-- Generation Time: Mar 05, 2020 at 11:57 AM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.1.29
 
@@ -41,8 +41,8 @@ CREATE TABLE `tbl_data_stock` (
 --
 
 INSERT INTO `tbl_data_stock` (`id_stock`, `id_outlet`, `stock_awal`, `stock_akhir`, `id_barang`) VALUES
-(1, 0, 100, 0, 1),
-(2, 0, 20, 0, 2);
+(1, 1, 100, 0, 1),
+(2, 2, 20, 0, 2);
 
 -- --------------------------------------------------------
 
@@ -148,7 +148,10 @@ INSERT INTO `tbl_master_barang` (`id_barang`, `nama_barang`, `kategori`, `harga_
 (84, 'Super Gokil 3 (Paha Atas,Air Mineral 330 ml)', 'Paket', 15500),
 (85, 'Super Gokil 3 (Paha Atas,Ice Orange)', 'Paket', 15500),
 (86, 'Super Gokil 3 (Paha Atas,Sweet Ice Tea)', 'Paket', 15500),
-(87, 'Sweet Ice Tea', 'Beverage', 2000);
+(87, 'Sweet Ice Tea', 'Beverage', 2000),
+(88, 'Minyak goreng', 'Additional barang', 10000),
+(89, 'Gula', 'Additional barang', 3000),
+(90, 'wewe', 'Beverage', 111);
 
 -- --------------------------------------------------------
 
@@ -170,7 +173,7 @@ CREATE TABLE `tbl_master_karyawan` (
 --
 
 INSERT INTO `tbl_master_karyawan` (`id_karyawan`, `nik`, `posisi`, `nama_karyawan`, `akses_password`, `nmr_tlp`) VALUES
-(4, '2016', 'manager', 'azmi', 'e10adc3949ba59abbe56e057f20f883e', '82828282');
+(4, '2016', 'manager', 'azmi', '95192c98732387165bf8e396c0f2dad2', '82828282');
 
 -- --------------------------------------------------------
 
@@ -202,9 +205,8 @@ INSERT INTO `tbl_master_outlet` (`id_outlet`, `nama_outlet`, `kota`, `alamat`) V
 CREATE TABLE `tbl_order_outlet` (
   `id_order_outlet` int(11) NOT NULL,
   `kd_order` varchar(20) NOT NULL,
-  `outlet_id` int(11) NOT NULL,
+  `id_outlet` int(11) NOT NULL,
   `jml_order` int(11) NOT NULL,
-  `det_stock_kd` varchar(20) NOT NULL,
   `id_barang` int(11) NOT NULL,
   `id_karyawan` int(11) NOT NULL,
   `tanggal_order` date NOT NULL
@@ -214,9 +216,31 @@ CREATE TABLE `tbl_order_outlet` (
 -- Dumping data for table `tbl_order_outlet`
 --
 
-INSERT INTO `tbl_order_outlet` (`id_order_outlet`, `kd_order`, `outlet_id`, `jml_order`, `det_stock_kd`, `id_barang`, `id_karyawan`, `tanggal_order`) VALUES
-(1, 'ODR02262020', 1, 100, 'DTL02262020', 1, 1, '2020-02-26'),
-(2, 'ODR02262020', 1, 20, 'DTL02262020', 2, 1, '2020-02-26');
+INSERT INTO `tbl_order_outlet` (`id_order_outlet`, `kd_order`, `id_outlet`, `jml_order`, `id_barang`, `id_karyawan`, `tanggal_order`) VALUES
+(1, 'ODR022620201', 1, 100, 1, 1, '2020-02-26'),
+(2, 'ODR022620202', 2, 20, 2, 1, '2020-02-26');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_pengeluaran`
+--
+
+CREATE TABLE `tbl_pengeluaran` (
+  `id_pengeluaran` int(11) NOT NULL,
+  `id_barang` int(11) NOT NULL,
+  `kd_pengeluaran` varchar(20) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `subtotal` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_pengeluaran`
+--
+
+INSERT INTO `tbl_pengeluaran` (`id_pengeluaran`, `id_barang`, `kd_pengeluaran`, `qty`, `subtotal`) VALUES
+(8, 88, 'EXT020200304', 1, 10000),
+(9, 89, 'EXT020200304', 1, 3000);
 
 -- --------------------------------------------------------
 
@@ -229,6 +253,9 @@ CREATE TABLE `tbl_transaksi` (
   `id_outlet` int(11) NOT NULL,
   `id_barang` int(11) NOT NULL,
   `id_order_outlet` int(11) NOT NULL,
+  `terjual` int(11) NOT NULL,
+  `rusak` int(11) NOT NULL,
+  `kd_pengeluaran` varchar(20) NOT NULL,
   `karyawan_id` int(11) NOT NULL,
   `tgl_brg_keluar` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -269,6 +296,12 @@ ALTER TABLE `tbl_order_outlet`
   ADD PRIMARY KEY (`id_order_outlet`);
 
 --
+-- Indexes for table `tbl_pengeluaran`
+--
+ALTER TABLE `tbl_pengeluaran`
+  ADD PRIMARY KEY (`id_pengeluaran`);
+
+--
 -- Indexes for table `tbl_transaksi`
 --
 ALTER TABLE `tbl_transaksi`
@@ -288,7 +321,7 @@ ALTER TABLE `tbl_data_stock`
 -- AUTO_INCREMENT for table `tbl_master_barang`
 --
 ALTER TABLE `tbl_master_barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT for table `tbl_master_karyawan`
@@ -307,6 +340,12 @@ ALTER TABLE `tbl_master_outlet`
 --
 ALTER TABLE `tbl_order_outlet`
   MODIFY `id_order_outlet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tbl_pengeluaran`
+--
+ALTER TABLE `tbl_pengeluaran`
+  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaksi`
