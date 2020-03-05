@@ -162,7 +162,7 @@ public class Form_master_karyawan extends javax.swing.JFrame {
             }
         });
 
-        cb_karyawan_posisi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "admin", "manager", "kasir" }));
+        cb_karyawan_posisi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "manager", "staff" }));
 
         jLabel6.setText("posisi");
 
