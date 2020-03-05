@@ -44,6 +44,12 @@ public class MainController {
     public static boolean notifikasi_u_pengeluaran = false;
     public static boolean notifikasi_d_pengeluaran = false;
     
+    //untuk crud pengeluaran
+    public static boolean notifikasi_c_transaksi = false;
+    public static boolean notifikasi_r_transaksi = false;
+    public static boolean notifikasi_u_transaksi = false;
+    public static boolean notifikasi_d_transaksi = false;
+    
     //frame form login
     public void showLoginApp(){
         Form_login_aplikasi form_login = new Form_login_aplikasi();
@@ -62,7 +68,7 @@ public class MainController {
         frm_outlet_order.setVisible(true);
     }
     
-    //frame form penjualan 
+    //frame form transaksi 
     public void showFormPenjualan(){
         Form_transaksi frm_penjualan = new Form_transaksi();
         frm_penjualan.setVisible(true);
