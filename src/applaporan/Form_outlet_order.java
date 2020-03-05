@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Rifky <qnoy.rifky@gmail.com>
  */
-public class Form_order extends javax.swing.JFrame {
+public class Form_outlet_order extends javax.swing.JFrame {
     
     Library lib = new Library();
     public int id_outlet = 1;
@@ -26,7 +26,7 @@ public class Form_order extends javax.swing.JFrame {
     /**
      * Creates new form Form_order
      */
-    public Form_order() {
+    public Form_outlet_order() {
         initComponents();
         readDataOutlet(null, null, jTable_outlet_2);
     }
@@ -524,20 +524,20 @@ public class Form_order extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Form_order.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_outlet_order.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Form_order.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_outlet_order.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Form_order.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_outlet_order.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Form_order.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_outlet_order.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Form_order().setVisible(true);
+                new Form_outlet_order().setVisible(true);
             }
         });
     }

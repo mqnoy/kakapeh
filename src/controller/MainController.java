@@ -9,8 +9,8 @@ import applaporan.Form_login_aplikasi;
 import applaporan.Form_master_barang;
 import applaporan.Form_master_karyawan;
 import applaporan.Form_master_outlet;
-import applaporan.Form_order;
-import applaporan.Form_penjualan;
+import applaporan.Form_outlet_order;
+import applaporan.Form_transaksi;
 import applaporan.Laporan_penjualan;
 import applaporan.Pengaturan;
 
@@ -37,7 +37,12 @@ public class MainController {
     public static boolean notifikasi_r_karyawan = false;
     public static boolean notifikasi_u_karyawan = false;
     public static boolean notifikasi_d_karyawan = false;
-  
+    
+    //untuk crud pengeluaran
+    public static boolean notifikasi_c_pengeluaran = false;
+    public static boolean notifikasi_r_pengeluaran = false;
+    public static boolean notifikasi_u_pengeluaran = false;
+    public static boolean notifikasi_d_pengeluaran = false;
     
     //frame form login
     public void showLoginApp(){
@@ -53,13 +58,13 @@ public class MainController {
     
     //frame form order
     public void showFormOrder(){
-        Form_order frm_order = new Form_order();
-        frm_order.setVisible(true);
+        Form_outlet_order frm_outlet_order =  new Form_outlet_order();
+        frm_outlet_order.setVisible(true);
     }
     
     //frame form penjualan 
     public void showFormPenjualan(){
-        Form_penjualan frm_penjualan = new Form_penjualan();
+        Form_transaksi frm_penjualan = new Form_transaksi();
         frm_penjualan.setVisible(true);
     }
     
