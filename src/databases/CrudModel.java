@@ -13,12 +13,17 @@ import static applaporan.Form_master_outlet.*;
 import static applaporan.Form_master_outlet.jTable_outlet;
 import static applaporan.Form_outlet_order.jTable_barang_2;
 import static applaporan.Form_outlet_order.jTable_outlet_2;
+import static applaporan.Form_transaksi.getIdBarang;
+import static applaporan.Form_transaksi.getIdOutlet;
 import static applaporan.Form_transaksi.jTable_barang_3;
 import static applaporan.Form_transaksi.jTable_outlet3;
 import static applaporan.Form_transaksi.jTable_pengeluaran;
+import static applaporan.Form_transaksi.txt_frmt_rusak;
+import static applaporan.Form_transaksi.txt_frmt_terjual;
 import static applaporan.Library.strTo_MD5;
 import static controller.MainController.*;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -298,7 +303,7 @@ public class CrudModel extends ConfigDatabase {
         try {
             //jika ada additional / uang tak terduga 
             if (var_selected != null) {
-                    sql = "SELECT * FROM tbl_master_barang WHERE kategori ='Additional barang'";
+                sql = "SELECT * FROM tbl_master_barang WHERE kategori ='Additional barang'";
             } else {//jika tidak ada uang tak terduga
                 if (var_keywords != null) {
                     //query search
@@ -371,8 +376,8 @@ public class CrudModel extends ConfigDatabase {
 
     }
     /* END CRUD AREA BARANG */
-    
-        /*
+
+    /*
      *  CRUD AREA PENGELUARAN
      */
     public static void createDataPengeluaran(String pengeluaranKD) {
@@ -388,12 +393,11 @@ public class CrudModel extends ConfigDatabase {
                 int int_brg_id = (Integer) jTable_pengeluaran.getValueAt(row, 0);
                 int int_qty = (Integer) jTable_pengeluaran.getValueAt(row, 1);
                 int int_subtotal = (Integer) jTable_pengeluaran.getValueAt(row, 2);
-                
-                ps.setString(1,kd_pengeluaran);
+
+                ps.setString(1, kd_pengeluaran);
                 ps.setInt(2, int_brg_id);
                 ps.setInt(3, int_qty);
                 ps.setInt(4, int_subtotal);
-
 
                 ps.addBatch();
                 System.out.println(sql);
@@ -404,7 +408,7 @@ public class CrudModel extends ConfigDatabase {
             for (int row = 0; row < total_rowPengeluaran; row++) {
                 if (executeUpdate[row] > 0) {
                     notifikasi_c_pengeluaran = true;
-                    System.out.println("insert data transaksi sukses");
+                    
                 } else {
                     notifikasi_c_pengeluaran = false;
                     System.out.println("insert data transaksi gagal");
@@ -414,13 +418,14 @@ public class CrudModel extends ConfigDatabase {
             Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public static void readDataPengeluaran(String var_selected, String var_keywords, JTable table) {
         DefaultTableModel tabmode = getDatatabel(table);
         String sql = null;
         try {
             //jika ada additional / uang tak terduga 
             if (var_selected != null) {
-                    sql = "tbl_pengeluaran WHERE kategori ='Additional barang'";
+                sql = "tbl_pengeluaran WHERE kategori ='Additional barang'";
             } else {//jika tidak ada uang tak terduga
                 if (var_keywords != null) {
                     //query search
@@ -453,9 +458,47 @@ public class CrudModel extends ConfigDatabase {
         }
 
     }
-    
-    /* end CRUD pengeluaran*/
 
+    /* end CRUD pengeluaran*/
+    /*
+     *  CRUD AREA transaksi
+     */
+    public static void createDataTransaksi(int karyawanID, String tglTransaksi, String pengeluaranKD) {
+
+        int outletID = getIdOutlet();
+        int barangID = getIdBarang();
+        int jmlTerjual = Integer.parseInt(txt_frmt_terjual.getText());
+        int jmlRusak = Integer.parseInt(txt_frmt_rusak.getText());
+        System.out.println("orderid = "+outletID +"barangID = "+barangID +"jmlTerjual" +jmlTerjual+ " jmlRusak"+jmlRusak);
+        System.out.println("karyawanID = "+karyawanID +"tglRequest = "+tglTransaksi +"pengeluaranKD" +pengeluaranKD );
+        try {
+            String sql = "INSERT INTO tbl_transaksi (id_outlet, id_barang, terjual, rusak, kd_pengeluaran, karyawan_id,tgl_transaksi) VALUES (?,?,?,?,?,?,?)";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, outletID);
+            ps.setInt(2, barangID);
+            ps.setInt(3, jmlTerjual);
+            ps.setInt(4, jmlRusak);
+            ps.setString(5, pengeluaranKD);
+            ps.setInt(6, karyawanID);
+            ps.setDate(7, java.sql.Date.valueOf(tglTransaksi));
+            System.out.println(sql);
+            int executeUpdate = ps.executeUpdate();
+            if (executeUpdate > 0) {
+                notifikasi_c_transaksi = true;
+                System.out.println("insert data transaksi sukses");
+            }else{
+                notifikasi_c_transaksi = false;
+                System.out.println("insert data transaksi gagal");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /* end CRUD transaksi*/
     /*
      *  otentikasi user dengan database
      */
@@ -471,16 +514,21 @@ public class CrudModel extends ConfigDatabase {
             try {
                 Statement stmt = conn.createStatement();
                 hasil = stmt.executeQuery(sql);
+
             } catch (SQLException ex) {
-                Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CrudModel.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
             while (hasil.next()) {
+                data.put("karyawanid", String.valueOf(hasil.getInt("id_karyawan")));                
                 data.put("nik", hasil.getString("nik"));
                 data.put("jabatan", hasil.getString("posisi"));
                 data.put("password", hasil.getString("akses_password"));
+
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CrudModel.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return data;
     }
