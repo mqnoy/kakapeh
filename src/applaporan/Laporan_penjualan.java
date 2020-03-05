@@ -52,7 +52,7 @@ public class Laporan_penjualan extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 153, 153));
 
@@ -196,17 +196,18 @@ public class Laporan_penjualan extends javax.swing.JFrame {
 
             },
             new String [] {
-                "item", "stock awal", "total order", "terpakai", "stock akhir", "terjual"
+                "id", "item", "stock awal", "total order", "stock akhir", "terjual", "nominal stock", "nominal terjual"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
 
         jLabel9.setText("detail item per outlet");
