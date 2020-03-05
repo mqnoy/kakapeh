@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 05, 2020 at 11:57 AM
+-- Generation Time: Mar 05, 2020 at 05:57 PM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.1.29
 
@@ -212,14 +212,6 @@ CREATE TABLE `tbl_order_outlet` (
   `tanggal_order` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `tbl_order_outlet`
---
-
-INSERT INTO `tbl_order_outlet` (`id_order_outlet`, `kd_order`, `id_outlet`, `jml_order`, `id_barang`, `id_karyawan`, `tanggal_order`) VALUES
-(1, 'ODR022620201', 1, 100, 1, 1, '2020-02-26'),
-(2, 'ODR022620202', 2, 20, 2, 1, '2020-02-26');
-
 -- --------------------------------------------------------
 
 --
@@ -234,14 +226,6 @@ CREATE TABLE `tbl_pengeluaran` (
   `subtotal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `tbl_pengeluaran`
---
-
-INSERT INTO `tbl_pengeluaran` (`id_pengeluaran`, `id_barang`, `kd_pengeluaran`, `qty`, `subtotal`) VALUES
-(8, 88, 'EXT020200304', 1, 10000),
-(9, 89, 'EXT020200304', 1, 3000);
-
 -- --------------------------------------------------------
 
 --
@@ -252,12 +236,11 @@ CREATE TABLE `tbl_transaksi` (
   `id_transaksi` int(11) NOT NULL,
   `id_outlet` int(11) NOT NULL,
   `id_barang` int(11) NOT NULL,
-  `id_order_outlet` int(11) NOT NULL,
   `terjual` int(11) NOT NULL,
   `rusak` int(11) NOT NULL,
-  `kd_pengeluaran` varchar(20) NOT NULL,
+  `kd_pengeluaran` varchar(20) DEFAULT NULL,
   `karyawan_id` int(11) NOT NULL,
-  `tgl_brg_keluar` date NOT NULL
+  `tgl_transaksi` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -345,13 +328,13 @@ ALTER TABLE `tbl_order_outlet`
 -- AUTO_INCREMENT for table `tbl_pengeluaran`
 --
 ALTER TABLE `tbl_pengeluaran`
-  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaksi`
 --
 ALTER TABLE `tbl_transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
