@@ -12,6 +12,7 @@ import static applaporan.Form_master_karyawan.jTable_karyawan;
 import static applaporan.Form_master_outlet.*;
 import static applaporan.Form_master_outlet.jTable_outlet;
 import static applaporan.Form_outlet_order.jTable_barang_2;
+import static applaporan.Form_outlet_order.jTable_order_draft;
 import static applaporan.Form_outlet_order.jTable_outlet_2;
 import static applaporan.Form_transaksi.getIdBarang;
 import static applaporan.Form_transaksi.getIdOutlet;
@@ -21,9 +22,9 @@ import static applaporan.Form_transaksi.jTable_pengeluaran;
 import static applaporan.Form_transaksi.txt_frmt_rusak;
 import static applaporan.Form_transaksi.txt_frmt_terjual;
 import static applaporan.Library.strTo_MD5;
+import controller.MainController;
 import static controller.MainController.*;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +38,7 @@ import javax.swing.table.DefaultTableModel;
 public class CrudModel extends ConfigDatabase {
 
     public static final Connection conn = new ConfigDatabase().getConn();
+    MainController mc = new MainController();
     /*
      *  global query
      */
@@ -372,9 +374,6 @@ public class CrudModel extends ConfigDatabase {
         }
     }
 
-    public void getKategoryToCb() {
-
-    }
     /* END CRUD AREA BARANG */
 
     /*
@@ -460,6 +459,7 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end CRUD pengeluaran*/
+    
     /*
      *  CRUD AREA transaksi
      */
@@ -499,6 +499,54 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end CRUD transaksi*/
+    
+    /*
+     *  CRUD AREA outlet order
+     */
+    public static void createDataOrder(int karyawanID, String tglOrder, String OderKD) {
+        int total_rowOrder = jTable_order_draft.getRowCount();
+        System.out.println("karyawanID = "+karyawanID +"tglRequest = "+tglOrder +"pengeluaranKD" +OderKD );
+        String sql = "INSERT INTO tbl_order_outlet (kd_order, id_outlet, jml_order, id_barang, id_karyawan, tanggal_order) VALUES (?,?,?,?,?,?)";
+        try {
+            conn.setAutoCommit(false);
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            for (int row = 0; row < total_rowOrder; row++) {
+                String kd_order = jTable_order_draft.getValueAt(row, 0).toString();
+                int outletID = Integer.parseInt(jTable_order_draft.getValueAt(row, 1).toString());
+                int jmlOrder = Integer.parseInt(jTable_order_draft.getValueAt(row, 2).toString());
+                int barangID = Integer.parseInt(jTable_order_draft.getValueAt(row, 3).toString());
+                
+                ps.setString(1, kd_order);
+                ps.setInt(2, outletID);
+                ps.setInt(3, jmlOrder);
+                ps.setInt(4, barangID);
+                ps.setInt(5, karyawanID);
+                ps.setDate(6, java.sql.Date.valueOf(tglOrder));
+
+                ps.addBatch();
+                System.out.println(sql);
+            }
+            int[] executeUpdate = ps.executeBatch();
+
+            conn.commit();
+            for (int row = 0; row < total_rowOrder; row++) {
+                if (executeUpdate[row] > 0) {
+                    notifikasi_c_order = true;
+                    
+                } else {
+                    notifikasi_c_order = false;
+                    System.out.println("insert data order gagal");
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /* end CRUD outlet order */
+    
     /*
      *  otentikasi user dengan database
      */
