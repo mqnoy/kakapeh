@@ -45,7 +45,7 @@ public class Laporan_penjualan extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable_lapPenjualan = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
@@ -191,7 +191,7 @@ public class Laporan_penjualan extends javax.swing.JFrame {
 
         jPanel5.setOpaque(false);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_lapPenjualan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -207,8 +207,8 @@ public class Laporan_penjualan extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
+        jTable_lapPenjualan.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTable_lapPenjualan);
 
         jLabel9.setText("detail item per outlet");
 
@@ -355,6 +355,6 @@ public class Laporan_penjualan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    public static javax.swing.JTable jTable_lapPenjualan;
     // End of variables declaration//GEN-END:variables
 }
