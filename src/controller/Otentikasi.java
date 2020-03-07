@@ -39,13 +39,11 @@ public class Otentikasi  {
             }else if(dataLogin.get("jabatan").equals("manager")){
                 this.hakakses = "manager";
             }
-            this.o_id_kar = (int) dataLogin.get("karyawanid");
+            this.o_id_kar = Integer.parseInt(dataLogin.get("karyawanid").toString());
             this.setGrant(true);
-            System.out.println("Otentikasi =>"+ dataLogin);
-
+//            System.out.println("Otentikasi =>"+ dataLogin);
         }else{
             this.setGrant(false);
-            System.out.println("Otentikasi =>"+ this.grant);
         }
     }
     public void setNik(String nik){
