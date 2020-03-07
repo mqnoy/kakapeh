@@ -19,6 +19,10 @@ import applaporan.Pengaturan;
  * @author qnoy
  */
 public class MainController {
+    
+    //global
+    public static int idBarang = 0;
+    public static int idoutlet = 0;
    
     //untuk crud barang 
     public static boolean notifikasi_c_barang = false;
@@ -44,11 +48,31 @@ public class MainController {
     public static boolean notifikasi_u_pengeluaran = false;
     public static boolean notifikasi_d_pengeluaran = false;
     
-    //untuk crud pengeluaran
+    //untuk crud transaksi
     public static boolean notifikasi_c_transaksi = false;
     public static boolean notifikasi_r_transaksi = false;
     public static boolean notifikasi_u_transaksi = false;
     public static boolean notifikasi_d_transaksi = false;
+    
+    //untuk crud outlet order
+    public static boolean notifikasi_c_order = false;
+    public static boolean notifikasi_r_order = false;
+    public static boolean notifikasi_u_order = false;
+    public static boolean notifikasi_d_order = false;
+    
+    //global
+    public void setIdBarang(int val){
+        this.idBarang = val;
+    }
+    public static int getIdBarang(){
+        return idBarang;
+    }
+    public void setOutletId(int val){
+        this.idoutlet = val;
+    }
+    public static int getOutletId(){
+        return idoutlet;
+    }
     
     //frame form login
     public void showLoginApp(){
