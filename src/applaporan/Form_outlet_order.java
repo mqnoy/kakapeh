@@ -5,11 +5,13 @@
  */
 package applaporan;
 
+import controller.MainController;
+import static controller.MainController.notifikasi_c_order;
+import controller.Otentikasi;
+import static databases.CrudModel.createDataOrder;
 import static databases.CrudModel.readDataBarang;
 import static databases.CrudModel.readDataOutlet;
 import java.util.Date;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,19 +20,25 @@ import javax.swing.table.DefaultTableModel;
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Form_outlet_order extends javax.swing.JFrame {
-    
+    Otentikasi otentikasi = new Otentikasi();
     Library lib = new Library();
-    public int id_outlet = 1;
+    MainController mc = new MainController();
     public String tgl_order = "1999-01-01";
     public String kd_order_draf = "";
+    int karyawanID = -1;
+    
+    
     /**
      * Creates new form Form_order
      */
     public Form_outlet_order() {
         initComponents();
         readDataOutlet(null, null, jTable_outlet_2);
+        btn_selesai.setEnabled(false);
+        btn_tambahkan.setEnabled(false);
     }
-
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,22 +68,21 @@ public class Form_outlet_order extends javax.swing.JFrame {
         txt_cari_outlet = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
+        txt_jml_order = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable_order_draft = new javax.swing.JTable();
-        jLabel8 = new javax.swing.JLabel();
-        i_tgl_order = new com.toedter.calendar.JDateChooser();
         txt_nama_outlet = new javax.swing.JLabel();
         txt_nama_barang = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        btn_tambahkan = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         txt_kd_order = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        btn_selesai = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
@@ -199,9 +206,17 @@ public class Form_outlet_order extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "id outlet", "nama outlet", "lokasi", "alamat"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable_outlet_2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable_outlet_2MouseClicked(evt);
@@ -211,7 +226,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("daftar outlet");
+        jLabel3.setText("Daftar outlet");
 
         jButton1.setText("cari outlet");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -226,13 +241,14 @@ public class Form_outlet_order extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 124, Short.MAX_VALUE)
                         .addComponent(txt_cari_outlet, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -243,11 +259,17 @@ public class Form_outlet_order extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(txt_cari_outlet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel3.setOpaque(false);
+
+        txt_jml_order.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                txt_jml_orderPropertyChange(evt);
+            }
+        });
 
         jLabel4.setText("kode order :");
 
@@ -262,7 +284,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
 
             },
             new String [] {
-                "kd order", "outlet", "order", "item"
+                "kd order", "id outlet", "order", "id barang"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -275,10 +297,6 @@ public class Form_outlet_order extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTable_order_draft);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel8.setText("list order sementara");
-
         i_tgl_order.setDateFormatString("yyyy-MM-dd ");
         i_tgl_order.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
@@ -289,11 +307,16 @@ public class Form_outlet_order extends javax.swing.JFrame {
         txt_nama_outlet.setText("-");
 
         txt_nama_barang.setText("-");
+        txt_nama_barang.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                txt_nama_barangPropertyChange(evt);
+            }
+        });
 
-        jButton4.setText("tambahkan ke list order");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btn_tambahkan.setText("tambahkan");
+        btn_tambahkan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btn_tambahkanActionPerformed(evt);
             }
         });
 
@@ -307,16 +330,27 @@ public class Form_outlet_order extends javax.swing.JFrame {
         jLabel10.setText("tanggal order");
 
         txt_kd_order.setText("-");
+        txt_kd_order.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                txt_kd_orderPropertyChange(evt);
+            }
+        });
+
+        jButton8.setText("bersihkan");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
@@ -324,24 +358,31 @@ public class Form_outlet_order extends javax.swing.JFrame {
                                 .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(i_tgl_order, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_nama_outlet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txt_nama_barang, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton6)
-                        .addGap(5, 5, 5)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txt_nama_barang, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(txt_jml_order, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(i_tgl_order, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 10, Short.MAX_VALUE)))
+                                .addGap(49, 49, 49)
+                                .addComponent(jButton6))
+                            .addComponent(txt_nama_outlet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane2)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_kd_order, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jButton4))
-                        .addGap(20, 20, 20))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(txt_kd_order, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btn_tambahkan)))))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,53 +397,65 @@ public class Form_outlet_order extends javax.swing.JFrame {
                     .addComponent(txt_nama_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_kd_order, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_jml_order, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(i_tgl_order, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_kd_order, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_tambahkan)
+                    .addComponent(jButton8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton3.setText("selesai");
+        btn_selesai.setText("selesai");
+        btn_selesai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_selesaiActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("bersihkan");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("kembali");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
-                        .addGap(32, 32, 32))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 934, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_selesai)
+                .addGap(26, 26, 26))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -410,22 +463,21 @@ public class Form_outlet_order extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3)
-                            .addComponent(jButton2)
-                            .addComponent(jButton5)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 17, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_selesai)
+                    .addComponent(jButton2)
+                    .addComponent(jButton5))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 938, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -449,7 +501,11 @@ public class Form_outlet_order extends javax.swing.JFrame {
     private void jTable_outlet_2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_outlet_2MouseClicked
         // TODO add your handling code here:
         int row = jTable_outlet_2.getSelectedRow();
+        int id_outlet = Integer.parseInt(jTable_outlet_2.getModel().getValueAt(row, 0).toString());       
         String val_nm_outlet = jTable_outlet_2.getModel().getValueAt(row, 1).toString();
+        
+        //set outlet id untuk kebutuhan list order draft
+        mc.setOutletId(id_outlet);
         txt_nama_outlet.setText(val_nm_outlet);
         
         
@@ -484,28 +540,79 @@ public class Form_outlet_order extends javax.swing.JFrame {
         jDialog_barang.setVisible(false);
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btn_tambahkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahkanActionPerformed
         // TODO add your handling code here:
         
         DefaultTableModel model = (DefaultTableModel) jTable_order_draft.getModel();
         model.addRow(new Object[]{
-//            number, KdMenu, menuQty, subtotal
+            txt_kd_order.getText(), mc.getOutletId(), txt_jml_order.getText(), mc.getIdBarang()
         });
-    }//GEN-LAST:event_jButton4ActionPerformed
+        btn_selesai.setEnabled(true);
+    }//GEN-LAST:event_btn_tambahkanActionPerformed
 
     private void i_tgl_orderPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_i_tgl_orderPropertyChange
         // TODO add your handling code here:
-        
+        txt_cari_outlet.requestFocus(true);
         
     }//GEN-LAST:event_i_tgl_orderPropertyChange
 
     private void jTable_barang_2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_barang_2MouseClicked
         // TODO add your handling code here:
         int row = jTable_barang_2.getSelectedRow();
+        int id_nm_barang = Integer.parseInt(jTable_barang_2.getModel().getValueAt(row, 0).toString());
         String val_nm_barang = jTable_barang_2.getModel().getValueAt(row, 1).toString();
         txt_nama_barang.setText(val_nm_barang);
         jDialog_barang.setVisible(false);
+        
+        mc.setIdBarang(id_nm_barang);
     }//GEN-LAST:event_jTable_barang_2MouseClicked
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel tbl_odrDraft = (DefaultTableModel)jTable_order_draft.getModel();
+        while(tbl_odrDraft.getRowCount() > 0) {
+            tbl_odrDraft.removeRow(0);
+        }
+        btn_selesai.setEnabled(false);
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void txt_nama_barangPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txt_nama_barangPropertyChange
+        // TODO add your handling code here:
+        txt_jml_order.requestFocus(true);
+    }//GEN-LAST:event_txt_nama_barangPropertyChange
+
+    private void txt_kd_orderPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txt_kd_orderPropertyChange
+        // TODO add your handling code here:
+        btn_tambahkan.setEnabled(true);
+        btn_tambahkan.requestFocus(true);
+    }//GEN-LAST:event_txt_kd_orderPropertyChange
+
+    private void txt_jml_orderPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txt_jml_orderPropertyChange
+        // TODO add your handling code here:
+        i_tgl_order.requestFocus(true);
+    }//GEN-LAST:event_txt_jml_orderPropertyChange
+
+    private void btn_selesaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_selesaiActionPerformed
+        // TODO add your handling code here:
+        //int karyawanID, String tglOrder, String OderKD
+        Date raw_tgl = i_tgl_order.getDate();
+        tgl_order = Library.parsing_Jdate(raw_tgl, "yyyy-MM-dd");
+        createDataOrder(karyawanID,tgl_order,txt_kd_order.getText());
+        if (notifikasi_c_order) {
+            
+        }else{
+        
+        }
+    }//GEN-LAST:event_btn_selesaiActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -543,15 +650,16 @@ public class Form_outlet_order extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser i_tgl_order;
+    private javax.swing.JButton btn_selesai;
+    private javax.swing.JButton btn_tambahkan;
+    public final com.toedter.calendar.JDateChooser i_tgl_order = new com.toedter.calendar.JDateChooser();
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JDialog jDialog_barang;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -562,7 +670,6 @@ public class Form_outlet_order extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -572,12 +679,12 @@ public class Form_outlet_order extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     public static javax.swing.JTable jTable_barang_2;
-    private javax.swing.JTable jTable_order_draft;
+    public static javax.swing.JTable jTable_order_draft;
     public static javax.swing.JTable jTable_outlet_2;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel total_data_brg;
     private javax.swing.JTextField txt_cari_barang;
     private javax.swing.JTextField txt_cari_outlet;
+    private javax.swing.JTextField txt_jml_order;
     private javax.swing.JLabel txt_kd_order;
     private javax.swing.JLabel txt_nama_barang;
     private javax.swing.JLabel txt_nama_outlet;
