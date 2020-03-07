@@ -305,6 +305,8 @@ public class Form_transaksi extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Daftar outlet");
 
+        jButton1.setBackground(jButton8.getBackground());
+        jButton1.setForeground(jButton8.getForeground());
         jButton1.setText("cari outlet");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -353,6 +355,8 @@ public class Form_transaksi extends javax.swing.JFrame {
 
         jLabel7.setText("jumlah terjual(di outlet)");
 
+        i_tgl_pengeluaran.setBackground(new java.awt.Color(255, 255, 255));
+        i_tgl_pengeluaran.setForeground(new java.awt.Color(0, 0, 0));
         i_tgl_pengeluaran.setDateFormatString("yyyy-MM-dd ");
 
         txt_nama_barang.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -402,6 +406,8 @@ public class Form_transaksi extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTable_pengeluaran);
 
+        btn_item.setBackground(jButton8.getBackground());
+        btn_item.setForeground(jButton8.getForeground());
         btn_item.setText("pilih item");
         btn_item.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -420,6 +426,8 @@ public class Form_transaksi extends javax.swing.JFrame {
 
         jLabel16.setText("nama item");
 
+        btn_tambah.setBackground(jButton8.getBackground());
+        btn_tambah.setForeground(jButton8.getForeground());
         btn_tambah.setText("tambah");
         btn_tambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -427,6 +435,8 @@ public class Form_transaksi extends javax.swing.JFrame {
             }
         });
 
+        btn_hitung.setBackground(jButton8.getBackground());
+        btn_hitung.setForeground(jButton8.getForeground());
         btn_hitung.setText("hitung");
         btn_hitung.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -434,6 +444,8 @@ public class Form_transaksi extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setBackground(jButton8.getBackground());
+        jButton6.setForeground(jButton8.getForeground());
         jButton6.setText("bersihkan");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -503,6 +515,8 @@ public class Form_transaksi extends javax.swing.JFrame {
                     .addComponent(jButton6)))
         );
 
+        jButton8.setBackground(new java.awt.Color(244, 51, 51));
+        jButton8.setForeground(new java.awt.Color(255, 255, 255));
         jButton8.setText("cari barang");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -600,6 +614,8 @@ public class Form_transaksi extends javax.swing.JFrame {
                 .addGap(30, 30, 30))
         );
 
+        jButton3.setBackground(jButton8.getBackground());
+        jButton3.setForeground(jButton8.getForeground());
         jButton3.setText("selesai");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -607,6 +623,8 @@ public class Form_transaksi extends javax.swing.JFrame {
             }
         });
 
+        jButton5.setBackground(jButton8.getBackground());
+        jButton5.setForeground(jButton8.getForeground());
         jButton5.setText("kembali");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

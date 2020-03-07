@@ -61,7 +61,7 @@ public class Form_master_barang extends javax.swing.JFrame {
         txt_brg_harga = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_barang = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        btn_tambah = new javax.swing.JButton();
         btn_fbrg_hapus = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         txt_brg_cari = new javax.swing.JTextField();
@@ -73,8 +73,10 @@ public class Form_master_barang extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        btn_brg_ubah.setBackground(btn_tambah.getBackground());
+        btn_brg_ubah.setForeground(btn_tambah.getForeground());
         btn_brg_ubah.setText("ubah");
         btn_brg_ubah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,13 +120,17 @@ public class Form_master_barang extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable_barang);
 
-        jButton2.setText("tambah");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_tambah.setBackground(new java.awt.Color(244, 51, 51));
+        btn_tambah.setForeground(new java.awt.Color(255, 255, 255));
+        btn_tambah.setText("tambah");
+        btn_tambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_tambahActionPerformed(evt);
             }
         });
 
+        btn_fbrg_hapus.setBackground(btn_tambah.getBackground());
+        btn_fbrg_hapus.setForeground(btn_tambah.getForeground());
         btn_fbrg_hapus.setText("hapus");
         btn_fbrg_hapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,6 +138,8 @@ public class Form_master_barang extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setBackground(btn_tambah.getBackground());
+        jButton4.setForeground(btn_tambah.getForeground());
         jButton4.setText("cari");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,22 +161,24 @@ public class Form_master_barang extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txt_brg_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton4))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                                 .addComponent(btn_fbrg_hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
@@ -191,7 +201,7 @@ public class Form_master_barang extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(2, 2, 2)
+                .addContainerGap()
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(total_data_brg, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -220,7 +230,7 @@ public class Form_master_barang extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_brg_ubah)
                     .addComponent(btn_fbrg_hapus)
-                    .addComponent(jButton2))
+                    .addComponent(btn_tambah))
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_brg_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -268,7 +278,7 @@ public class Form_master_barang extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_brg_nm_barangActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btn_tambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahActionPerformed
         // TODO add your handling code here:
         createDataBarang();
         if (notifikasi_c_barang) {
@@ -278,7 +288,7 @@ public class Form_master_barang extends javax.swing.JFrame {
         }
         readDataBarang(null, null, jTable_barang);
         bersih();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btn_tambahActionPerformed
 
     private void btn_fbrg_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fbrg_hapusActionPerformed
         // TODO add your handling code here:
@@ -366,8 +376,8 @@ public class Form_master_barang extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_brg_ubah;
     private javax.swing.JButton btn_fbrg_hapus;
+    private javax.swing.JButton btn_tambah;
     public static javax.swing.JComboBox<String> cb_brg_kategori;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

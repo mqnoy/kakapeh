@@ -386,6 +386,12 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton1">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="jButton8" name="background" type="property"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="jButton8" name="foreground" type="property"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="cari outlet"/>
               </Properties>
               <Events>
@@ -537,6 +543,12 @@
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="i_tgl_pengeluaran">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="0" type="rgb"/>
+                </Property>
                 <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd "/>
               </Properties>
               <AuxValues>
@@ -717,6 +729,12 @@
                 </Container>
                 <Component class="javax.swing.JButton" name="btn_item">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection component="jButton8" name="background" type="property"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection component="jButton8" name="foreground" type="property"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="pilih item"/>
                   </Properties>
                   <Events>
@@ -745,6 +763,12 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btn_tambah">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection component="jButton8" name="background" type="property"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection component="jButton8" name="foreground" type="property"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="tambah"/>
                   </Properties>
                   <Events>
@@ -753,6 +777,12 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btn_hitung">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection component="jButton8" name="background" type="property"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection component="jButton8" name="foreground" type="property"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="hitung"/>
                   </Properties>
                   <Events>
@@ -761,6 +791,12 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton6">
                   <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection component="jButton8" name="background" type="property"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection component="jButton8" name="foreground" type="property"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="bersihkan"/>
                   </Properties>
                   <Events>
@@ -771,6 +807,12 @@
             </Container>
             <Component class="javax.swing.JButton" name="jButton8">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="33" green="33" red="f4" type="rgb"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="cari barang"/>
               </Properties>
               <Events>
@@ -806,6 +848,12 @@
         </Container>
         <Component class="javax.swing.JButton" name="jButton3">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection component="jButton8" name="background" type="property"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection component="jButton8" name="foreground" type="property"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="selesai"/>
           </Properties>
           <Events>
@@ -814,6 +862,12 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton5">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection component="jButton8" name="background" type="property"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection component="jButton8" name="foreground" type="property"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="kembali"/>
           </Properties>
         </Component>

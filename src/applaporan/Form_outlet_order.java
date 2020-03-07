@@ -193,7 +193,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -228,6 +228,8 @@ public class Form_outlet_order extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Daftar outlet");
 
+        jButton1.setBackground(jButton6.getBackground());
+        jButton1.setForeground(jButton6.getForeground());
         jButton1.setText("cari outlet");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -297,6 +299,8 @@ public class Form_outlet_order extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTable_order_draft);
 
+        i_tgl_order.setBackground(new java.awt.Color(255, 255, 255));
+        i_tgl_order.setForeground(new java.awt.Color(0, 0, 0));
         i_tgl_order.setDateFormatString("yyyy-MM-dd ");
         i_tgl_order.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
@@ -313,6 +317,8 @@ public class Form_outlet_order extends javax.swing.JFrame {
             }
         });
 
+        btn_tambahkan.setBackground(jButton6.getBackground());
+        btn_tambahkan.setForeground(jButton6.getForeground());
         btn_tambahkan.setText("tambahkan");
         btn_tambahkan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -320,6 +326,8 @@ public class Form_outlet_order extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setBackground(new java.awt.Color(244, 51, 51));
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("cari barang");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -336,6 +344,8 @@ public class Form_outlet_order extends javax.swing.JFrame {
             }
         });
 
+        jButton8.setBackground(jButton6.getBackground());
+        jButton8.setForeground(jButton6.getForeground());
         jButton8.setText("bersihkan");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -415,6 +425,8 @@ public class Form_outlet_order extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btn_selesai.setBackground(jButton6.getBackground());
+        btn_selesai.setForeground(jButton6.getForeground());
         btn_selesai.setText("selesai");
         btn_selesai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -422,6 +434,8 @@ public class Form_outlet_order extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setBackground(jButton6.getBackground());
+        jButton2.setForeground(jButton6.getForeground());
         jButton2.setText("bersihkan");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -429,6 +443,8 @@ public class Form_outlet_order extends javax.swing.JFrame {
             }
         });
 
+        jButton5.setBackground(jButton6.getBackground());
+        jButton5.setForeground(jButton6.getForeground());
         jButton5.setText("kembali");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
