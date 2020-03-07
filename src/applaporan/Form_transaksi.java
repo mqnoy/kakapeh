@@ -743,11 +743,15 @@ public class Form_transaksi extends javax.swing.JFrame {
         tgl_pengeluaran = Library.parsing_Jdate(raw_tgl, "yyyy-MM-dd");
         kd_pengeluaran_draf = lib.generateCodeOrder(3,id_outlet,tgl_pengeluaran);
         
-        if (!this.getAdditionalBrg()) {
-            kd_pengeluaran_draf = null;
+        System.out.println(this.getAdditionalBrg());
+        if (this.getAdditionalBrg()) {//jika ada pengeluaran
+            //insert ke tabel pengeluaran jika ada
+            createDataPengeluaran(kd_pengeluaran_draf);
+        }else{
+            kd_pengeluaran_draf = null;//jika tidak 
         }
-        //insert ke tabel pengeluaran jika ada
-        createDataPengeluaran(kd_pengeluaran_draf);
+        
+        
         // insert tabel transaksi
         createDataTransaksi(karyawanID,tgl_pengeluaran,kd_pengeluaran_draf);
     }//GEN-LAST:event_jButton3ActionPerformed
