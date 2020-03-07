@@ -102,11 +102,11 @@ public class Form_master_karyawan extends javax.swing.JFrame {
 
             },
             new String [] {
-                "id", "nik", "posisi", "nama karyawan", "akses password", "nomor tlp"
+                "id", "nik", "posisi", "nama karyawan", "nomor tlp"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false
+                true, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
