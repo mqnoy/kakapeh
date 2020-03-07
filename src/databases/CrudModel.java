@@ -552,7 +552,7 @@ public class CrudModel extends ConfigDatabase {
      */
     public HashMap loginModel(String nik, String pass) {
         String sql = null;
-        HashMap<String, String> data = new HashMap<String, String>();
+        HashMap<String, Object> data = new HashMap<String, Object>();
         try {
             //query select
             sql = "SELECT * FROM tbl_master_karyawan WHERE nik ='" + nik + "' AND akses_password='" + pass + "' ";
