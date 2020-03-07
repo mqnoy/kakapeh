@@ -1,4 +1,4 @@
-<mxfile host="www.draw.io" modified="2020-03-07T16:10:26.444Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36" etag="iTdWjvUEeH_BVPiCI4Pi" version="12.8.1" type="github">
+<mxfile host="www.draw.io" modified="2020-03-07T16:11:15.346Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36" etag="cfB4BVP9uaCrkafcZIA8" version="12.8.1" type="github">
   <diagram id="237JdWOQ8wFD-5LmpeCp" name="Page-1">
     <mxGraphModel dx="868" dy="439" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -21,24 +21,19 @@
             <mxPoint x="10" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="aQaRg4ST8kUPh2lTjFK--6" value="nik" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rect;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;align=center;whiteSpace=wrap;resizeHeight=1;" vertex="1" parent="aQaRg4ST8kUPh2lTjFK--4">
-          <mxGeometry width="60" height="40" relative="1" as="geometry">
-            <mxPoint x="60" as="offset" />
+        <mxCell id="aQaRg4ST8kUPh2lTjFK--6" value="nama outlet" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rect;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;align=center;whiteSpace=wrap;resizeHeight=1;" vertex="1" parent="aQaRg4ST8kUPh2lTjFK--4">
+          <mxGeometry width="170" height="40" relative="1" as="geometry">
+            <mxPoint x="80" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="aQaRg4ST8kUPh2lTjFK--7" value="posisi" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rect;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;align=center;whiteSpace=wrap;resizeHeight=1;" vertex="1" parent="aQaRg4ST8kUPh2lTjFK--4">
+        <mxCell id="aQaRg4ST8kUPh2lTjFK--7" value="kota" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rect;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;align=center;whiteSpace=wrap;resizeHeight=1;" vertex="1" parent="aQaRg4ST8kUPh2lTjFK--4">
           <mxGeometry width="70" height="40" relative="1" as="geometry">
-            <mxPoint x="120" as="offset" />
+            <mxPoint x="245" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="aQaRg4ST8kUPh2lTjFK--8" value="nama karyawan" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rect;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;align=center;whiteSpace=wrap;resizeHeight=1;" vertex="1" parent="aQaRg4ST8kUPh2lTjFK--4">
+        <mxCell id="aQaRg4ST8kUPh2lTjFK--8" value="alamat" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rect;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;align=center;whiteSpace=wrap;resizeHeight=1;" vertex="1" parent="aQaRg4ST8kUPh2lTjFK--4">
           <mxGeometry width="130" height="40" relative="1" as="geometry">
-            <mxPoint x="190" as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="aQaRg4ST8kUPh2lTjFK--9" value="nomor telp" style="html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.rect;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;align=center;whiteSpace=wrap;resizeHeight=1;" vertex="1" parent="aQaRg4ST8kUPh2lTjFK--4">
-          <mxGeometry width="120" height="40" relative="1" as="geometry">
-            <mxPoint x="320" as="offset" />
+            <mxPoint x="310" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="aQaRg4ST8kUPh2lTjFK--10" value="" style="strokeColor=#000000;fillColor=inherit;gradientColor=inherit;html=1;shadow=0;dashed=0;shape=mxgraph.bootstrap.horLines;resizeWidth=1;" vertex="1" parent="aQaRg4ST8kUPh2lTjFK--3">
