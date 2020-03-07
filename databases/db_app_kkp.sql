@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 05, 2020 at 05:57 PM
+-- Generation Time: Mar 07, 2020 at 03:59 PM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.1.29
 
@@ -162,7 +162,7 @@ INSERT INTO `tbl_master_barang` (`id_barang`, `nama_barang`, `kategori`, `harga_
 CREATE TABLE `tbl_master_karyawan` (
   `id_karyawan` int(11) NOT NULL,
   `nik` varchar(20) NOT NULL,
-  `posisi` enum('admin','manager','kasir') NOT NULL,
+  `posisi` enum('manager','kasir') NOT NULL,
   `nama_karyawan` text NOT NULL,
   `akses_password` varchar(50) NOT NULL,
   `nmr_tlp` char(20) NOT NULL
@@ -244,6 +244,14 @@ CREATE TABLE `tbl_transaksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `tbl_transaksi`
+--
+
+INSERT INTO `tbl_transaksi` (`id_transaksi`, `id_outlet`, `id_barang`, `terjual`, `rusak`, `kd_pengeluaran`, `karyawan_id`, `tgl_transaksi`) VALUES
+(10, 3, 4, 1, 1, NULL, -1, '2020-03-07'),
+(11, 1, 4, 1, 1, NULL, -1, '2020-03-07');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -322,13 +330,13 @@ ALTER TABLE `tbl_master_outlet`
 -- AUTO_INCREMENT for table `tbl_order_outlet`
 --
 ALTER TABLE `tbl_order_outlet`
-  MODIFY `id_order_outlet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_order_outlet` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_pengeluaran`
 --
 ALTER TABLE `tbl_pengeluaran`
-  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaksi`
