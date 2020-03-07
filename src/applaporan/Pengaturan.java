@@ -71,6 +71,7 @@ public class Pengaturan extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 153, 153));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Pengaturan database"));
+        jPanel2.setOpaque(false);
 
         jLabel3.setText("host");
 
@@ -319,7 +320,7 @@ public class Pengaturan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     public static javax.swing.JTextField txt_pe_dbhost;
     public static javax.swing.JTextField txt_pe_dbname;
-    private javax.swing.JTextField txt_pe_password;
+    public static javax.swing.JTextField txt_pe_password;
     public static javax.swing.JTextField txt_pe_username;
     // End of variables declaration//GEN-END:variables
 }
