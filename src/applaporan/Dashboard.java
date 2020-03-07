@@ -45,12 +45,12 @@ public class Dashboard extends javax.swing.JFrame {
         btn_keluar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu4 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
 
@@ -63,7 +63,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         jButton1.setBackground(btn_keluar.getBackground());
         jButton1.setForeground(btn_keluar.getForeground());
-        jButton1.setText("penjualan outlet");
+        jButton1.setText("outlet transaksi");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -81,7 +81,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         jButton3.setBackground(btn_keluar.getBackground());
         jButton3.setForeground(btn_keluar.getForeground());
-        jButton3.setText("outlet order");
+        jButton3.setText("outlet request");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -125,6 +125,8 @@ public class Dashboard extends javax.swing.JFrame {
 
         jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
 
+        jMenu4.setText("Menu");
+
         jMenu2.setBackground(new java.awt.Color(255, 255, 255));
         jMenu2.setText("master");
 
@@ -155,20 +157,20 @@ public class Dashboard extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem4);
 
-        jMenuBar1.add(jMenu2);
+        jMenu4.add(jMenu2);
 
         jMenu3.setText("laporan");
-
-        jMenuItem1.setBackground(new java.awt.Color(255, 255, 255));
-        jMenuItem1.setText("penjualan");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
             }
         });
-        jMenu3.add(jMenuItem1);
-
-        jMenuBar1.add(jMenu3);
+        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu3ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenu3);
 
         jMenu1.setBackground(new java.awt.Color(255, 255, 255));
         jMenu1.setText("pengaturan");
@@ -182,7 +184,9 @@ public class Dashboard extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem5);
 
-        jMenuBar1.add(jMenu1);
+        jMenu4.add(jMenu1);
+
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -231,15 +235,19 @@ public class Dashboard extends javax.swing.JFrame {
         frame.showFormMrKaryawan();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-        frame.showLapPenjualan();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-        frame.showPengaturan();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jMenu3ActionPerformed
+
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+        // TODO add your handling code here:
+        frame.showLaporan();
+    }//GEN-LAST:event_jMenu3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -284,8 +292,8 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

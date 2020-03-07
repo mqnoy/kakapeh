@@ -250,7 +250,7 @@ public class Pengaturan extends javax.swing.JFrame {
                 // save properties to project root folder
                 prop.store(output, null);
                 
-                System.out.println(prop);
+                JOptionPane.showMessageDialog(this, "file konfigurasi berhasil di simpan", "notifikasi", 1);
             } catch (FileNotFoundException ex) {
                 JOptionPane.showMessageDialog(this, ex, "notifikasi", 2);
                 Logger.getLogger(Pengaturan.class.getName()).log(Level.SEVERE, null, ex);
@@ -289,7 +289,7 @@ public class Pengaturan extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
