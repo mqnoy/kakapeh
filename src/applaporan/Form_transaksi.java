@@ -44,6 +44,8 @@ public class Form_transaksi extends javax.swing.JFrame {
         btn_hitung.setEnabled(false);
 //        karyawanID = otentikasi.getIdKaryawan(); //prod
         btn_tambah.setEnabled(false);
+        btn_check_stock.setEnabled(false);
+        btn_caribarang.requestFocus(true);
     }
     private void setAdditionalBrg(boolean var){
         this.additional = var;
@@ -120,6 +122,20 @@ public class Form_transaksi extends javax.swing.JFrame {
         total_data_brg = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jDialog_checkstock = new javax.swing.JDialog();
+        jPanel6 = new javax.swing.JPanel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jButton2 = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        lbl_checkstk_order = new javax.swing.JLabel();
+        lbl_checkstk_stock = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        lbl_checkstk_outlet = new javax.swing.JLabel();
+        lbl_checkstk_barang = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -128,6 +144,7 @@ public class Form_transaksi extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txt_cari_outlet = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        btn_check_stock = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         txt_frmt_terjual = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -151,7 +168,7 @@ public class Form_transaksi extends javax.swing.JFrame {
         btn_tambah = new javax.swing.JButton();
         btn_hitung = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        btn_caribarang = new javax.swing.JButton();
         txt_frmt_stockakhir = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         lbl_trans_total_item = new javax.swing.JLabel();
@@ -265,9 +282,121 @@ public class Form_transaksi extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        jDialog_checkstock.setMaximumSize(new java.awt.Dimension(422, 303));
+        jDialog_checkstock.setMinimumSize(new java.awt.Dimension(422, 303));
+        jDialog_checkstock.setResizable(false);
+
+        jButton2.setText("asd");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("total order : ");
+
+        jLabel15.setText("total stock :");
+
+        lbl_checkstk_order.setText("0");
+
+        lbl_checkstk_stock.setText("0");
+
+        jLabel19.setText("tanggal");
+
+        jLabel20.setText("barang :");
+
+        jLabel21.setText("outlet : ");
+
+        lbl_checkstk_outlet.setText("0");
+
+        lbl_checkstk_barang.setText("0");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbl_checkstk_stock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbl_checkstk_outlet, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_checkstk_barang, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                            .addComponent(lbl_checkstk_order, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(186, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21)
+                    .addComponent(lbl_checkstk_outlet))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(lbl_checkstk_barang))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(lbl_checkstk_order))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(lbl_checkstk_stock))
+                .addGap(20, 20, 20))
+        );
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(32, 32, 32))
+        );
+
+        javax.swing.GroupLayout jDialog_checkstockLayout = new javax.swing.GroupLayout(jDialog_checkstock.getContentPane());
+        jDialog_checkstock.getContentPane().setLayout(jDialog_checkstockLayout);
+        jDialog_checkstockLayout.setHorizontalGroup(
+            jDialog_checkstockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialog_checkstockLayout.setVerticalGroup(
+            jDialog_checkstockLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1024, 600));
-        setPreferredSize(new java.awt.Dimension(1024, 600));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -305,12 +434,21 @@ public class Form_transaksi extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Daftar outlet");
 
-        jButton1.setBackground(jButton8.getBackground());
-        jButton1.setForeground(jButton8.getForeground());
+        jButton1.setBackground(btn_caribarang.getBackground());
+        jButton1.setForeground(btn_caribarang.getForeground());
         jButton1.setText("cari outlet");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        btn_check_stock.setBackground(btn_caribarang.getBackground());
+        btn_check_stock.setForeground(btn_caribarang.getForeground());
+        btn_check_stock.setText("check stock");
+        btn_check_stock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_check_stockActionPerformed(evt);
             }
         });
 
@@ -327,6 +465,8 @@ public class Form_transaksi extends javax.swing.JFrame {
                 .addContainerGap(26, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_check_stock)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txt_cari_outlet, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
@@ -336,10 +476,11 @@ public class Form_transaksi extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
                     .addComponent(txt_cari_outlet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btn_check_stock))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -406,8 +547,8 @@ public class Form_transaksi extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTable_pengeluaran);
 
-        btn_item.setBackground(jButton8.getBackground());
-        btn_item.setForeground(jButton8.getForeground());
+        btn_item.setBackground(btn_caribarang.getBackground());
+        btn_item.setForeground(btn_caribarang.getForeground());
         btn_item.setText("pilih item");
         btn_item.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -425,8 +566,8 @@ public class Form_transaksi extends javax.swing.JFrame {
 
         jLabel16.setText("nama item");
 
-        btn_tambah.setBackground(jButton8.getBackground());
-        btn_tambah.setForeground(jButton8.getForeground());
+        btn_tambah.setBackground(btn_caribarang.getBackground());
+        btn_tambah.setForeground(btn_caribarang.getForeground());
         btn_tambah.setText("tambah");
         btn_tambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -434,8 +575,8 @@ public class Form_transaksi extends javax.swing.JFrame {
             }
         });
 
-        btn_hitung.setBackground(jButton8.getBackground());
-        btn_hitung.setForeground(jButton8.getForeground());
+        btn_hitung.setBackground(btn_caribarang.getBackground());
+        btn_hitung.setForeground(btn_caribarang.getForeground());
         btn_hitung.setText("hitung");
         btn_hitung.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -443,8 +584,8 @@ public class Form_transaksi extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setBackground(jButton8.getBackground());
-        jButton6.setForeground(jButton8.getForeground());
+        jButton6.setBackground(btn_caribarang.getBackground());
+        jButton6.setForeground(btn_caribarang.getForeground());
         jButton6.setText("bersihkan");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -515,12 +656,12 @@ public class Form_transaksi extends javax.swing.JFrame {
                     .addComponent(jButton6)))
         );
 
-        jButton8.setBackground(new java.awt.Color(244, 51, 51));
-        jButton8.setForeground(new java.awt.Color(255, 255, 255));
-        jButton8.setText("cari barang");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        btn_caribarang.setBackground(new java.awt.Color(244, 51, 51));
+        btn_caribarang.setForeground(new java.awt.Color(255, 255, 255));
+        btn_caribarang.setText("cari barang");
+        btn_caribarang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                btn_caribarangActionPerformed(evt);
             }
         });
 
@@ -562,12 +703,12 @@ public class Form_transaksi extends javax.swing.JFrame {
                                 .addComponent(i_tgl_pengeluaran, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lbl_frmt_nm_outlet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_frmt_nm_outlet, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                        .addComponent(txt_nama_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton8))))))
+                                        .addComponent(txt_nama_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(42, 42, 42)
+                                        .addComponent(btn_caribarang))))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -587,7 +728,7 @@ public class Form_transaksi extends javax.swing.JFrame {
                     .addComponent(txt_nama_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton8)))
+                        .addComponent(btn_caribarang)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -615,8 +756,8 @@ public class Form_transaksi extends javax.swing.JFrame {
                 .addGap(30, 30, 30))
         );
 
-        jButton3.setBackground(jButton8.getBackground());
-        jButton3.setForeground(jButton8.getForeground());
+        jButton3.setBackground(btn_caribarang.getBackground());
+        jButton3.setForeground(btn_caribarang.getForeground());
         jButton3.setText("selesai");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -624,9 +765,14 @@ public class Form_transaksi extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setBackground(jButton8.getBackground());
-        jButton5.setForeground(jButton8.getForeground());
+        jButton5.setBackground(btn_caribarang.getBackground());
+        jButton5.setForeground(btn_caribarang.getForeground());
         jButton5.setText("kembali");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -656,7 +802,7 @@ public class Form_transaksi extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 2, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -722,14 +868,14 @@ public class Form_transaksi extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void btn_caribarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_caribarangActionPerformed
         // TODO add your handling code here:
         //munculin dialog barang
         readDataBarang(null,null,jTable_barang_3);
         jDialog_barang.setLocationRelativeTo(null);
         jDialog_barang.setVisible(true);
         setAdditionalBrg(false);
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_btn_caribarangActionPerformed
 
     private void rd_trans_adaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rd_trans_adaActionPerformed
         // TODO add your handling code here:
@@ -785,6 +931,9 @@ public class Form_transaksi extends javax.swing.JFrame {
             kd_pengeluaran_draf = null;//jika tidak 
         }
         
+        //check stock
+        ////jml_stock_akhir = order+stock_awal-barang_rusak-terjual;
+        
         
         // insert tabel transaksi
         createDataTransaksi(karyawanID,tgl_pengeluaran,kd_pengeluaran_draf);
@@ -814,17 +963,45 @@ public class Form_transaksi extends javax.swing.JFrame {
         int id_nm_outlet = Integer.parseInt(jTable_outlet3.getModel().getValueAt(row, 0).toString());
         setIdOutlet(id_nm_outlet);
         lbl_frmt_nm_outlet.setText(val_nm_outlet);
+        
+        
+        //check stock barang outlet untuk kalkulasi stock akhir
+        ////jml_stock_akhir = order+stock_awal-barang_rusak-terjual;
+        btn_check_stock.setEnabled(true);
+        int jml_stock_akhir = 0;
+//        int order = 
+                
+
+        
     }//GEN-LAST:event_jTable_outlet3MouseClicked
 
     private void txt_nama_barangPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txt_nama_barangPropertyChange
         // TODO add your handling code here:
-        txt_frmt_terjual.requestFocus(true);
+        jTable_outlet3.requestFocus(true);
     }//GEN-LAST:event_txt_nama_barangPropertyChange
 
     private void lbl_nm_itemPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lbl_nm_itemPropertyChange
         // TODO add your handling code here:
-        txt_qty_item.requestFocus(true);
+        
     }//GEN-LAST:event_lbl_nm_itemPropertyChange
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void btn_check_stockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_check_stockActionPerformed
+        // TODO add your handling code here:
+        jDialog_checkstock.setLocationRelativeTo(null);
+        jDialog_checkstock.setVisible(true);
+        lbl_checkstk_outlet.setText(String.valueOf(getIdOutlet()));
+        lbl_checkstk_barang.setText(String.valueOf(getIdBarang()));
+    }//GEN-LAST:event_btn_check_stockActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        jDialog_checkstock.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -862,6 +1039,8 @@ public class Form_transaksi extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_caribarang;
+    private javax.swing.JButton btn_check_stock;
     private javax.swing.JButton btn_hitung;
     private javax.swing.JButton btn_item;
     private javax.swing.JButton btn_tambah;
@@ -869,37 +1048,50 @@ public class Form_transaksi extends javax.swing.JFrame {
     public static com.toedter.calendar.JDateChooser i_tgl_pengeluaran;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JDialog jDialog_barang;
+    private javax.swing.JDialog jDialog_checkstock;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     public static javax.swing.JTable jTable_barang_3;
     public static javax.swing.JTable jTable_outlet3;
     public static javax.swing.JTable jTable_pengeluaran;
+    private javax.swing.JLabel lbl_checkstk_barang;
+    private javax.swing.JLabel lbl_checkstk_order;
+    private javax.swing.JLabel lbl_checkstk_outlet;
+    private javax.swing.JLabel lbl_checkstk_stock;
     private javax.swing.JLabel lbl_frmt_nm_outlet;
     private javax.swing.JLabel lbl_nm_item;
     private javax.swing.JLabel lbl_trans_total_item;

@@ -469,6 +469,11 @@ public class CrudModel extends ConfigDatabase {
         int barangID = getIdBarang();
         int jmlTerjual = Integer.parseInt(txt_frmt_terjual.getText());
         int jmlRusak = Integer.parseInt(txt_frmt_rusak.getText());
+
+        //check stock sebelum insert
+//        checkDataStock(int outlet, int barang);
+        
+        
         System.out.println("orderid = " + outletID + "barangID = " + barangID + "jmlTerjual" + jmlTerjual + " jmlRusak" + jmlRusak);
         System.out.println("karyawanID = " + karyawanID + "tglRequest = " + tglTransaksi + "pengeluaranKD" + pengeluaranKD);
         try {
