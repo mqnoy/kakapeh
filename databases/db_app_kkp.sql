@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 07, 2020 at 03:59 PM
+-- Generation Time: Mar 14, 2020 at 04:17 PM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.1.29
 
@@ -32,17 +32,9 @@ CREATE TABLE `tbl_data_stock` (
   `id_stock` int(11) NOT NULL,
   `id_outlet` int(20) NOT NULL,
   `stock_awal` int(11) NOT NULL,
-  `stock_akhir` int(11) NOT NULL,
+  `stock_akhir` int(11) NOT NULL DEFAULT '0',
   `id_barang` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tbl_data_stock`
---
-
-INSERT INTO `tbl_data_stock` (`id_stock`, `id_outlet`, `stock_awal`, `stock_akhir`, `id_barang`) VALUES
-(1, 1, 100, 0, 1),
-(2, 2, 20, 0, 2);
 
 -- --------------------------------------------------------
 
@@ -244,14 +236,6 @@ CREATE TABLE `tbl_transaksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_transaksi`
---
-
-INSERT INTO `tbl_transaksi` (`id_transaksi`, `id_outlet`, `id_barang`, `terjual`, `rusak`, `kd_pengeluaran`, `karyawan_id`, `tgl_transaksi`) VALUES
-(10, 3, 4, 1, 1, NULL, -1, '2020-03-07'),
-(11, 1, 4, 1, 1, NULL, -1, '2020-03-07');
-
---
 -- Indexes for dumped tables
 --
 
@@ -306,7 +290,7 @@ ALTER TABLE `tbl_transaksi`
 -- AUTO_INCREMENT for table `tbl_data_stock`
 --
 ALTER TABLE `tbl_data_stock`
-  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_master_barang`
@@ -336,13 +320,13 @@ ALTER TABLE `tbl_order_outlet`
 -- AUTO_INCREMENT for table `tbl_pengeluaran`
 --
 ALTER TABLE `tbl_pengeluaran`
-  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_transaksi`
 --
 ALTER TABLE `tbl_transaksi`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
