@@ -25,6 +25,7 @@ import static applaporan.Library.strTo_MD5;
 import controller.MainController;
 import static controller.MainController.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -407,7 +408,7 @@ public class CrudModel extends ConfigDatabase {
             for (int row = 0; row < total_rowPengeluaran; row++) {
                 if (executeUpdate[row] > 0) {
                     notifikasi_c_pengeluaran = true;
-                    
+
                 } else {
                     notifikasi_c_pengeluaran = false;
                     System.out.println("insert data transaksi gagal");
@@ -459,7 +460,6 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end CRUD pengeluaran*/
-    
     /*
      *  CRUD AREA transaksi
      */
@@ -469,8 +469,8 @@ public class CrudModel extends ConfigDatabase {
         int barangID = getIdBarang();
         int jmlTerjual = Integer.parseInt(txt_frmt_terjual.getText());
         int jmlRusak = Integer.parseInt(txt_frmt_rusak.getText());
-        System.out.println("orderid = "+outletID +"barangID = "+barangID +"jmlTerjual" +jmlTerjual+ " jmlRusak"+jmlRusak);
-        System.out.println("karyawanID = "+karyawanID +"tglRequest = "+tglTransaksi +"pengeluaranKD" +pengeluaranKD );
+        System.out.println("orderid = " + outletID + "barangID = " + barangID + "jmlTerjual" + jmlTerjual + " jmlRusak" + jmlRusak);
+        System.out.println("karyawanID = " + karyawanID + "tglRequest = " + tglTransaksi + "pengeluaranKD" + pengeluaranKD);
         try {
             String sql = "INSERT INTO tbl_transaksi (id_outlet, id_barang, terjual, rusak, kd_pengeluaran, karyawan_id,tgl_transaksi) VALUES (?,?,?,?,?,?,?)";
 
@@ -488,7 +488,7 @@ public class CrudModel extends ConfigDatabase {
             if (executeUpdate > 0) {
                 notifikasi_c_transaksi = true;
                 System.out.println("insert data transaksi sukses");
-            }else{
+            } else {
                 notifikasi_c_transaksi = false;
                 System.out.println("insert data transaksi gagal");
             }
@@ -499,24 +499,35 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end CRUD transaksi*/
-    
     /*
      *  CRUD AREA outlet order
+     *  note : 
+     * jika order pertama kali maka insert ke table stock
+     * jika order untuk menambah stock maka update ke table stock
+    
      */
     public static void createDataOrder(int karyawanID, String tglOrder, String OderKD) {
         int total_rowOrder = jTable_order_draft.getRowCount();
-        System.out.println("karyawanID = "+karyawanID +"tglRequest = "+tglOrder +"pengeluaranKD" +OderKD );
+        System.out.println("karyawanID = " + karyawanID + "tglRequest = " + tglOrder + "pengeluaranKD" + OderKD);
         String sql = "INSERT INTO tbl_order_outlet (kd_order, id_outlet, jml_order, id_barang, id_karyawan, tanggal_order) VALUES (?,?,?,?,?,?)";
+        String sql_stock = "";
+
+        int jml_stock_akhir = 0;
+//        int check_data_stock[] = null;
+        ArrayList<Boolean> check_data_stock = new ArrayList<Boolean>();
+
         try {
             conn.setAutoCommit(false);
             PreparedStatement ps = conn.prepareStatement(sql);
+            
 
             for (int row = 0; row < total_rowOrder; row++) {
                 String kd_order = jTable_order_draft.getValueAt(row, 0).toString();
                 int outletID = Integer.parseInt(jTable_order_draft.getValueAt(row, 1).toString());
                 int jmlOrder = Integer.parseInt(jTable_order_draft.getValueAt(row, 2).toString());
                 int barangID = Integer.parseInt(jTable_order_draft.getValueAt(row, 3).toString());
-                
+
+                //set untuk tabel order
                 ps.setString(1, kd_order);
                 ps.setInt(2, outletID);
                 ps.setInt(3, jmlOrder);
@@ -524,6 +535,24 @@ public class CrudModel extends ConfigDatabase {
                 ps.setInt(5, karyawanID);
                 ps.setDate(6, java.sql.Date.valueOf(tglOrder));
 
+                //jika pertamakali order atau tidak ada data di tabel data stock
+                //pengecekan data stock 
+                check_data_stock.add(checkDataStock(outletID, barangID));
+                //jika ada data ada di tabel data stock
+                if (check_data_stock.get(row)) {
+                    sql_stock = "UPDATE tbl_data_stock SET stock_akhir = (stock_akhir+?) "
+                            + "WHERE id_outlet = ? AND id_barang = ?";
+                } else {
+                    sql_stock = "INSERT tbl_data_stock (stock_awal, id_outlet, id_barang) VALUES(?,?,?)";
+                }
+                PreparedStatement ps_data_stock = conn.prepareStatement(sql_stock);
+                
+                //set untuk tabel stock
+                ps_data_stock.setInt(1, jmlOrder);
+                ps_data_stock.setInt(2, outletID);
+                ps_data_stock.setInt(3, barangID);
+                
+                ps_data_stock.executeUpdate();
                 ps.addBatch();
                 System.out.println(sql);
             }
@@ -531,9 +560,9 @@ public class CrudModel extends ConfigDatabase {
 
             conn.commit();
             for (int row = 0; row < total_rowOrder; row++) {
-                if (executeUpdate[row] > 0) {
+                if (executeUpdate[row] > 0 ) {
                     notifikasi_c_order = true;
-                    
+
                 } else {
                     notifikasi_c_order = false;
                     System.out.println("insert data order gagal");
@@ -545,8 +574,32 @@ public class CrudModel extends ConfigDatabase {
         }
     }
 
+    public static boolean checkDataStock(int outlet, int barang) {
+        int totalData = 0;
+        boolean response = false;
+
+        String sql = "SELECT count(id_stock) as total_data FROM tbl_data_stock WHERE id_outlet=" + outlet + " "
+                + "AND id_barang=" + barang;
+        ResultSet hasil;
+        try {
+            Statement stmt = conn.createStatement();
+            hasil = stmt.executeQuery(sql);
+            while (hasil.next()) {
+                totalData = hasil.getInt("total_data");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(sql);
+
+        if (totalData > 0) {
+            response = true;
+        }
+
+        return response;
+    }
+
     /* end CRUD outlet order */
-    
     /*
      *  otentikasi user dengan database
      */
@@ -568,7 +621,7 @@ public class CrudModel extends ConfigDatabase {
                         .getName()).log(Level.SEVERE, null, ex);
             }
             while (hasil.next()) {
-                data.put("karyawanid", String.valueOf(hasil.getInt("id_karyawan")));                
+                data.put("karyawanid", String.valueOf(hasil.getInt("id_karyawan")));
                 data.put("nik", hasil.getString("nik"));
                 data.put("jabatan", hasil.getString("posisi"));
                 data.put("password", hasil.getString("akses_password"));

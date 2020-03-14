@@ -613,6 +613,8 @@ public class Form_outlet_order extends javax.swing.JFrame {
         //int karyawanID, String tglOrder, String OderKD
         Date raw_tgl = i_tgl_order.getDate();
         tgl_order = Library.parsing_Jdate(raw_tgl, "yyyy-MM-dd");
+
+        //insert data order/ request outlet
         createDataOrder(karyawanID,tgl_order,txt_kd_order.getText());
         if (notifikasi_c_order) {
             
