@@ -19,7 +19,6 @@ import static applaporan.Form_transaksi.getIdOutlet;
 import static applaporan.Form_transaksi.jTable_barang_3;
 import static applaporan.Form_transaksi.jTable_outlet3;
 import static applaporan.Form_transaksi.jTable_pengeluaran;
-import static applaporan.Form_transaksi.txt_frmt_rusak;
 import static applaporan.Form_transaksi.txt_frmt_terjual;
 import static applaporan.Library.strTo_MD5;
 import controller.MainController;
@@ -283,12 +282,13 @@ public class CrudModel extends ConfigDatabase {
     public static void createDataBarang() {
         try {
 
-            String sql = "INSERT INTO tbl_master_barang (nama_barang,kategori,harga_satuan) VALUES (?,?,?)";
+            String sql = "INSERT INTO tbl_master_barang (nama_barang,kategori,harga_satuan,satuan) VALUES (?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, txt_brg_nm_barang.getText());
             ps.setString(2, cb_brg_kategori.getSelectedItem().toString());
             ps.setInt(3, Integer.parseInt(txt_brg_harga.getText().trim()));
-
+            ps.setString(4, cb_brg_satuan.getSelectedItem().toString());
+            
             int executeUpdate = ps.executeUpdate();
             if (executeUpdate > 0) {
                 notifikasi_c_barang = true;
@@ -331,7 +331,8 @@ public class CrudModel extends ConfigDatabase {
                 String col1 = hasil.getString("nama_barang");
                 String col2 = hasil.getString("kategori");
                 String col3 = hasil.getString("harga_satuan");
-                Object[] data = {col0, col1, col2, col3};
+                String col4 = hasil.getString("satuan");
+                Object[] data = {col0, col1, col2, col3, col4};
                 tabmode.addRow(data);
             }
         } catch (SQLException ex) {
@@ -342,11 +343,12 @@ public class CrudModel extends ConfigDatabase {
 
     public static void updateDataBarang(int id) {
         try {
-            String sql = "UPDATE tbl_master_barang SET nama_barang=?, kategori=?, harga_satuan=? WHERE id_barang=" + id;
+            String sql = "UPDATE tbl_master_barang SET nama_barang=?, kategori=?, harga_satuan=?, satuan=? WHERE id_barang=" + id;
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, txt_brg_nm_barang.getText());
             ps.setString(2, cb_brg_kategori.getSelectedItem().toString());
             ps.setInt(3, Integer.parseInt(txt_brg_harga.getText()));
+            ps.setString(4, cb_brg_satuan.getSelectedItem().toString());
 
             int executeUpdate = ps.executeUpdate();
             if (executeUpdate > 0) {
@@ -468,13 +470,13 @@ public class CrudModel extends ConfigDatabase {
         int outletID = getIdOutlet();
         int barangID = getIdBarang();
         int jmlTerjual = Integer.parseInt(txt_frmt_terjual.getText());
-        int jmlRusak = Integer.parseInt(txt_frmt_rusak.getText());
+//        int jmlRusak = Integer.parseInt(txt_frmt_rusak.getText());
 
         //check stock sebelum insert
 //        checkDataStock(int outlet, int barang);
         
         
-        System.out.println("orderid = " + outletID + "barangID = " + barangID + "jmlTerjual" + jmlTerjual + " jmlRusak" + jmlRusak);
+//        System.out.println("orderid = " + outletID + "barangID = " + barangID + "jmlTerjual" + jmlTerjual + " jmlRusak" + jmlRusak);
         System.out.println("karyawanID = " + karyawanID + "tglRequest = " + tglTransaksi + "pengeluaranKD" + pengeluaranKD);
         try {
             String sql = "INSERT INTO tbl_transaksi (id_outlet, id_barang, terjual, rusak, kd_pengeluaran, karyawan_id,tgl_transaksi) VALUES (?,?,?,?,?,?,?)";
@@ -484,7 +486,7 @@ public class CrudModel extends ConfigDatabase {
             ps.setInt(1, outletID);
             ps.setInt(2, barangID);
             ps.setInt(3, jmlTerjual);
-            ps.setInt(4, jmlRusak);
+//            ps.setInt(4, jmlRusak);
             ps.setString(5, pengeluaranKD);
             ps.setInt(6, karyawanID);
             ps.setDate(7, java.sql.Date.valueOf(tglTransaksi));
@@ -542,20 +544,31 @@ public class CrudModel extends ConfigDatabase {
 
                 //jika pertamakali order atau tidak ada data di tabel data stock
                 //pengecekan data stock 
-                check_data_stock.add(checkDataStock(outletID, barangID));
+                //jika tanggal order sama akan mengupdate stock awal
+                //jika beda akan membuat data stock lagi
+                check_data_stock.add(checkDataStock(outletID, barangID,tglOrder));
                 //jika ada data ada di tabel data stock
                 if (check_data_stock.get(row)) {
                     sql_stock = "UPDATE tbl_data_stock SET stock_awal = (stock_awal+?) "
                             + "WHERE id_outlet = ? AND id_barang = ?";
                 } else {
-                    sql_stock = "INSERT tbl_data_stock (stock_awal, id_outlet, id_barang) VALUES(?,?,?)";
+                    sql_stock = "INSERT tbl_data_stock (stock_awal, id_outlet, id_barang,tgl_stock) VALUES(?,?,?,?)";
                 }
                 PreparedStatement ps_data_stock = conn.prepareStatement(sql_stock);
                 
-                //set untuk tabel stock
-                ps_data_stock.setInt(1, jmlOrder);
-                ps_data_stock.setInt(2, outletID);
-                ps_data_stock.setInt(3, barangID);
+                if (check_data_stock.get(row)) {
+                    //set untuk tabel stock
+                    ps_data_stock.setInt(1, jmlOrder);
+                    ps_data_stock.setInt(2, outletID);
+                    ps_data_stock.setInt(3, barangID);
+                } else {
+                   //set untuk tabel stock
+                    ps_data_stock.setInt(1, jmlOrder);
+                    ps_data_stock.setInt(2, outletID);
+                    ps_data_stock.setInt(3, barangID);
+                    ps_data_stock.setDate(4, java.sql.Date.valueOf(tglOrder));
+                }
+                
                 
                 ps_data_stock.executeUpdate();
                 ps.addBatch();
@@ -579,11 +592,11 @@ public class CrudModel extends ConfigDatabase {
         }
     }
 
-    public static boolean checkDataStock(int outlet, int barang) {
+    public static boolean checkDataStock(int outlet, int barang,String tgl_stock) {
         int totalData = 0;
         boolean response = false;
 
-        String sql = "SELECT count(id_stock) as total_data FROM tbl_data_stock WHERE id_outlet=" + outlet + " "
+        String sql = "SELECT count(id_stock) as total_data FROM tbl_data_stock WHERE tgl_stock="+tgl_stock+" AND id_outlet=" + outlet + " "
                 + "AND id_barang=" + barang;
         ResultSet hasil;
         try {
@@ -647,15 +660,15 @@ public class CrudModel extends ConfigDatabase {
 
         DefaultTableModel tabmode = null;
         if (tableName.equals(jTable_barang)) {
-            Object[] baris = {"id", "Nama barang", "kategory ", "harga(Rp)"};
+            Object[] baris = {"id", "Nama barang", "kategory ", "harga(Rp)","satuan"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_barang.setModel(tabmode);
         } else if (tableName.equals(jTable_barang_2)) {
-            Object[] baris = {"id", "Nama barang", "kategory ", "harga(Rp)"};
+            Object[] baris = {"id", "Nama barang", "kategory ", "harga(Rp)","satuan"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_barang_2.setModel(tabmode);
         } else if (tableName.equals(jTable_barang_3)) {
-            Object[] baris = {"id", "Nama barang", "kategory ", "harga(Rp)"};
+            Object[] baris = {"id", "Nama barang", "kategory ", "harga(Rp)","satuan"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_barang_3.setModel(tabmode);
         } else if (tableName.equals(jTable_outlet)) {
