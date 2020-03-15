@@ -4,16 +4,19 @@
  * and open the template in the editor.
  */
 package databases;
+
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import applaporan.Library;
+
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class ConfigDatabase {
+
     static String host;
     static String username;
     static String password;
@@ -22,28 +25,30 @@ public class ConfigDatabase {
     static Integer port;
     static String urldb;
     protected static Connection koneksi;
-    
+
     ConfigDatabase() {
         setConf();
         connect();
     }
-    
-    protected Connection getConn(){
+
+    protected Connection getConn() {
         return koneksi;
     }
+
     protected static void setConf() {
         Library.loadConfig();
 
-        ConfigDatabase.host     = Library.get_config("db_host");
+        ConfigDatabase.host = Library.get_config("db_host");
         ConfigDatabase.username = Library.get_config("db_username");
         ConfigDatabase.password = Library.get_config("db_password");
-        ConfigDatabase.driver   = "mysql";
+        ConfigDatabase.driver = "mysql";
         ConfigDatabase.database = Library.get_config("db_name");
-        ConfigDatabase.port     = 3306;
-        ConfigDatabase.urldb    = "jdbc:" + driver + "://" + ConfigDatabase.host + ":" + ConfigDatabase.port + "/" + ConfigDatabase.database;
+        ConfigDatabase.port = 3306;
+        String rawurldb = "jdbc:" + ConfigDatabase.driver + "://" + ConfigDatabase.host + ":" + ConfigDatabase.port + "/" + ConfigDatabase.database;
+        ConfigDatabase.urldb = rawurldb.trim();
     }
 
-    protected  static Connection connect() {
+    protected static Connection connect() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
@@ -59,5 +64,4 @@ public class ConfigDatabase {
         }
         return koneksi;
     }
-}  
-
+}
