@@ -122,7 +122,7 @@
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="/home/qnoy/NetBeansProjects/kakapeh/assets/lg_login.png"/>
+                  <Image iconType="3" name="/assets/lg_login.png"/>
                 </Property>
               </Properties>
             </Component>

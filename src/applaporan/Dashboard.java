@@ -59,7 +59,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon("/home/qnoy/NetBeansProjects/kakapeh/assets/lg_home.png")); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/lg_home.png"))); // NOI18N
 
         jButton1.setBackground(btn_keluar.getBackground());
         jButton1.setForeground(btn_keluar.getForeground());

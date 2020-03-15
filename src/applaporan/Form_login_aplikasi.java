@@ -60,7 +60,7 @@ public class Form_login_aplikasi extends javax.swing.JFrame {
         jLabel2.setText("SISTEM INFORMASI MANAJEMEN LAPORAN PT IKI (GO CHIKEN)");
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon("/home/qnoy/NetBeansProjects/kakapeh/assets/lg_login.png")); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/lg_login.png"))); // NOI18N
 
         jPanel3.setBackground(new java.awt.Color(255, 153, 153));
         jPanel3.setOpaque(false);
