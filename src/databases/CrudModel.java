@@ -545,7 +545,7 @@ public class CrudModel extends ConfigDatabase {
                 check_data_stock.add(checkDataStock(outletID, barangID));
                 //jika ada data ada di tabel data stock
                 if (check_data_stock.get(row)) {
-                    sql_stock = "UPDATE tbl_data_stock SET stock_akhir = (stock_akhir+?) "
+                    sql_stock = "UPDATE tbl_data_stock SET stock_awal = (stock_awal+?) "
                             + "WHERE id_outlet = ? AND id_barang = ?";
                 } else {
                     sql_stock = "INSERT tbl_data_stock (stock_awal, id_outlet, id_barang) VALUES(?,?,?)";
