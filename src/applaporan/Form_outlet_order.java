@@ -83,7 +83,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txt_rusak = new javax.swing.JTextField();
         txt_terpakai = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         btn_selesai = new javax.swing.JButton();
@@ -397,7 +397,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(txt_terpakai, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txt_rusak, javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txt_jml_order, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jButton6)))))
@@ -431,7 +431,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_rusak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_terpakai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -585,7 +585,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
         
         DefaultTableModel model = (DefaultTableModel) jTable_order_draft.getModel();
         model.addRow(new Object[]{
-            txt_kd_order.getText(), mc.getOutletId(), txt_jml_order.getText(), mc.getIdBarang()
+            txt_kd_order.getText(), mc.getOutletId(), txt_jml_order.getText(), mc.getIdBarang(),txt_terpakai.getText(),txt_rusak.getText()
         });
         btn_selesai.setEnabled(true);
     }//GEN-LAST:event_btn_tambahkanActionPerformed
@@ -725,7 +725,6 @@ public class Form_outlet_order extends javax.swing.JFrame {
     public static javax.swing.JTable jTable_barang_2;
     public static javax.swing.JTable jTable_order_draft;
     public static javax.swing.JTable jTable_outlet_2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel total_data_brg;
     private javax.swing.JTextField txt_cari_barang;
     private javax.swing.JTextField txt_cari_outlet;
@@ -733,6 +732,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
     private javax.swing.JLabel txt_kd_order;
     private javax.swing.JLabel txt_nama_barang;
     private javax.swing.JLabel txt_nama_outlet;
+    private javax.swing.JTextField txt_rusak;
     private javax.swing.JTextField txt_terpakai;
     // End of variables declaration//GEN-END:variables
 }
