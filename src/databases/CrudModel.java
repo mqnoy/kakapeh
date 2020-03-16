@@ -19,6 +19,7 @@ import static applaporan.Form_transaksi.getIdOutlet;
 import static applaporan.Form_transaksi.jTable_barang_3;
 import static applaporan.Form_transaksi.jTable_outlet3;
 import static applaporan.Form_transaksi.jTable_pengeluaran;
+import static applaporan.Form_transaksi.jTable_transaksi;
 import static applaporan.Form_transaksi.txt_frmt_terjual;
 import static applaporan.Library.strTo_MD5;
 import controller.MainController;
@@ -301,7 +302,7 @@ public class CrudModel extends ConfigDatabase {
     }
 
     public static void readDataBarang(String var_kategory, String var_keywords, JTable table) {
-        System.out.println("readDataBarang()=>"+var_kategory);
+        System.out.println("readDataBarang()=>" + var_kategory);
         DefaultTableModel tabmode = getDatatabel(table);
         String sql = null;
         try {
@@ -489,42 +490,49 @@ public class CrudModel extends ConfigDatabase {
     /*
      *  CRUD AREA transaksi
      */
-    public static void createDataTransaksi(int karyawanID, String tglTransaksi, String pengeluaranKD) {
+    public static void createDataTransaksi(int karyawanID, String tglTransaksi) {
 
-        int outletID = getIdOutlet();
-        int barangID = getIdBarang();
-        int jmlTerjual = Integer.parseInt(txt_frmt_terjual.getText());
-//        int jmlRusak = Integer.parseInt(txt_frmt_rusak.getText());
+        int totalRowTransaksi = jTable_transaksi.getRowCount();
 
-        //check stock sebelum insert
-//        checkDataStock(int outlet, int barang);
-//        System.out.println("orderid = " + outletID + "barangID = " + barangID + "jmlTerjual" + jmlTerjual + " jmlRusak" + jmlRusak);
-        System.out.println("karyawanID = " + karyawanID + "tglRequest = " + tglTransaksi + "pengeluaranKD" + pengeluaranKD);
+        String sql = "INSERT INTO tbl_transaksi (id_outlet, id_barang, terjual, karyawan_id,tgl_closing,subtotal) VALUES (?,?,?,?,?,?)";
+
         try {
-            String sql = "INSERT INTO tbl_transaksi (id_outlet, id_barang, terjual, rusak, kd_pengeluaran, karyawan_id,tgl_transaksi) VALUES (?,?,?,?,?,?,?)";
-
+            conn.setAutoCommit(false);
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setInt(1, outletID);
-            ps.setInt(2, barangID);
-            ps.setInt(3, jmlTerjual);
-//            ps.setInt(4, jmlRusak);
-            ps.setString(5, pengeluaranKD);
-            ps.setInt(6, karyawanID);
-            ps.setDate(7, java.sql.Date.valueOf(tglTransaksi));
-            System.out.println(sql);
-            int executeUpdate = ps.executeUpdate();
-            if (executeUpdate > 0) {
-                notifikasi_c_transaksi = true;
-                System.out.println("insert data transaksi sukses");
-            } else {
-                notifikasi_c_transaksi = false;
-                System.out.println("insert data transaksi gagal");
-            }
+            for (int row = 0; row < totalRowTransaksi; row++) {
+                Date tglClosing = java.sql.Date.valueOf(tglTransaksi);
+                int int_outlet_id = Integer.parseInt(jTable_transaksi.getValueAt(row, 0).toString());
+                int int_brg_id = Integer.parseInt(jTable_transaksi.getValueAt(row, 1).toString());
+                int int_terjual = Integer.parseInt(jTable_transaksi.getValueAt(row, 2).toString());
+                int int_subtotal = Integer.parseInt(jTable_transaksi.getValueAt(row, 3).toString());
 
+                ps.setInt(1, int_outlet_id);
+                ps.setInt(2, int_brg_id);
+                ps.setInt(3, int_terjual);
+                ps.setInt(4, karyawanID);
+                ps.setDate(5, tglClosing);
+                ps.setInt(6, int_subtotal);
+
+                ps.addBatch();
+                System.out.println(sql);
+            }
+            int[] executeUpdate = ps.executeBatch();
+
+            conn.commit();
+            for (int row = 0; row < totalRowTransaksi; row++) {
+                if (executeUpdate[row] > 0) {
+                    notifikasi_c_transaksi = true;
+
+                } else {
+                    notifikasi_c_transaksi = false;
+                    System.out.println("insert data transaksi gagal");
+                }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     /* end CRUD transaksi*/
@@ -537,7 +545,7 @@ public class CrudModel extends ConfigDatabase {
      */
     public static void createDataOrder(int karyawanID, String tglOrder, String OderKD) {
         int total_rowOrder = jTable_order_draft.getRowCount();
-        
+
         String sql = "INSERT INTO tbl_order_outlet (kd_order, id_outlet, jml_order, id_barang, id_karyawan, tanggal_order) VALUES (?,?,?,?,?,?)";
         String sql_stock = "";
 
@@ -563,7 +571,6 @@ public class CrudModel extends ConfigDatabase {
                 ps.setInt(5, karyawanID);
                 ps.setDate(6, java.sql.Date.valueOf(tglOrder));
 
-                
                 check_data_stock.add(checkDataStock(outletID, barangID, tglOrder));
                 //jika ada order di tanggal sebelumnya maka masuk pada [stock awal(saat selesai clousing)+order]  
                 //untuk tanggal order berikutnya.
@@ -572,17 +579,17 @@ public class CrudModel extends ConfigDatabase {
 //                    sql_stock = "UPDATE tbl_data_stock SET stock_awal = ("+stock_sebelumnya+"+?) "
 //                            + "WHERE id_outlet = ? AND id_barang = ?";
                     sql_stock = "INSERT tbl_data_stock (stock_awal, id_outlet, id_barang,tgl_stock) VALUES(?,?,?,?)";
-                    System.out.println("ada sisa stock sbelumnya = "+check_data_stock.get(row));
+                    System.out.println("ada sisa stock sbelumnya = " + check_data_stock.get(row));
                 } else {
                     sql_stock = "INSERT tbl_data_stock (stock_awal, id_outlet, id_barang,tgl_stock) VALUES(?,?,?,?)";
-                    System.out.println("tidak ada sisa stock sbelumnya = "+check_data_stock.get(row));
+                    System.out.println("tidak ada sisa stock sbelumnya = " + check_data_stock.get(row));
                 }
                 PreparedStatement ps_data_stock = conn.prepareStatement(sql_stock);
 
                 if (!check_data_stock.get(row).equals(0)) {
                     //set untuk tabel stock
-                    ps_data_stock.setInt(1, stock_sebelumnya+jmlOrder);
-                    
+                    ps_data_stock.setInt(1, stock_sebelumnya + jmlOrder);
+
                 } else {
                     //set untuk tabel stock
                     ps_data_stock.setInt(1, jmlOrder);
@@ -615,7 +622,7 @@ public class CrudModel extends ConfigDatabase {
 
     public static int checkDataStock(int outlet, int barang, String tgl_stock) {
         int stockAkhir = 0;
-        String sql = "SELECT stock_akhir FROM tbl_data_stock WHERE tgl_stock = date('"+tgl_stock+"') - INTERVAL 1 DAY AND id_outlet=" + outlet + " "
+        String sql = "SELECT stock_akhir FROM tbl_data_stock WHERE tgl_stock = date('" + tgl_stock + "') - INTERVAL 1 DAY AND id_outlet=" + outlet + " "
                 + "AND id_barang=" + barang;
         ResultSet hasil;
         try {
@@ -627,7 +634,7 @@ public class CrudModel extends ConfigDatabase {
         } catch (SQLException ex) {
             Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("checkDataStock()=>"+sql);
+        System.out.println("checkDataStock()=>" + sql);
 
         return stockAkhir;
     }

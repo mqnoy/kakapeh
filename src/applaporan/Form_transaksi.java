@@ -5,6 +5,7 @@
  */
 package applaporan;
 
+import static controller.MainController.notifikasi_c_transaksi;
 import controller.Otentikasi;
 import static databases.CrudModel.createDataPengeluaran;
 import static databases.CrudModel.createDataTransaksi;
@@ -1052,9 +1053,13 @@ public class Form_transaksi extends javax.swing.JFrame {
         //check stock
         ////jml_stock_akhir = order+stock_awal-barang_rusak-terjual;
         
-        
         // insert tabel transaksi
-        createDataTransaksi(karyawanID,tgl_pengeluaran,kd_pengeluaran_draf);
+        createDataTransaksi(karyawanID,tgl_pengeluaran);
+        if (notifikasi_c_transaksi) {
+            JOptionPane.showMessageDialog(this, "data transaksi outlet berhasil di simpan", "notifikasi", 1);
+        } else {
+            JOptionPane.showMessageDialog(this, "data transaksi outlet gagal di simpan", "notifikasi", 2);
+        }
     }//GEN-LAST:event_btn_selesaiActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
