@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 15, 2020 at 07:22 PM
+-- Generation Time: Mar 16, 2020 at 03:53 PM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.1.29
 
@@ -35,6 +35,7 @@ CREATE TABLE `tbl_data_stock` (
   `stock_akhir` int(11) NOT NULL DEFAULT '0',
   `id_barang` int(11) NOT NULL,
   `rusak` int(11) NOT NULL DEFAULT '0',
+  `terpakai` int(11) NOT NULL,
   `tgl_stock` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
