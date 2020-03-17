@@ -42,12 +42,8 @@ public class Laporan extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jLabel13 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable_detail_item = new javax.swing.JTable();
         jButton7 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        btn_cetak_ok = new javax.swing.JButton();
         btn_cetak_ok2 = new javax.swing.JButton();
         btn_cetak_ok3 = new javax.swing.JButton();
         btn_cetak_ok4 = new javax.swing.JButton();
@@ -156,44 +152,6 @@ public class Laporan extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Detail item per outlet"));
-        jPanel5.setOpaque(false);
-
-        jTable_detail_item.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "barang", "stock awal", "total order", "stock akhir", "terjual", "nominal stock", "nominal terjual"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTable_detail_item.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable_detail_item);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE))
-        );
-
         jButton7.setBackground(new java.awt.Color(244, 51, 51));
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("kembali");
@@ -205,16 +163,7 @@ public class Laporan extends javax.swing.JFrame {
 
         jButton6.setBackground(new java.awt.Color(244, 51, 51));
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("segarkan");
-
-        btn_cetak_ok.setBackground(new java.awt.Color(244, 51, 51));
-        btn_cetak_ok.setForeground(new java.awt.Color(255, 255, 255));
-        btn_cetak_ok.setText("lihat semua data rekap laporan");
-        btn_cetak_ok.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cetak_okActionPerformed(evt);
-            }
-        });
+        jButton6.setText("bersihkan");
 
         btn_cetak_ok2.setBackground(new java.awt.Color(244, 51, 51));
         btn_cetak_ok2.setForeground(new java.awt.Color(255, 255, 255));
@@ -252,21 +201,18 @@ public class Laporan extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btn_cetak_ok2, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn_cetak_ok4, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn_cetak_ok3, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btn_cetak_ok, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btn_cetak_ok2, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_cetak_ok4, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_cetak_ok3, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 25, Short.MAX_VALUE))
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jButton7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton6)
-                .addGap(21, 21, 21))
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,13 +227,9 @@ public class Laporan extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_cetak_ok2)
                         .addGap(18, 18, 18)
-                        .addComponent(btn_cetak_ok3)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_cetak_ok))
+                        .addComponent(btn_cetak_ok3))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton7)
                     .addComponent(jButton6))
@@ -307,11 +249,6 @@ public class Laporan extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_cetak_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetak_okActionPerformed
-        // TODO add your handling code here:
-        frame.showLapRekap();
-    }//GEN-LAST:event_btn_cetak_okActionPerformed
 
     private void btn_cetak_ok2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetak_ok2ActionPerformed
         // TODO add your handling code here:
@@ -368,7 +305,6 @@ public class Laporan extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cari_outlet;
-    private javax.swing.JButton btn_cetak_ok;
     private javax.swing.JButton btn_cetak_ok2;
     private javax.swing.JButton btn_cetak_ok3;
     private javax.swing.JButton btn_cetak_ok4;
@@ -385,8 +321,5 @@ public class Laporan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JTable jTable_detail_item;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,7 +12,6 @@ import applaporan.Form_master_outlet;
 import applaporan.Form_outlet_order;
 import applaporan.Form_transaksi;
 import applaporan.Laporan;
-import applaporan.Laporan_rekap;
 import applaporan.Pengaturan;
 
 /**
@@ -103,12 +102,6 @@ public class MainController {
     public void showLaporan(){
         Laporan laporan = new Laporan();
         laporan.setVisible(true);
-    }
-    
-    //frame laporan rekap 
-    public void showLapRekap(){
-        Laporan_rekap lap_rekap = new Laporan_rekap();
-        lap_rekap.setVisible(true);
     }
     
     //frame master barang  
