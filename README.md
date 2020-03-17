@@ -51,6 +51,13 @@ import project
 locate to folder kakapeh ,with NetBeans
 ```
 
+run single frame "Pengaturan" for generating the config then
+edit or ignore the config database configuration in config/aplikasi_config.ini
+
+
+password access : 
+2016,2016
+
 ## Author
 * kelompok4 kkp
 
