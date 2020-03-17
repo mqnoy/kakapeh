@@ -20,14 +20,14 @@ import javax.swing.table.DefaultTableModel;
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Form_outlet_order extends javax.swing.JFrame {
+
     Otentikasi otentikasi = new Otentikasi();
     Library lib = new Library();
     MainController mc = new MainController();
     public String tgl_order = "1999-01-01";
     public String kd_order_draf = "";
     int karyawanID = -1;
-    
-    
+
     /**
      * Creates new form Form_order
      */
@@ -37,8 +37,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
         btn_selesai.setEnabled(false);
         btn_tambahkan.setEnabled(false);
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -529,11 +528,11 @@ public class Form_outlet_order extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String keyword = null; 
+        String keyword = null;
         if (!txt_cari_outlet.getText().isEmpty()) {
             keyword = txt_cari_outlet.getText().trim();
             readDataOutlet(null, keyword, jTable_outlet_2);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(rootPane, "nama outlet kosong!", "pencarian", 2);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -541,36 +540,40 @@ public class Form_outlet_order extends javax.swing.JFrame {
     private void jTable_outlet_2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_outlet_2MouseClicked
         // TODO add your handling code here:
         int row = jTable_outlet_2.getSelectedRow();
-        int id_outlet = Integer.parseInt(jTable_outlet_2.getModel().getValueAt(row, 0).toString());       
+        int id_outlet = Integer.parseInt(jTable_outlet_2.getModel().getValueAt(row, 0).toString());
         String val_nm_outlet = jTable_outlet_2.getModel().getValueAt(row, 1).toString();
-        
-        //set outlet id untuk kebutuhan list order draft
-        mc.setOutletId(id_outlet);
-        txt_nama_outlet.setText(val_nm_outlet);
-        
-        
-        Date raw_tgl = i_tgl_order.getDate();
-        tgl_order = lib.parsing_Jdate(raw_tgl, "yyyy-MM-dd 00:00:00");
-        kd_order_draf = lib.generateCodeOrder(1,id_outlet,tgl_order);
-        txt_kd_order.setText(kd_order_draf);
+
+        try {
+            //set outlet id untuk kebutuhan list order draft
+            mc.setOutletId(id_outlet);
+            txt_nama_outlet.setText(val_nm_outlet);
+            Date raw_tgl = i_tgl_order.getDate();
+            tgl_order = Library.parsing_Jdate(raw_tgl, "yyyy-MM-dd 00:00:00");
+            kd_order_draf = lib.generateCodeOrder(1, id_outlet, tgl_order);
+            txt_kd_order.setText(kd_order_draf);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "masukan tanggal terlebih dahulu", "notifikasi", 2);
+            i_tgl_order.requestFocus(true);
+        }
+
     }//GEN-LAST:event_jTable_outlet_2MouseClicked
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        readDataBarang("material",null,jTable_barang_2);
+        readDataBarang("material", null, jTable_barang_2);
         jDialog_barang.setLocationRelativeTo(null);
         jDialog_barang.setVisible(true);
-        
-        
+
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
-        String keyword = null; 
+        String keyword = null;
         if (!txt_cari_barang.getText().isEmpty()) {
             keyword = txt_cari_barang.getText().trim();
-            readDataBarang("material",keyword,jTable_barang_2);
-        }else{
+            readDataBarang("material", keyword, jTable_barang_2);
+        } else {
             JOptionPane.showMessageDialog(rootPane, "nama barang kosong!", "pencarian", 2);
         }
     }//GEN-LAST:event_jButton10ActionPerformed
@@ -582,10 +585,10 @@ public class Form_outlet_order extends javax.swing.JFrame {
 
     private void btn_tambahkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahkanActionPerformed
         // TODO add your handling code here:
-        
+
         DefaultTableModel model = (DefaultTableModel) jTable_order_draft.getModel();
         model.addRow(new Object[]{
-            txt_kd_order.getText(), mc.getOutletId(), txt_jml_order.getText(), mc.getIdBarang(),txt_terpakai.getText(),txt_rusak.getText()
+            txt_kd_order.getText(), mc.getOutletId(), txt_jml_order.getText(), mc.getIdBarang(), txt_terpakai.getText(), txt_rusak.getText()
         });
         btn_selesai.setEnabled(true);
     }//GEN-LAST:event_btn_tambahkanActionPerformed
@@ -593,7 +596,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
     private void i_tgl_orderPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_i_tgl_orderPropertyChange
         // TODO add your handling code here:
         txt_cari_outlet.requestFocus(true);
-        
+
     }//GEN-LAST:event_i_tgl_orderPropertyChange
 
     private void jTable_barang_2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_barang_2MouseClicked
@@ -603,14 +606,14 @@ public class Form_outlet_order extends javax.swing.JFrame {
         String val_nm_barang = jTable_barang_2.getModel().getValueAt(row, 1).toString();
         txt_nama_barang.setText(val_nm_barang);
         jDialog_barang.setVisible(false);
-        
+
         mc.setIdBarang(id_nm_barang);
     }//GEN-LAST:event_jTable_barang_2MouseClicked
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel tbl_odrDraft = (DefaultTableModel)jTable_order_draft.getModel();
-        while(tbl_odrDraft.getRowCount() > 0) {
+        DefaultTableModel tbl_odrDraft = (DefaultTableModel) jTable_order_draft.getModel();
+        while (tbl_odrDraft.getRowCount() > 0) {
             tbl_odrDraft.removeRow(0);
         }
         btn_selesai.setEnabled(false);
@@ -639,7 +642,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
         tgl_order = Library.parsing_Jdate(raw_tgl, "yyyy-MM-dd");
 
         //insert data order/ request outlet
-        createDataOrder(karyawanID,tgl_order,txt_kd_order.getText());
+        createDataOrder(karyawanID, tgl_order, txt_kd_order.getText());
         if (notifikasi_c_order) {
             JOptionPane.showMessageDialog(this, "data order outlet berhasil di simpan", "notifikasi", 1);
         } else {
