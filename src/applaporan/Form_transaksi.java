@@ -433,7 +433,6 @@ public class Form_transaksi extends javax.swing.JFrame {
             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jDialog_outlet.setMaximumSize(new java.awt.Dimension(466, 359));
         jDialog_outlet.setMinimumSize(new java.awt.Dimension(466, 359));
         jDialog_outlet.setResizable(false);
 
@@ -765,11 +764,11 @@ public class Form_transaksi extends javax.swing.JFrame {
 
             },
             new String [] {
-                "item", "qty", "subtotal"
+                "id outlet", "item", "qty", "subtotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1004,7 +1003,6 @@ public class Form_transaksi extends javax.swing.JFrame {
     }//GEN-LAST:event_rd_trans_adaActionPerformed
 
     private void btn_tambah_additionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambah_additionalActionPerformed
-        // TODO add your handling code here:
         subtotal = harga_item * qty_barang;
             
         //code insert data ke table pengeluaran
@@ -1013,7 +1011,7 @@ public class Form_transaksi extends javax.swing.JFrame {
         
         DefaultTableModel model = (DefaultTableModel) jTable_pengeluaran.getModel();
         model.addRow(new Object[]{
-            id_nm_barang, qty_barang, getSubtotal()
+            getIdOutlet(),id_nm_barang, qty_barang, getSubtotal()
         });
         btn_hitung.setEnabled(true);
         
@@ -1022,10 +1020,9 @@ public class Form_transaksi extends javax.swing.JFrame {
     private void btn_hitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hitungActionPerformed
         // TODO add your handling code here:
         int row_JTBLpengeluaran = jTable_pengeluaran.getRowCount();
-        System.out.println("jumlah data = "+row_JTBLpengeluaran);
         int raw_totalPengeluaran = 0;
         for (int i = 0; i < row_JTBLpengeluaran; i++) {
-            raw_totalPengeluaran += Integer.parseInt(jTable_pengeluaran.getModel().getValueAt(i, 2).toString());
+            raw_totalPengeluaran += Integer.parseInt(jTable_pengeluaran.getModel().getValueAt(i, 3).toString());
             System.out.println("data subtotal"+raw_totalPengeluaran);
         }
         totalPengeluaran = raw_totalPengeluaran;
@@ -1035,23 +1032,16 @@ public class Form_transaksi extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_hitungActionPerformed
 
     private void btn_selesaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_selesaiActionPerformed
-        // TODO add your handling code here:
-        int id_outlet = 0;
-        //generate kd pengeluaran
         Date raw_tgl = i_tgl_pengeluaran.getDate();
         tgl_pengeluaran = Library.parsing_Jdate(raw_tgl, "yyyy-MM-dd");
-        kd_pengeluaran_draf = lib.generateCodeOrder(3,id_outlet,tgl_pengeluaran);
         
         System.out.println(this.getAdditionalBrg());
         if (this.getAdditionalBrg()) {//jika ada pengeluaran
             //insert ke tabel pengeluaran jika ada
-            createDataPengeluaran(kd_pengeluaran_draf);
+            createDataPengeluaran(tgl_pengeluaran);
         }else{
             kd_pengeluaran_draf = null;//jika tidak 
         }
-        
-        //check stock
-        ////jml_stock_akhir = order+stock_awal-barang_rusak-terjual;
         
         // insert tabel transaksi
         createDataTransaksi(karyawanID,tgl_pengeluaran);
@@ -1102,7 +1092,6 @@ public class Form_transaksi extends javax.swing.JFrame {
     private void jTable_pengeluaranPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTable_pengeluaranPropertyChange
         // TODO add your handling code here:
         int row_JTBLpengeluaran = jTable_pengeluaran.getRowCount();
-        System.out.println("jumlah data = "+row_JTBLpengeluaran);
         int raw_totalPengeluaran = 0;
         for (int i = 0; i < row_JTBLpengeluaran; i++) {
             raw_totalPengeluaran += Integer.parseInt(jTable_pengeluaran.getModel().getValueAt(i, 2).toString());
@@ -1134,12 +1123,6 @@ public class Form_transaksi extends javax.swing.JFrame {
         int id_nm_outlet = Integer.parseInt(jTable_outlet3.getModel().getValueAt(row, 0).toString());
         setIdOutlet(id_nm_outlet);
         lbl_frmt_nm_outlet.setText(val_nm_outlet);
-        
-        
-        //check stock barang outlet untuk kalkulasi stock akhir
-        ////jml_stock_akhir = order+stock_awal-barang_rusak-terjual;
-//        btn_check_stock.setEnabled(true);
-        int jml_stock_akhir = 0;
         jDialog_outlet.setVisible(false);
     }//GEN-LAST:event_jTable_outlet3MouseClicked
 
