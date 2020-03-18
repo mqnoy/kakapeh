@@ -49,9 +49,9 @@
                   <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="45" pref="45" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="btn_cetak_ok2" min="-2" pref="247" max="-2" attributes="0"/>
-                      <Component id="btn_cetak_ok4" min="-2" pref="247" max="-2" attributes="0"/>
-                      <Component id="btn_cetak_ok3" alignment="1" min="-2" pref="247" max="-2" attributes="0"/>
+                      <Component id="btn_cetak_omsetKotor" min="-2" pref="247" max="-2" attributes="0"/>
+                      <Component id="btn_cetak_omsetBersih" min="-2" pref="247" max="-2" attributes="0"/>
+                      <Component id="btn_cetak_uangSetoran" alignment="1" min="-2" pref="247" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="0" pref="25" max="32767" attributes="0"/>
               </Group>
@@ -74,11 +74,11 @@
                       <Component id="jPanel3" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                          <Component id="btn_cetak_ok4" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_cetak_omsetBersih" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btn_cetak_ok2" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_cetak_omsetKotor" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btn_cetak_ok3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btn_cetak_uangSetoran" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jPanel2" max="32767" attributes="0"/>
                   </Group>
@@ -202,8 +202,8 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel12" min="-2" pref="128" max="-2" attributes="0"/>
-                                  <Component id="jDateChooser1" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
-                                  <Component id="jDateChooser2" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
+                                  <Component id="rpt_tanggal_akhir" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
+                                  <Component id="rpt_tanggal_awal" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
                                   <Component id="jLabel13" alignment="0" min="-2" pref="128" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="27" max="32767" attributes="0"/>
@@ -219,11 +219,11 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel13" min="-2" pref="26" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jDateChooser2" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="rpt_tanggal_awal" min="-2" pref="31" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabel12" min="-2" pref="26" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jDateChooser1" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="rpt_tanggal_akhir" min="-2" pref="31" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="jButton5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -232,7 +232,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+            <Component class="com.toedter.calendar.JDateChooser" name="rpt_tanggal_akhir">
               <Properties>
                 <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd "/>
               </Properties>
@@ -254,7 +254,7 @@
                 <Property name="text" type="java.lang.String" value="tanggal"/>
               </Properties>
             </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
+            <Component class="com.toedter.calendar.JDateChooser" name="rpt_tanggal_awal">
               <Properties>
                 <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd "/>
               </Properties>
@@ -292,7 +292,7 @@
             <Property name="text" type="java.lang.String" value="bersihkan"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btn_cetak_ok2">
+        <Component class="javax.swing.JButton" name="btn_cetak_omsetKotor">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="f4" type="rgb"/>
@@ -303,10 +303,10 @@
             <Property name="text" type="java.lang.String" value="cetak omset kotor"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_cetak_ok2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_cetak_omsetKotorActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btn_cetak_ok3">
+        <Component class="javax.swing.JButton" name="btn_cetak_uangSetoran">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="f4" type="rgb"/>
@@ -317,10 +317,10 @@
             <Property name="text" type="java.lang.String" value="cetak uang setoran"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_cetak_ok3ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_cetak_uangSetoranActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btn_cetak_ok4">
+        <Component class="javax.swing.JButton" name="btn_cetak_omsetBersih">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="f4" type="rgb"/>
@@ -331,7 +331,7 @@
             <Property name="text" type="java.lang.String" value="cetak omset bersih"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_cetak_ok4ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_cetak_omsetBersihActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

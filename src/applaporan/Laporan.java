@@ -6,13 +6,24 @@
 package applaporan;
 
 import controller.MainController;
+import databases.ConfigDatabase;
+import java.sql.Connection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Laporan extends javax.swing.JFrame {
+
     MainController frame = new MainController();
+
     /**
      * Creates new form Form_laporan_penjualan
      */
@@ -37,16 +48,16 @@ public class Laporan extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        rpt_tanggal_akhir = new com.toedter.calendar.JDateChooser();
         jButton5 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        rpt_tanggal_awal = new com.toedter.calendar.JDateChooser();
         jLabel13 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        btn_cetak_ok2 = new javax.swing.JButton();
-        btn_cetak_ok3 = new javax.swing.JButton();
-        btn_cetak_ok4 = new javax.swing.JButton();
+        btn_cetak_omsetKotor = new javax.swing.JButton();
+        btn_cetak_uangSetoran = new javax.swing.JButton();
+        btn_cetak_omsetBersih = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -103,7 +114,7 @@ public class Laporan extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("priode"));
         jPanel3.setOpaque(false);
 
-        jDateChooser1.setDateFormatString("yyyy-MM-dd ");
+        rpt_tanggal_akhir.setDateFormatString("yyyy-MM-dd ");
 
         jButton5.setBackground(new java.awt.Color(244, 51, 51));
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
@@ -112,7 +123,7 @@ public class Laporan extends javax.swing.JFrame {
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText("tanggal");
 
-        jDateChooser2.setDateFormatString("yyyy-MM-dd ");
+        rpt_tanggal_awal.setDateFormatString("yyyy-MM-dd ");
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel13.setText("tanggal");
@@ -130,8 +141,8 @@ public class Laporan extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rpt_tanggal_akhir, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rpt_tanggal_awal, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 27, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -142,11 +153,11 @@ public class Laporan extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rpt_tanggal_awal, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rpt_tanggal_akhir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jButton5)
                 .addContainerGap())
@@ -165,30 +176,30 @@ public class Laporan extends javax.swing.JFrame {
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("bersihkan");
 
-        btn_cetak_ok2.setBackground(new java.awt.Color(244, 51, 51));
-        btn_cetak_ok2.setForeground(new java.awt.Color(255, 255, 255));
-        btn_cetak_ok2.setText("cetak omset kotor");
-        btn_cetak_ok2.addActionListener(new java.awt.event.ActionListener() {
+        btn_cetak_omsetKotor.setBackground(new java.awt.Color(244, 51, 51));
+        btn_cetak_omsetKotor.setForeground(new java.awt.Color(255, 255, 255));
+        btn_cetak_omsetKotor.setText("cetak omset kotor");
+        btn_cetak_omsetKotor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cetak_ok2ActionPerformed(evt);
+                btn_cetak_omsetKotorActionPerformed(evt);
             }
         });
 
-        btn_cetak_ok3.setBackground(new java.awt.Color(244, 51, 51));
-        btn_cetak_ok3.setForeground(new java.awt.Color(255, 255, 255));
-        btn_cetak_ok3.setText("cetak uang setoran");
-        btn_cetak_ok3.addActionListener(new java.awt.event.ActionListener() {
+        btn_cetak_uangSetoran.setBackground(new java.awt.Color(244, 51, 51));
+        btn_cetak_uangSetoran.setForeground(new java.awt.Color(255, 255, 255));
+        btn_cetak_uangSetoran.setText("cetak uang setoran");
+        btn_cetak_uangSetoran.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cetak_ok3ActionPerformed(evt);
+                btn_cetak_uangSetoranActionPerformed(evt);
             }
         });
 
-        btn_cetak_ok4.setBackground(new java.awt.Color(244, 51, 51));
-        btn_cetak_ok4.setForeground(new java.awt.Color(255, 255, 255));
-        btn_cetak_ok4.setText("cetak omset bersih");
-        btn_cetak_ok4.addActionListener(new java.awt.event.ActionListener() {
+        btn_cetak_omsetBersih.setBackground(new java.awt.Color(244, 51, 51));
+        btn_cetak_omsetBersih.setForeground(new java.awt.Color(255, 255, 255));
+        btn_cetak_omsetBersih.setText("cetak omset bersih");
+        btn_cetak_omsetBersih.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cetak_ok4ActionPerformed(evt);
+                btn_cetak_omsetBersihActionPerformed(evt);
             }
         });
 
@@ -202,9 +213,9 @@ public class Laporan extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_cetak_ok2, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_cetak_ok4, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_cetak_ok3, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_cetak_omsetKotor, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_cetak_omsetBersih, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_cetak_uangSetoran, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 25, Short.MAX_VALUE))
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -223,11 +234,11 @@ public class Laporan extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(btn_cetak_ok4)
+                        .addComponent(btn_cetak_omsetBersih)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_cetak_ok2)
+                        .addComponent(btn_cetak_omsetKotor)
                         .addGap(18, 18, 18)
-                        .addComponent(btn_cetak_ok3))
+                        .addComponent(btn_cetak_uangSetoran))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -250,17 +261,24 @@ public class Laporan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_cetak_ok2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetak_ok2ActionPerformed
+    private void btn_cetak_omsetKotorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetak_omsetKotorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_cetak_ok2ActionPerformed
+        Library.getReport("2020-03-18", "2020-03-18", "omsetkotor");
+    }//GEN-LAST:event_btn_cetak_omsetKotorActionPerformed
 
-    private void btn_cetak_ok3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetak_ok3ActionPerformed
+    private void btn_cetak_uangSetoranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetak_uangSetoranActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_cetak_ok3ActionPerformed
+        Library.getReport("2020-03-18", "2020-03-18", "uangsetoran");
+    }//GEN-LAST:event_btn_cetak_uangSetoranActionPerformed
 
-    private void btn_cetak_ok4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetak_ok4ActionPerformed
+    private void btn_cetak_omsetBersihActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetak_omsetBersihActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_cetak_ok4ActionPerformed
+//        Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
+//        Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
+//        String final_tanggalAwal_rpt = Library.parsing_Jdate(tanggalAwal_rpt, "yyyy-MM-dd");
+//        String final_tanggalAkhir_rpt = Library.parsing_Jdate(tanggalAkhir_rpt, "yyyy-MM-dd");
+        Library.getReport("2020-03-18", "2020-03-18", "omsetbersih");
+    }//GEN-LAST:event_btn_cetak_omsetBersihActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
@@ -305,14 +323,12 @@ public class Laporan extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cari_outlet;
-    private javax.swing.JButton btn_cetak_ok2;
-    private javax.swing.JButton btn_cetak_ok3;
-    private javax.swing.JButton btn_cetak_ok4;
+    private javax.swing.JButton btn_cetak_omsetBersih;
+    private javax.swing.JButton btn_cetak_omsetKotor;
+    private javax.swing.JButton btn_cetak_uangSetoran;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
@@ -321,5 +337,7 @@ public class Laporan extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private com.toedter.calendar.JDateChooser rpt_tanggal_akhir;
+    private com.toedter.calendar.JDateChooser rpt_tanggal_awal;
     // End of variables declaration//GEN-END:variables
 }
