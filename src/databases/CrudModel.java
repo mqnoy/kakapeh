@@ -407,24 +407,26 @@ public class CrudModel extends ConfigDatabase {
     /*
      *  CRUD AREA PENGELUARAN
      */
-    public static void createDataPengeluaran(String pengeluaranKD) {
+    public static void createDataPengeluaran(String tglPengeluaran) {
         int total_rowPengeluaran = jTable_pengeluaran.getRowCount();
 
-        String sql = "INSERT INTO tbl_pengeluaran (kd_pengeluaran,id_barang,qty,subtotal) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO tbl_pengeluaran (id_outlet,id_barang,qty,subtotal,tgl_pengeluaran) VALUES (?,?,?,?,?)";
         try {
             conn.setAutoCommit(false);
             PreparedStatement ps = conn.prepareStatement(sql);
 
             for (int row = 0; row < total_rowPengeluaran; row++) {
-                String kd_pengeluaran = pengeluaranKD;
-                int int_brg_id = (Integer) jTable_pengeluaran.getValueAt(row, 0);
-                int int_qty = (Integer) jTable_pengeluaran.getValueAt(row, 1);
-                int int_subtotal = (Integer) jTable_pengeluaran.getValueAt(row, 2);
+                String tglpengeluaran = tglPengeluaran;
+                int int_outlet_id = (Integer) jTable_pengeluaran.getValueAt(row, 0);
+                int int_brg_id = (Integer) jTable_pengeluaran.getValueAt(row, 1);
+                int int_qty = (Integer) jTable_pengeluaran.getValueAt(row, 2);
+                int int_subtotal = (Integer) jTable_pengeluaran.getValueAt(row, 3);
 
-                ps.setString(1, kd_pengeluaran);
+                ps.setInt(1, int_outlet_id);
                 ps.setInt(2, int_brg_id);
                 ps.setInt(3, int_qty);
                 ps.setInt(4, int_subtotal);
+                ps.setDate(5, java.sql.Date.valueOf(tglpengeluaran));
 
                 ps.addBatch();
                 System.out.println(sql);
