@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-03-18T09:16:41.711Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36" etag="isKMJFb3PEXV1hYCNGXp" version="12.8.5" type="github">
+<mxfile host="app.diagrams.net" modified="2020-03-18T09:30:59.222Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36" etag="fokpNBXA3GqI-JCwT_tX" version="12.8.5" type="github">
   <diagram id="yg1paYqdCrh0pD1ITqRo" name="Page-1">
     <mxGraphModel dx="868" dy="390" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -137,10 +137,10 @@
         <mxCell id="eWDfw4_UJDr3bdIwtCD6-43" value="kembali" style="rounded=0;html=1;shadow=0;dashed=0;whiteSpace=wrap;fontSize=10;fillColor=#666666;align=center;strokeColor=#4D4D4D;fontColor=#ffffff;comic=0;" parent="1" vertex="1">
           <mxGeometry x="800" y="590" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="eWDfw4_UJDr3bdIwtCD6-44" value="tambahkan" style="rounded=0;html=1;shadow=0;dashed=0;whiteSpace=wrap;fontSize=10;fillColor=#666666;align=center;strokeColor=#4D4D4D;fontColor=#ffffff;comic=0;" parent="1" vertex="1">
+        <mxCell id="eWDfw4_UJDr3bdIwtCD6-44" value="bersihkan" style="rounded=0;html=1;shadow=0;dashed=0;whiteSpace=wrap;fontSize=10;fillColor=#666666;align=center;strokeColor=#4D4D4D;fontColor=#ffffff;comic=0;" parent="1" vertex="1">
           <mxGeometry x="890" y="590" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="eWDfw4_UJDr3bdIwtCD6-45" value="tambahkan" style="rounded=0;html=1;shadow=0;dashed=0;whiteSpace=wrap;fontSize=10;fillColor=#666666;align=center;strokeColor=#4D4D4D;fontColor=#ffffff;comic=0;" parent="1" vertex="1">
+        <mxCell id="eWDfw4_UJDr3bdIwtCD6-45" value="selesai" style="rounded=0;html=1;shadow=0;dashed=0;whiteSpace=wrap;fontSize=10;fillColor=#666666;align=center;strokeColor=#4D4D4D;fontColor=#ffffff;comic=0;" parent="1" vertex="1">
           <mxGeometry x="980" y="590" width="80" height="30" as="geometry" />
         </mxCell>
         <mxCell id="4aZbBNj6QW1r3uf6kM99-4" value="" style="group" vertex="1" connectable="0" parent="1">
