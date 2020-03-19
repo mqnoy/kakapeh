@@ -405,44 +405,64 @@ public class CrudModel extends ConfigDatabase {
     /* END CRUD AREA BARANG */
 
     /*
-     *  CRUD AREA PENGELUARAN
+     *  CRUD AREA PENGELUARAN 
+     * 1= ada
+     * 0= tidak ada
      */
-    public static void createDataPengeluaran(String tglPengeluaran) {
+    public static void createDataPengeluaran(int ada, String tglPengeluaran, int outletID) {
         int total_rowPengeluaran = jTable_pengeluaran.getRowCount();
-
-        String sql = "INSERT INTO tbl_pengeluaran (id_outlet,id_barang,qty,subtotal,tgl_pengeluaran) VALUES (?,?,?,?,?)";
+        String sql = "";
         try {
-            conn.setAutoCommit(false);
-            PreparedStatement ps = conn.prepareStatement(sql);
+            sql = "INSERT INTO tbl_pengeluaran (id_outlet,id_barang,qty,subtotal,tgl_pengeluaran) VALUES (?,?,?,?,?)";
 
-            for (int row = 0; row < total_rowPengeluaran; row++) {
-                String tglpengeluaran = tglPengeluaran;
-                int int_outlet_id = (Integer) jTable_pengeluaran.getValueAt(row, 0);
-                int int_brg_id = (Integer) jTable_pengeluaran.getValueAt(row, 1);
-                int int_qty = (Integer) jTable_pengeluaran.getValueAt(row, 2);
-                int int_subtotal = (Integer) jTable_pengeluaran.getValueAt(row, 3);
+            if (ada == 1) {
 
-                ps.setInt(1, int_outlet_id);
-                ps.setInt(2, int_brg_id);
-                ps.setInt(3, int_qty);
-                ps.setInt(4, int_subtotal);
-                ps.setDate(5, java.sql.Date.valueOf(tglpengeluaran));
+                conn.setAutoCommit(false);
+                PreparedStatement ps = conn.prepareStatement(sql);
 
-                ps.addBatch();
-                System.out.println(sql);
-            }
-            int[] executeUpdate = ps.executeBatch();
+                for (int row = 0; row < total_rowPengeluaran; row++) {
+                    String tglpengeluaran = tglPengeluaran;
+                    int int_outlet_id = (Integer) jTable_pengeluaran.getValueAt(row, 0);
+                    int int_brg_id = (Integer) jTable_pengeluaran.getValueAt(row, 1);
+                    int int_qty = (Integer) jTable_pengeluaran.getValueAt(row, 2);
+                    int int_subtotal = (Integer) jTable_pengeluaran.getValueAt(row, 3);
 
-            conn.commit();
-            for (int row = 0; row < total_rowPengeluaran; row++) {
-                if (executeUpdate[row] > 0) {
+                    ps.setInt(1, int_outlet_id);
+                    ps.setInt(2, int_brg_id);
+                    ps.setInt(3, int_qty);
+                    ps.setInt(4, int_subtotal);
+                    ps.setDate(5, java.sql.Date.valueOf(tglpengeluaran));
+
+                    ps.addBatch();
+                    System.out.println(sql);
+                }
+                int[] executeUpdate = ps.executeBatch();
+
+                conn.commit();
+                for (int row = 0; row < total_rowPengeluaran; row++) {
+                    if (executeUpdate[row] > 0) {
+                        notifikasi_c_pengeluaran = true;
+
+                    } else {
+                        notifikasi_c_pengeluaran = false;
+                    }
+                }
+
+            } else {
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setInt(1, outletID);
+                ps.setInt(2, 0);
+                ps.setInt(3, 0);
+                ps.setInt(4, 0);
+                ps.setDate(5, java.sql.Date.valueOf(tglPengeluaran));
+                int executeUpdate = ps.executeUpdate();
+                if (executeUpdate > 0) {
                     notifikasi_c_pengeluaran = true;
-
                 } else {
                     notifikasi_c_pengeluaran = false;
-                    System.out.println("insert data transaksi gagal");
                 }
             }
+
         } catch (SQLException ex) {
             Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -540,7 +560,7 @@ public class CrudModel extends ConfigDatabase {
     /* end CRUD transaksi*/
     /*
      *  CRUD AREA outlet order
-     *  note : 
+     *  note :  
      * jika order pertama kali maka insert ke table stock
      * jika order untuk menambah stock maka update ke table stock
     
@@ -592,33 +612,31 @@ public class CrudModel extends ConfigDatabase {
                     if (!data_jml_order_sebelumnya.get(row).equals(0)) {
                         // TO DO
                         //akan bug jika tanggal sebelumnya ada order ,, rusak di isi dan terpakai di isi
-                        
+
                         int stockAkhir = data_jml_order_sebelumnya.get(row);
-                        int stockAwalBerikutnya = stockAkhir+jmlOrder;
+                        int stockAwalBerikutnya = stockAkhir + jmlOrder;
                         //query update tbl_data_stock [stock awal+order]  untuk tanggal order berikutnya.
                         sql_stock = "INSERT INTO tbl_data_stock (id_outlet,stock_awal,stock_akhir,id_barang,rusak,terpakai,tgl_stock)  "
-                                + "VALUES (?,?,?,?,?,?,?)";
+                                + "VALUES (?,?,(stock_awal-" + terpakai + "-" + rusak + "),?,?,?,?)";
                         ps_data_stock = conn.prepareStatement(sql_stock);
                         ps_data_stock.setInt(1, outletID);
                         ps_data_stock.setInt(2, stockAwalBerikutnya);
-                        ps_data_stock.setInt(3, 0);
-                        ps_data_stock.setInt(4, barangID);
-                        ps_data_stock.setInt(5, rusak);
-                        ps_data_stock.setInt(6, terpakai);
-                        ps_data_stock.setDate(7, java.sql.Date.valueOf(tgl_order));
+                        ps_data_stock.setInt(3, barangID);
+                        ps_data_stock.setInt(4, rusak);
+                        ps_data_stock.setInt(5, terpakai);
+                        ps_data_stock.setDate(6, java.sql.Date.valueOf(tgl_order));
 
                     } else {//outlet baru pertama kali order
                         //query insert tbl_data_stock
                         sql_stock = "INSERT INTO tbl_data_stock (id_outlet,stock_awal,stock_akhir,id_barang,rusak,terpakai,tgl_stock)  "
-                                + "VALUES (?,?,?,?,?,?,?)";
+                                + "VALUES (?,?,(stock_awal-" + terpakai + "-" + rusak + "),?,?,?,?)";
                         ps_data_stock = conn.prepareStatement(sql_stock);
                         ps_data_stock.setInt(1, outletID);
                         ps_data_stock.setInt(2, jmlOrder);
-                        ps_data_stock.setInt(3, 0);
-                        ps_data_stock.setInt(4, barangID);
-                        ps_data_stock.setInt(5, rusak);
-                        ps_data_stock.setInt(6, terpakai);
-                        ps_data_stock.setDate(7, java.sql.Date.valueOf(tgl_order));
+                        ps_data_stock.setInt(3, barangID);
+                        ps_data_stock.setInt(4, rusak);
+                        ps_data_stock.setInt(5, terpakai);
+                        ps_data_stock.setDate(6, java.sql.Date.valueOf(tgl_order));
 
                     }
                 }

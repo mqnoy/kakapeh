@@ -911,9 +911,9 @@ public class Form_transaksi extends javax.swing.JFrame {
         System.out.println(this.getAdditionalBrg());
         if (this.getAdditionalBrg()) {//jika ada pengeluaran
             //insert ke tabel pengeluaran jika ada
-            createDataPengeluaran(tgl_pengeluaran);
+            createDataPengeluaran(1,tgl_pengeluaran,getIdOutlet());
         }else{
-            kd_pengeluaran_draf = null;//jika tidak 
+            createDataPengeluaran(0,tgl_pengeluaran,getIdOutlet());//jika tidak 
         }
         
         // insert tabel transaksi
