@@ -32,6 +32,9 @@ public class Laporan extends javax.swing.JFrame {
     public Laporan() {
         initComponents();
         btn_cari_outlet.requestFocus(true);
+        btn_cetak_omsetBersih.setEnabled(false);
+        btn_cetak_omsetKotor.setEnabled(false);
+        btn_cetak_uangSetoran.setEnabled(false);
     }
     private void setIdOutlet(int var){
         outletid = var;
@@ -238,6 +241,11 @@ public class Laporan extends javax.swing.JFrame {
         jButton5.setBackground(new java.awt.Color(244, 51, 51));
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("cari data");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText("tanggal");
@@ -433,6 +441,13 @@ public class Laporan extends javax.swing.JFrame {
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         jDialog_outlet.setVisible(false);
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        btn_cetak_omsetBersih.setEnabled(true);
+        btn_cetak_omsetKotor.setEnabled(true);
+        btn_cetak_uangSetoran.setEnabled(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
