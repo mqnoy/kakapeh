@@ -21,6 +21,7 @@ import static applaporan.Form_transaksi.jTable_outlet3;
 import static applaporan.Form_transaksi.jTable_pengeluaran;
 import static applaporan.Form_transaksi.jTable_transaksi;
 import static applaporan.Form_transaksi.txt_frmt_terjual;
+import static applaporan.Laporan.jTable_outlet4;
 import static applaporan.Library.strTo_MD5;
 import controller.MainController;
 import static controller.MainController.*;
@@ -769,6 +770,10 @@ public class CrudModel extends ConfigDatabase {
             Object[] baris = {"id", "Nama outlet", "kota", "alamat outlet"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_outlet3.setModel(tabmode);
+        }else if (tableName.equals(jTable_outlet4)) {
+            Object[] baris = {"id", "Nama outlet", "kota", "alamat outlet"};
+            tabmode = new DefaultTableModel(null, baris);
+            jTable_outlet4.setModel(tabmode);
         } else if (tableName.equals(jTable_karyawan)) {
             Object[] baris = {"id", "Nik", "jabatan", "nama", "alamat"};
             tabmode = new DefaultTableModel(null, baris);
