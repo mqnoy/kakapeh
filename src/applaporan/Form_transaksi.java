@@ -14,85 +14,99 @@ import static databases.CrudModel.readDataOutlet;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Form_transaksi extends javax.swing.JFrame {
+
     Otentikasi otentikasi = new Otentikasi();
     public Library lib = new Library();
     public String tgl_pengeluaran = "1999-01-01";
     public String kd_pengeluaran_draf = "";
-    
-    
-    
+
     int uangTakterduga = 0;
-    static int outletid = 0;    
+    static int outletid = 0;
     static int barangid = 0;
     static int barangHrg = 0;
     int karyawanID = -1;
-    
+
     boolean additional = false;
-    int id_nm_barang,qty_barang,harga_item;
-    int subtotal=0;
-    int subtotal_menu=0;
+    int id_nm_barang, qty_barang, harga_item;
+    int subtotal = 0;
+    int subtotal_menu = 0;
     static int totalPengeluaran = 0;
+
     /**
      * Creates new form Form_penjualan
      */
     public Form_transaksi() {
         initComponents();
-        
+
         btn_item_additional.setEnabled(false);
+        btn_selesai.setEnabled(false);
         btn_hitung.setEnabled(false);
 //        karyawanID = otentikasi.getIdKaryawan(); //prod
         btn_tambah_additional.setEnabled(false);
-        btn_cari_menu.requestFocus(true);
+        i_tgl_pengeluaran.requestFocus(true);
         btn_hapus_trans.setEnabled(false);
     }
-    private void setAdditionalBrg(boolean var){
+
+    private void setAdditionalBrg(boolean var) {
         this.additional = var;
     }
-    private boolean getAdditionalBrg(){
+
+    private boolean getAdditionalBrg() {
         return this.additional;
     }
-    private void setSubtotal(int y){
+
+    private void setSubtotal(int y) {
         this.subtotal = y;
     }
-    private int getSubtotal(){
+
+    private int getSubtotal() {
         return this.subtotal;
     }
-    public static int getTotalPengeluaran(){
+
+    public static int getTotalPengeluaran() {
         return totalPengeluaran;
     }
-    private void setIdOutlet(int var){
+
+    private void setIdOutlet(int var) {
         outletid = var;
     }
-    public static int getIdOutlet(){
+
+    public static int getIdOutlet() {
         return outletid;
     }
-    
+
     //untuk menu
-    private void setIdBarang(int var){
+    private void setIdBarang(int var) {
         barangid = var;
     }
-    public static int getIdBarang(){
+
+    public static int getIdBarang() {
         return barangid;
     }
-    private void setHrgBarang(int var){
+
+    private void setHrgBarang(int var) {
         barangHrg = var;
     }
-    public static int getHrgBarang(){
+
+    public static int getHrgBarang() {
         return barangHrg;
     }
-    private void setSubtotalMenu(int var){
+
+    private void setSubtotalMenu(int var) {
         subtotal_menu = var;
     }
-    public int getSubtotalMenu(){
+
+    public int getSubtotalMenu() {
         return subtotal_menu;
     }
-    
-    private void eventClickBarang(boolean x){
+
+    private void eventClickBarang(boolean x) {
         if (x) {
             //jika ada aditional event mouse click untuk additioanl
             int row = jTable_barang_3.getSelectedRow();
@@ -100,19 +114,19 @@ public class Form_transaksi extends javax.swing.JFrame {
             String val_nm_barang = jTable_barang_3.getModel().getValueAt(row, 1).toString();
 
             harga_item = Integer.parseInt(jTable_barang_3.getModel().getValueAt(row, 3).toString());
-            
+
             System.out.println(harga_item);
             lbl_nm_item.setText(val_nm_barang);
-            
+
             jDialog_barang.setVisible(false);
-            
-        }else{
+
+        } else {
             //untuk event cari menu
             int row = jTable_barang_3.getSelectedRow();
             int id_nm_barang = Integer.parseInt(jTable_barang_3.getModel().getValueAt(row, 0).toString());
             String val_nm_barang = jTable_barang_3.getModel().getValueAt(row, 1).toString();
             int harga_barang = Integer.parseInt(jTable_barang_3.getModel().getValueAt(row, 3).toString());
-            
+
             txt_nama_barang.setText(val_nm_barang);
             setIdBarang(id_nm_barang);
             setHrgBarang(harga_barang);
@@ -181,10 +195,12 @@ public class Form_transaksi extends javax.swing.JFrame {
         lbl_nm_item = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         btn_tambah_additional = new javax.swing.JButton();
-        btn_hitung = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         lbl_trans_total_item = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        lbl_trans_grandtotal = new javax.swing.JLabel();
+        btn_hitung = new javax.swing.JButton();
 
         jDialog_barang.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jDialog_barang.setMinimumSize(new java.awt.Dimension(552, 443));
@@ -648,11 +664,6 @@ public class Form_transaksi extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable_pengeluaran.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jTable_pengeluaranPropertyChange(evt);
-            }
-        });
         jScrollPane2.setViewportView(jTable_pengeluaran);
 
         btn_item_additional.setBackground(btn_cari_menu.getBackground());
@@ -680,15 +691,6 @@ public class Form_transaksi extends javax.swing.JFrame {
         btn_tambah_additional.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_tambah_additionalActionPerformed(evt);
-            }
-        });
-
-        btn_hitung.setBackground(btn_cari_menu.getBackground());
-        btn_hitung.setForeground(btn_cari_menu.getForeground());
-        btn_hitung.setText("hitung");
-        btn_hitung.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_hitungActionPerformed(evt);
             }
         });
 
@@ -725,9 +727,7 @@ public class Form_transaksi extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addComponent(jButton6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_hitung)
-                        .addGap(20, 20, 20))
+                        .addGap(20, 321, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(rd_trans_ada)
                         .addGap(18, 18, 18)
@@ -756,14 +756,25 @@ public class Form_transaksi extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_hitung)
-                    .addComponent(jButton6)))
+                .addComponent(jButton6))
         );
 
-        jLabel12.setText("total additional (Rp) ");
+        jLabel12.setText("Total Additional (Rp) ");
 
         lbl_trans_total_item.setText("0");
+
+        jLabel15.setText("Grand Total (Rp) ");
+
+        lbl_trans_grandtotal.setText("0");
+
+        btn_hitung.setBackground(btn_cari_menu.getBackground());
+        btn_hitung.setForeground(btn_cari_menu.getForeground());
+        btn_hitung.setText("hitung");
+        btn_hitung.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_hitungActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -773,23 +784,30 @@ public class Form_transaksi extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lbl_trans_total_item, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(25, 25, 25))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_selesai, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(25, 25, 25))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(lbl_trans_total_item, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                                            .addComponent(lbl_trans_grandtotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(btn_hitung))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -804,7 +822,13 @@ public class Form_transaksi extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lbl_trans_total_item, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(125, 125, 125)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbl_trans_grandtotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_hitung)
+                        .addGap(51, 51, 51)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton5)
                             .addComponent(btn_selesai)))
@@ -831,7 +855,7 @@ public class Form_transaksi extends javax.swing.JFrame {
     private void btn_item_additionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_item_additionalActionPerformed
         // TODO add your handling code here:
         //munculin dialog barang
-        readDataBarang("additional",null,jTable_barang_3);
+        readDataBarang("additional", null, jTable_barang_3);
         jDialog_barang.setLocationRelativeTo(null);
         jDialog_barang.setVisible(true);
         setAdditionalBrg(true);//untuk event mouse click di table
@@ -840,7 +864,7 @@ public class Form_transaksi extends javax.swing.JFrame {
     private void jTable_barang_3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_barang_3MouseClicked
         // TODO add your handling code here:
         eventClickBarang(this.getAdditionalBrg());
-        
+
     }//GEN-LAST:event_jTable_barang_3MouseClicked
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -848,8 +872,8 @@ public class Form_transaksi extends javax.swing.JFrame {
         String keyword = null;
         if (!txt_cari_barang.getText().isEmpty()) {
             keyword = txt_cari_barang.getText().trim();
-            readDataBarang(null,keyword,jTable_barang_3);
-        }else{
+            readDataBarang(null, keyword, jTable_barang_3);
+        } else {
             JOptionPane.showMessageDialog(rootPane, "nama barang kosong!", "pencarian", 2);
         }
     }//GEN-LAST:event_jButton10ActionPerformed
@@ -862,7 +886,7 @@ public class Form_transaksi extends javax.swing.JFrame {
     private void btn_cari_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cari_menuActionPerformed
         // TODO add your handling code here:
         //munculin dialog barang
-        readDataBarang("menu",null,jTable_barang_3);
+        readDataBarang("menu", null, jTable_barang_3);
         jDialog_barang.setLocationRelativeTo(null);
         jDialog_barang.setVisible(true);
         setAdditionalBrg(false);
@@ -873,51 +897,73 @@ public class Form_transaksi extends javax.swing.JFrame {
         //untuk additional biaya / uang tak terduga
         btn_item_additional.setEnabled(true);
         btn_tambah_additional.setEnabled(true);
+        btn_hitung.setEnabled(true);
     }//GEN-LAST:event_rd_trans_adaActionPerformed
 
     private void btn_tambah_additionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambah_additionalActionPerformed
         subtotal = harga_item * qty_barang;
-            
+
         //code insert data ke table pengeluaran
         qty_barang = Integer.parseInt(txt_qty_item.getText());
-        setSubtotal(harga_item*qty_barang);
-        
+        setSubtotal(harga_item * qty_barang);
+
         DefaultTableModel model = (DefaultTableModel) jTable_pengeluaran.getModel();
         model.addRow(new Object[]{
-            getIdOutlet(),id_nm_barang, qty_barang, getSubtotal()
+            getIdOutlet(), id_nm_barang, qty_barang, getSubtotal()
         });
         btn_hitung.setEnabled(true);
-        
+
     }//GEN-LAST:event_btn_tambah_additionalActionPerformed
 
     private void btn_hitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hitungActionPerformed
         // TODO add your handling code here:
         int row_JTBLpengeluaran = jTable_pengeluaran.getRowCount();
+        int row_JTBLtransaksi = jTable_transaksi.getRowCount();
         int raw_totalPengeluaran = 0;
+        int raw_totalTransaksi = 0;
+        int grandTotal = 0;
         for (int i = 0; i < row_JTBLpengeluaran; i++) {
             raw_totalPengeluaran += Integer.parseInt(jTable_pengeluaran.getModel().getValueAt(i, 3).toString());
-            System.out.println("data subtotal"+raw_totalPengeluaran);
+            System.out.println("data subtotal" + raw_totalPengeluaran);
         }
+        for (int i = 0; i < row_JTBLtransaksi; i++) {
+            raw_totalTransaksi += Integer.parseInt(jTable_transaksi.getModel().getValueAt(i, 3).toString());
+            System.out.println("data transaksi" + raw_totalTransaksi);
+        }
+        grandTotal = raw_totalPengeluaran + raw_totalTransaksi;
         totalPengeluaran = raw_totalPengeluaran;
-        System.out.println(raw_totalPengeluaran);
+        System.out.println("grandTotal =>" + grandTotal);
         //set total semua
         lbl_trans_total_item.setText(String.valueOf(totalPengeluaran));
+        lbl_trans_grandtotal.setText(String.valueOf(grandTotal));
+
+        if (rd_trans_ada.isSelected() && raw_totalPengeluaran == 0) {
+            btn_selesai.setEnabled(false);
+            JOptionPane.showMessageDialog(this, "isi data additional terlebih dahulu", "notifikasi", 2);
+        } else if (raw_totalTransaksi == 0) {
+            btn_selesai.setEnabled(false);
+            JOptionPane.showMessageDialog(this, "isi data transaksi terlebih dahulu", "notifikasi", 2);
+        } else {
+            //enable tombol selesai
+            btn_selesai.setEnabled(true);
+            btn_selesai.requestFocus(true);
+        }
     }//GEN-LAST:event_btn_hitungActionPerformed
 
     private void btn_selesaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_selesaiActionPerformed
         Date raw_tgl = i_tgl_pengeluaran.getDate();
         tgl_pengeluaran = Library.parsing_Jdate(raw_tgl, "yyyy-MM-dd");
-        
+
         System.out.println(this.getAdditionalBrg());
         if (this.getAdditionalBrg()) {//jika ada pengeluaran
             //insert ke tabel pengeluaran jika ada
-            createDataPengeluaran(1,tgl_pengeluaran,getIdOutlet());
-        }else{
-            createDataPengeluaran(0,tgl_pengeluaran,getIdOutlet());//jika tidak 
+            createDataPengeluaran(1, tgl_pengeluaran, getIdOutlet());
+        } else {
+            createDataPengeluaran(0, tgl_pengeluaran, getIdOutlet());//jika tidak 
         }
-        
+
         // insert tabel transaksi
-        createDataTransaksi(karyawanID,tgl_pengeluaran);
+        createDataTransaksi(karyawanID, tgl_pengeluaran);
         if (notifikasi_c_transaksi) {
             JOptionPane.showMessageDialog(this, "data transaksi outlet berhasil di simpan", "notifikasi", 1);
         } else {
@@ -927,8 +973,8 @@ public class Form_transaksi extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel tblPengeluaran = (DefaultTableModel)jTable_pengeluaran.getModel();
-        while(tblPengeluaran.getRowCount() > 0) {
+        DefaultTableModel tblPengeluaran = (DefaultTableModel) jTable_pengeluaran.getModel();
+        while (tblPengeluaran.getRowCount() > 0) {
             tblPengeluaran.removeRow(0);
         }
         btn_hitung.setEnabled(false);
@@ -940,6 +986,7 @@ public class Form_transaksi extends javax.swing.JFrame {
         btn_item_additional.setEnabled(false);
         btn_tambah_additional.setEnabled(false);
         lbl_trans_total_item.setText("0");
+        btn_hitung.setEnabled(true);
     }//GEN-LAST:event_rd_trans_tdkadaActionPerformed
 
     private void txt_nama_barangPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txt_nama_barangPropertyChange
@@ -949,7 +996,7 @@ public class Form_transaksi extends javax.swing.JFrame {
 
     private void lbl_nm_itemPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_lbl_nm_itemPropertyChange
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_lbl_nm_itemPropertyChange
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -957,29 +1004,15 @@ public class Form_transaksi extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jTable_pengeluaranPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTable_pengeluaranPropertyChange
-        // TODO add your handling code here:
-        int row_JTBLpengeluaran = jTable_pengeluaran.getRowCount();
-        int raw_totalPengeluaran = 0;
-        for (int i = 0; i < row_JTBLpengeluaran; i++) {
-            raw_totalPengeluaran += Integer.parseInt(jTable_pengeluaran.getModel().getValueAt(i, 2).toString());
-            System.out.println("data subtotal"+raw_totalPengeluaran);
-        }
-        totalPengeluaran = raw_totalPengeluaran;
-        System.out.println(raw_totalPengeluaran);
-        //set total semua
-        lbl_trans_total_item.setText(String.valueOf(totalPengeluaran));
-    }//GEN-LAST:event_jTable_pengeluaranPropertyChange
-
     private void btn_tambah_transActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambah_transActionPerformed
         // TODO add your handling code here:
-        int terjual = Integer.parseInt(txt_frmt_terjual.getText());    
+        int terjual = Integer.parseInt(txt_frmt_terjual.getText());
         //code insert data ke table pengeluaran
-        setSubtotalMenu(getHrgBarang()*terjual);
-        
+        setSubtotalMenu(getHrgBarang() * terjual);
+
         DefaultTableModel model = (DefaultTableModel) jTable_transaksi.getModel();
         model.addRow(new Object[]{
-            getIdOutlet(), getIdBarang(), txt_frmt_terjual.getText(),getSubtotalMenu()
+            getIdOutlet(), getIdBarang(), txt_frmt_terjual.getText(), getSubtotalMenu()
         });
         btn_selesai.setEnabled(true);
     }//GEN-LAST:event_btn_tambah_transActionPerformed
@@ -1005,7 +1038,7 @@ public class Form_transaksi extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        readDataOutlet(null,null,jTable_outlet3);
+        readDataOutlet(null, null, jTable_outlet3);
         jDialog_outlet.setLocationRelativeTo(null);
         jDialog_outlet.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -1013,7 +1046,7 @@ public class Form_transaksi extends javax.swing.JFrame {
     private void btn_hapus_transActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hapus_transActionPerformed
         // TODO add your handling code here:
         try {
-            DefaultTableModel tblTransaksi = (DefaultTableModel)jTable_transaksi.getModel();
+            DefaultTableModel tblTransaksi = (DefaultTableModel) jTable_transaksi.getModel();
             int getSelected = jTable_transaksi.getSelectedRow();
             tblTransaksi.removeRow(getSelected);
         } catch (Exception e) {
@@ -1085,6 +1118,7 @@ public class Form_transaksi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -1108,6 +1142,7 @@ public class Form_transaksi extends javax.swing.JFrame {
     public static javax.swing.JTable jTable_transaksi;
     private javax.swing.JLabel lbl_frmt_nm_outlet;
     private javax.swing.JLabel lbl_nm_item;
+    private javax.swing.JLabel lbl_trans_grandtotal;
     private javax.swing.JLabel lbl_trans_total_item;
     private javax.swing.JRadioButton rd_trans_ada;
     private javax.swing.JRadioButton rd_trans_tdkada;
