@@ -90,7 +90,10 @@ public class Library {
     public static void main(String[] args) {
         Library lib = new Library();
 //        lib.generateCodeOrder(1,1,"2020-02-28");
-        lib.getReport("2020-03-18","2020-03-18","omsetkotor");
+        Map outlet_meta = new HashMap();
+        outlet_meta.put("om_nama","nama outletnya");
+        outlet_meta.put("om_info","info outlet");
+        lib.getReport("2020-03-18","2020-03-18","omsetkotor",1,outlet_meta);
     }
 
     //get full path 
@@ -144,7 +147,7 @@ public class Library {
      
      */
 
-    public static void getReport(String tglawal,String tglakhir,String report) {
+    public static void getReport(String tglawal,String tglakhir,String report,int idOutlet,Map OutletMeta) {
         String templateReport = null;
 
         switch (report) {
@@ -159,15 +162,9 @@ public class Library {
                 break;
         }
         Map JasperParams = new HashMap();
-
-//        Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
-//            Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
-//            String final_tanggalAwal_rpt = Library.parsing_Jdate(tanggalAwal_rpt, "dd-MM-yyyy");
-//            String final_tanggalAkhir_rpt = Library.parsing_Jdate(tanggalAkhir_rpt, "dd-MM-yyyy");
-        String final_tanggalAwal_rpt = "2020-03-18";
-        String final_tanggalAkhir_rpt = "2020-03-18";
-        JasperParams.put("PARAM_NM_OUTLET", "NAMA OUTLET");
-        JasperParams.put("PARAM_OUTLET_INFO", "jl.yang tidak rusak");
+        JasperParams.put("PARAM_ID_OUTLET", idOutlet);
+        JasperParams.put("PARAM_NM_OUTLET", OutletMeta.get("om_nama"));
+        JasperParams.put("PARAM_OUTLET_INFO", OutletMeta.get("om_info"));
         JasperParams.put("PARAM_PERIOD_BEGIN", tglawal);
         JasperParams.put("PARAM_PERIOD_END", tglakhir);
         String reportPath = Library.get_fullPath("src/reporting/" + templateReport + ".jrxml");
