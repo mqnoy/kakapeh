@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="omset_kotor" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="90c48cff-7f7a-46ba-bb6e-b25bca8ce694">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.6105100000000008"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="35"/>
 	<parameter name="PARAM_PERIOD_BEGIN" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -50,56 +50,138 @@ FROM (
 	<field name="t_pengeluaran" class="java.math.BigDecimal"/>
 	<field name="omsetbersih" class="java.math.BigDecimal"/>
 	<field name="omsetkotor" class="java.math.BigDecimal"/>
+	<variable name="total_omsetkotor" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{omsetkotor}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="66" splitType="Stretch">
+		<band height="85" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="22" width="555" height="20" uuid="326b3e85-cf45-45ff-b18b-11f7732e3852"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="107" y="0" width="399" height="33" uuid="326b3e85-cf45-45ff-b18b-11f7732e3852"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{PARAM_NM_OUTLET}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="46" width="555" height="20" uuid="6b61a77f-9d34-4d82-96b8-9c8aca61b47e"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="107" y="33" width="399" height="38" uuid="6b61a77f-9d34-4d82-96b8-9c8aca61b47e"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{PARAM_OUTLET_INFO}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement mode="Transparent" x="3" y="5" width="93" height="66" uuid="e63dfee4-c8e0-4c02-b6c5-a7a5579648d5"/>
+				<imageExpression><![CDATA["src/assets/head_report.jpg"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement mode="Opaque" x="3" y="79" width="552" height="1" uuid="d4a40ed4-2bdb-47f1-ad2b-4a6a4472d62b"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</line>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="399" y="4" width="73" height="20" uuid="74533ac7-b737-4528-8a76-ca26730ced0c"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARAM_PERIOD_BEGIN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="488" y="4" width="67" height="20" uuid="83f1122a-991a-4c0d-b9e7-295e11bf6897"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARAM_PERIOD_END}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="351" y="4" width="48" height="20" uuid="44eec137-1ddc-486a-95d3-8584f0d6421c"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[tanggal : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="472" y="4" width="16" height="20" uuid="b693ed96-c606-42ae-99b5-47d0f90baf2c"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[/]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="4" width="79" height="20" uuid="0afcec2c-53ff-4fb0-a010-e2feb6ee049e"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Total omset kotor :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="82" y="4" width="100" height="20" uuid="bae18f13-5699-40b7-a8fb-dd33ae42e859"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_omsetkotor}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="28" splitType="Stretch">
+		<band height="25" splitType="Stretch">
 			<staticText>
-				<reportElement x="65" y="2" width="100" height="20" uuid="3b6bd913-ffd8-4119-9922-b09c64561fdc"/>
-				<text><![CDATA[tgl_closing]]></text>
+				<reportElement x="50" y="1" width="100" height="20" uuid="3b6bd913-ffd8-4119-9922-b09c64561fdc"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Tanggal closing]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="183" y="2" width="100" height="20" uuid="c6a95ec0-4576-4578-a4d4-4ff275361403"/>
-				<text><![CDATA[t_transaksi]]></text>
+				<reportElement x="183" y="1" width="100" height="20" uuid="c6a95ec0-4576-4578-a4d4-4ff275361403"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Total transaksi]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="346" y="2" width="100" height="20" uuid="f03eaf41-d7b5-48ed-9870-44134bb7bed5"/>
-				<text><![CDATA[omsetkotor]]></text>
+				<reportElement x="346" y="1" width="100" height="20" uuid="f03eaf41-d7b5-48ed-9870-44134bb7bed5"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Omset kotor]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="27" splitType="Stretch">
 			<textField>
-				<reportElement x="65" y="0" width="100" height="20" uuid="3da7fd18-6d1d-40fe-abfc-c49b9ab8f1f8"/>
+				<reportElement x="50" y="1" width="100" height="20" uuid="3da7fd18-6d1d-40fe-abfc-c49b9ab8f1f8"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{tgl_closing}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="183" y="0" width="100" height="20" uuid="32f6bec9-5427-4b00-ab7e-c50e8586be21"/>
+				<reportElement x="183" y="1" width="100" height="20" uuid="32f6bec9-5427-4b00-ab7e-c50e8586be21"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{t_transaksi}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="346" y="0" width="100" height="20" uuid="68a0fb7c-5560-4ad8-b0ec-dba21e0f9b9a"/>
+				<reportElement x="346" y="1" width="100" height="20" uuid="68a0fb7c-5560-4ad8-b0ec-dba21e0f9b9a"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{omsetkotor}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="0" y="22" width="552" height="1" uuid="337b42a9-988d-464a-bb28-eb1785cbd18b"/>
+			</line>
+			<line>
+				<reportElement x="0" y="-3" width="552" height="1" uuid="ee2962f0-f8da-46d4-a794-bcde3a4728fa"/>
+			</line>
 		</band>
 	</detail>
 	<columnFooter>
