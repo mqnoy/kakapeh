@@ -5,17 +5,11 @@
  */
 package applaporan;
 
-import controller.MainController;
-import databases.ConfigDatabase;
+import databases.CrudModel;
 import static databases.CrudModel.readDataOutlet;
-import java.sql.Connection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 /**
  *
@@ -443,7 +437,13 @@ public class Laporan extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        // TODO :
+        //pakai sub query sum lagi jika gk ketemu cara untuk proses sum di jreport
+        Date  tanggalAwal_rpt = rpt_tanggal_awal.getDate();
+        Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
+        String final_tanggalAwal_rpt = Library.parsing_Jdate(tanggalAwal_rpt, "yyyy-MM-dd");
+        String final_tanggalAkhir_rpt = Library.parsing_Jdate(tanggalAkhir_rpt, "yyyy-MM-dd");
+        CrudModel.getTotalReport("omsetkotor", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
         btn_cetak_omsetBersih.setEnabled(true);
         btn_cetak_omsetKotor.setEnabled(true);
         btn_cetak_uangSetoran.setEnabled(true);
