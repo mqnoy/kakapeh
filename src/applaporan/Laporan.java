@@ -7,6 +7,7 @@ package applaporan;
 
 import controller.MainController;
 import databases.ConfigDatabase;
+import static databases.CrudModel.readDataOutlet;
 import java.sql.Connection;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,14 +23,21 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
  */
 public class Laporan extends javax.swing.JFrame {
 
-    MainController frame = new MainController();
-
+    static int outletid = 0;   
+    Map outlet_meta = new HashMap();
+    
     /**
      * Creates new form Form_laporan_penjualan
      */
     public Laporan() {
         initComponents();
         btn_cari_outlet.requestFocus(true);
+    }
+    private void setIdOutlet(int var){
+        outletid = var;
+    }
+    public static int getIdOutlet(){
+        return outletid;
     }
 
     /**
@@ -41,12 +49,20 @@ public class Laporan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialog_outlet = new javax.swing.JDialog();
+        jPanel21 = new javax.swing.JPanel();
+        jPanel20 = new javax.swing.JPanel();
+        jScrollPane16 = new javax.swing.JScrollPane();
+        jTable_outlet4 = new javax.swing.JTable();
+        txt_cari_outlet1 = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btn_cari_outlet = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lbl_outlet_alamat = new javax.swing.JLabel();
+        lbl_outlet = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         rpt_tanggal_akhir = new com.toedter.calendar.JDateChooser();
         jButton5 = new javax.swing.JButton();
@@ -58,6 +74,104 @@ public class Laporan extends javax.swing.JFrame {
         btn_cetak_omsetKotor = new javax.swing.JButton();
         btn_cetak_uangSetoran = new javax.swing.JButton();
         btn_cetak_omsetBersih = new javax.swing.JButton();
+
+        jDialog_outlet.setMinimumSize(new java.awt.Dimension(466, 359));
+        jDialog_outlet.setResizable(false);
+
+        jPanel21.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder("Daftar outlet"));
+        jPanel20.setOpaque(false);
+
+        jTable_outlet4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "id outlet", "nama outlet", "lokasi", "alamat"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable_outlet4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_outlet4MouseClicked(evt);
+            }
+        });
+        jScrollPane16.setViewportView(jTable_outlet4);
+
+        jButton4.setText("cari outlet");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txt_cari_outlet1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)))
+                .addContainerGap())
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton4)
+                    .addComponent(txt_cari_outlet1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane16, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jButton8.setText("x");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jPanel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
+                .addGap(0, 12, Short.MAX_VALUE)
+                .addComponent(jButton8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout jDialog_outletLayout = new javax.swing.GroupLayout(jDialog_outlet.getContentPane());
+        jDialog_outlet.getContentPane().setLayout(jDialog_outletLayout);
+        jDialog_outletLayout.setHorizontalGroup(
+            jDialog_outletLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jDialog_outletLayout.setVerticalGroup(
+            jDialog_outletLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -73,15 +187,20 @@ public class Laporan extends javax.swing.JFrame {
         btn_cari_outlet.setBackground(new java.awt.Color(244, 51, 51));
         btn_cari_outlet.setForeground(new java.awt.Color(255, 255, 255));
         btn_cari_outlet.setText("cari outlet");
+        btn_cari_outlet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cari_outletActionPerformed(evt);
+            }
+        });
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("alamat");
-        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lbl_outlet_alamat.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbl_outlet_alamat.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbl_outlet_alamat.setText("alamat");
+        lbl_outlet_alamat.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("lokasi");
+        lbl_outlet.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lbl_outlet.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbl_outlet.setText("lokasi");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -91,10 +210,10 @@ public class Laporan extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl_outlet, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl_outlet_alamat, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                         .addComponent(btn_cari_outlet)))
                 .addContainerGap())
@@ -103,9 +222,9 @@ public class Laporan extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbl_outlet, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbl_outlet_alamat, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_cari_outlet)
                 .addContainerGap())
@@ -260,30 +379,60 @@ public class Laporan extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void putReport(String whatis){
+        
+        Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
+        Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
+        String final_tanggalAwal_rpt = Library.parsing_Jdate(tanggalAwal_rpt, "yyyy-MM-dd");
+        String final_tanggalAkhir_rpt = Library.parsing_Jdate(tanggalAkhir_rpt, "yyyy-MM-dd");
+                
+        Library.getReport(final_tanggalAwal_rpt, final_tanggalAkhir_rpt, whatis,getIdOutlet(),outlet_meta);
+    }
     private void btn_cetak_omsetKotorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetak_omsetKotorActionPerformed
-        // TODO add your handling code here:
-        Library.getReport("2020-03-18", "2020-03-18", "omsetkotor");
+        this.putReport("omsetkotor");
     }//GEN-LAST:event_btn_cetak_omsetKotorActionPerformed
 
     private void btn_cetak_uangSetoranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetak_uangSetoranActionPerformed
-        // TODO add your handling code here:
-        Library.getReport("2020-03-18", "2020-03-18", "uangsetoran");
+        this.putReport("uangsetoran");
     }//GEN-LAST:event_btn_cetak_uangSetoranActionPerformed
 
     private void btn_cetak_omsetBersihActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetak_omsetBersihActionPerformed
-        // TODO add your handling code here:
-//        Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
-//        Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
-//        String final_tanggalAwal_rpt = Library.parsing_Jdate(tanggalAwal_rpt, "yyyy-MM-dd");
-//        String final_tanggalAkhir_rpt = Library.parsing_Jdate(tanggalAkhir_rpt, "yyyy-MM-dd");
-        Library.getReport("2020-03-18", "2020-03-18", "omsetbersih");
+        this.putReport("omsetbersih");
     }//GEN-LAST:event_btn_cetak_omsetBersihActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void btn_cari_outletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cari_outletActionPerformed
+        readDataOutlet(null,null,jTable_outlet4);
+        jDialog_outlet.setLocationRelativeTo(null);
+        jDialog_outlet.setVisible(true);
+    }//GEN-LAST:event_btn_cari_outletActionPerformed
+
+    private void jTable_outlet4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_outlet4MouseClicked
+        int row = jTable_outlet4.getSelectedRow();
+        String val_nm_outlet = jTable_outlet4.getModel().getValueAt(row, 1).toString();
+        int id_nm_outlet = Integer.parseInt(jTable_outlet4.getModel().getValueAt(row, 0).toString());
+        String val_almt_outlet = jTable_outlet4.getModel().getValueAt(row, 3).toString();
+        setIdOutlet(id_nm_outlet);
+        lbl_outlet.setText(val_nm_outlet);        
+        lbl_outlet_alamat.setText(val_almt_outlet);
+        
+        outlet_meta.put("om_nama",val_nm_outlet);
+        outlet_meta.put("om_info",val_almt_outlet);
+        
+        //close dialog
+        jDialog_outlet.setVisible(false);
+    }//GEN-LAST:event_jTable_outlet4MouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        jDialog_outlet.setVisible(false);
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -326,18 +475,26 @@ public class Laporan extends javax.swing.JFrame {
     private javax.swing.JButton btn_cetak_omsetBersih;
     private javax.swing.JButton btn_cetak_omsetKotor;
     private javax.swing.JButton btn_cetak_uangSetoran;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JDialog jDialog_outlet;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane16;
+    public static javax.swing.JTable jTable_outlet4;
+    private javax.swing.JLabel lbl_outlet;
+    private javax.swing.JLabel lbl_outlet_alamat;
     private com.toedter.calendar.JDateChooser rpt_tanggal_akhir;
     private com.toedter.calendar.JDateChooser rpt_tanggal_awal;
+    private javax.swing.JTextField txt_cari_outlet1;
     // End of variables declaration//GEN-END:variables
 }
