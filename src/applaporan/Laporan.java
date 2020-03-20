@@ -449,10 +449,8 @@ public class Laporan extends javax.swing.JFrame {
         Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
         String final_tanggalAwal_rpt = Library.parsing_Jdate(tanggalAwal_rpt, "yyyy-MM-dd");
         String final_tanggalAkhir_rpt = Library.parsing_Jdate(tanggalAkhir_rpt, "yyyy-MM-dd");
+        
         sumOmsetKotor = CrudModel.getTotalReport("omsetkotor", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
-        sumOmsetBersih = CrudModel.getTotalReport("omsetbersih", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
-        sumUangStoran = CrudModel.getTotalReport("omsetbersih", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
-
         if (sumOmsetKotor != 0) {
             JOptionPane.showMessageDialog(this, "data omset kotor ditemukan", "notifikasi", 1);
             System.out.println("total sum : " + sumOmsetKotor);
@@ -461,6 +459,8 @@ public class Laporan extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "tidak ada data omset kotor", "notifikasi", 2);
         }
+        
+        sumOmsetBersih = CrudModel.getTotalReport("omsetbersih", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
         if (sumOmsetBersih != 0) {
             JOptionPane.showMessageDialog(this, "data omset bersih ditemukan", "notifikasi", 1);
             System.out.println("total sum : " + sumOmsetBersih);
@@ -469,6 +469,8 @@ public class Laporan extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "tidak ada data omset bersih", "notifikasi", 2);
         }
+        
+        sumUangStoran = CrudModel.getTotalReport("uangstoran", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
         if (sumUangStoran != 0) {
             JOptionPane.showMessageDialog(this, "data uang setoran ditemukan", "notifikasi", 1);
             System.out.println("total sum : " + sumUangStoran);
