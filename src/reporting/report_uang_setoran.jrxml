@@ -33,16 +33,14 @@ FROM (
 	USING (id_outlet)
 	LEFT JOIN 
 	(
-		SELECT id_outlet, nama_outlet FROM tbl_master_outlet tmo GROUP BY id_outlet 
+		SELECT id_outlet, nama_outlet FROM tbl_master_outlet tmo WHERE tmo.id_outlet =$P{PARAM_ID_OUTLET}  
 	) outlet
 	ON outlet.id_outlet = transaksi.id_outlet]]>
 	</queryString>
 	<field name="id_outlet" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="nama_outlet" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
+	<field name="nama_outlet" class="java.lang.String"/>
 	<field name="tgl_closing" class="java.sql.Date">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -116,7 +114,10 @@ FROM (
 				<text><![CDATA[Total uang setoran :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="97" y="4" width="179" height="20" uuid="e73991ac-2b51-4572-8a3a-53fa31521167"/>
+				<reportElement x="97" y="4" width="178" height="20" uuid="4cd21338-7430-4346-a299-56762d4d0a3b"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{PARAM_T_UANGSETORAN}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -156,6 +157,9 @@ FROM (
 			</line>
 			<textField>
 				<reportElement x="346" y="1" width="100" height="20" uuid="08df28ee-0302-414e-bb06-0e912d85a5c1"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{uangsetoran}]]></textFieldExpression>
 			</textField>
 		</band>

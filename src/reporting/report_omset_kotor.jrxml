@@ -34,16 +34,14 @@ FROM (
 	USING (id_outlet)
 	LEFT JOIN 
 	(
-		SELECT id_outlet, nama_outlet FROM tbl_master_outlet tmo GROUP BY id_outlet 
+		SELECT id_outlet, nama_outlet FROM tbl_master_outlet tmo WHERE tmo.id_outlet =$P{PARAM_ID_OUTLET}  
 	) outlet
 	ON outlet.id_outlet = transaksi.id_outlet]]>
 	</queryString>
 	<field name="id_outlet" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="nama_outlet" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
+	<field name="nama_outlet" class="java.lang.String"/>
 	<field name="tgl_closing" class="java.sql.Date">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
