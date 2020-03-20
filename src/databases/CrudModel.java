@@ -708,18 +708,12 @@ public class CrudModel extends ConfigDatabase {
         String sql = "";
         switch (report) {
             case "omsetkotor":
-                sql = "SELECT SUM(x.omsetkotor) as data FROM ("
+                sql = "SELECT SUM(x.t_transaksi) as data FROM ("
                         + "SELECT "
-                        + "(transaksi.t_transaksi - pengeluaran.t_pengeluaran) as omsetbersih,"
-                        + "(transaksi.t_transaksi + pengeluaran.t_pengeluaran) as omsetkotor "
+                        + "transaksi.t_transaksi "
                         + "FROM ( "
                         + "		SELECT id_outlet, tgl_closing,SUM(subtotal) as t_transaksi FROM tbl_transaksi WHERE id_outlet =" + idOutlet + " AND tgl_closing  BETWEEN '" + tglAwal + "' AND '" + tglAkhir + "' GROUP BY tgl_closing "
                         + "	)  transaksi "
-                        + "	LEFT  JOIN  "
-                        + "	( "
-                        + "		SELECT id_outlet ,SUM(subtotal) as t_pengeluaran FROM tbl_pengeluaran WHERE id_outlet =" + idOutlet + " AND tgl_pengeluaran BETWEEN '" + tglAwal + "' AND '" + tglAkhir + "' GROUP BY tgl_pengeluaran "
-                        + "	) pengeluaran "
-                        + "	USING (id_outlet) "
                         + "	LEFT JOIN  "
                         + "	( "
                         + "		SELECT id_outlet, nama_outlet FROM tbl_master_outlet tmo GROUP BY id_outlet  "
@@ -730,8 +724,7 @@ public class CrudModel extends ConfigDatabase {
             case "omsetbersih":
                 sql = "SELECT SUM(x.omsetbersih) as data FROM ("
                         + "SELECT "
-                        + "(transaksi.t_transaksi - pengeluaran.t_pengeluaran) as omsetbersih,"
-                        + "(transaksi.t_transaksi + pengeluaran.t_pengeluaran) as omsetkotor "
+                        + "(transaksi.t_transaksi - pengeluaran.t_pengeluaran) as omsetbersih "
                         + "FROM ( "
                         + "		SELECT id_outlet, tgl_closing,SUM(subtotal) as t_transaksi FROM tbl_transaksi WHERE id_outlet =" + idOutlet + " AND tgl_closing  BETWEEN '" + tglAwal + "' AND '" + tglAkhir + "' GROUP BY tgl_closing "
                         + "	)  transaksi "
