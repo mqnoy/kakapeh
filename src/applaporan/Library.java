@@ -162,7 +162,7 @@ public class Library {
                 break;
             case "uangsetoran":
                 templateReport = "report_uang_setoran";
-                JasperParams.put("PARAM_T_UANGSTORAN", OutletMeta.get("om_sum_uangstoran"));
+                JasperParams.put("PARAM_T_UANGSETORAN", OutletMeta.get("om_sum_uangstoran"));
                 break;
         }
         JasperParams.put("PARAM_ID_OUTLET", idOutlet);
