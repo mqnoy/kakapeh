@@ -91,9 +91,9 @@ public class Library {
         Library lib = new Library();
 //        lib.generateCodeOrder(1,1,"2020-02-28");
         Map outlet_meta = new HashMap();
-        outlet_meta.put("om_nama","nama outletnya");
-        outlet_meta.put("om_info","info outlet");
-        lib.getReport("2020-03-18","2020-03-18","omsetkotor",1,outlet_meta);
+        outlet_meta.put("om_nama", "nama outletnya");
+        outlet_meta.put("om_info", "info outlet");
+        lib.getReport("2020-03-18", "2020-03-18", "omsetkotor", 1, outlet_meta);
     }
 
     //get full path 
@@ -109,7 +109,7 @@ public class Library {
         if (directoryExists) {
             fullPath = dir_report;
         } else {
-            JOptionPane.showMessageDialog(null, "tidak ditemukan\n" + dir_report,"get_fullPath",2);
+            JOptionPane.showMessageDialog(null, "tidak ditemukan\n" + dir_report, "get_fullPath", 2);
         }
         return fullPath;
     }
@@ -147,21 +147,24 @@ public class Library {
      
      */
 
-    public static void getReport(String tglawal,String tglakhir,String report,int idOutlet,Map OutletMeta) {
+    public static void getReport(String tglawal, String tglakhir, String report, int idOutlet, Map OutletMeta) {
         String templateReport = null;
-
+        Map JasperParams = new HashMap();
+        System.out.println("getReport()=> : " + report);
         switch (report) {
             case "omsetkotor":
                 templateReport = "report_omset_kotor";
+                JasperParams.put("PARAM_T_OMSETKOTOR", OutletMeta.get("om_sum_omsetkotor"));
                 break;
             case "omsetbersih":
                 templateReport = "report_omset_bersih";
+                JasperParams.put("PARAM_T_OMSETBERSIH", OutletMeta.get("om_sum_omsetbersih"));
                 break;
-            case "uangstoran":
+            case "uangsetoran":
                 templateReport = "report_uang_setoran";
+                JasperParams.put("PARAM_T_UANGSTORAN", OutletMeta.get("om_sum_uangstoran"));
                 break;
         }
-        Map JasperParams = new HashMap();
         JasperParams.put("PARAM_ID_OUTLET", idOutlet);
         JasperParams.put("PARAM_NM_OUTLET", OutletMeta.get("om_nama"));
         JasperParams.put("PARAM_OUTLET_INFO", OutletMeta.get("om_info"));
@@ -172,7 +175,7 @@ public class Library {
             JasperDesign jd = JRXmlLoader.load(reportPath);
             JasperReport jr = JasperCompileManager.compileReport(jd);
             JasperPrint jp = JasperFillManager.fillReport(jr, JasperParams, conn);
-            JasperViewer.viewReport(jp,false);
+            JasperViewer.viewReport(jp, false);
         } catch (JRException ex) {
             JOptionPane.showMessageDialog(null, ex, "getReport", 2);
         }
