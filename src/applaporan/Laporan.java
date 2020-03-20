@@ -10,6 +10,7 @@ import static databases.CrudModel.readDataOutlet;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,9 +18,9 @@ import java.util.Map;
  */
 public class Laporan extends javax.swing.JFrame {
 
-    static int outletid = 0;   
+    static int outletid = 0;
     Map outlet_meta = new HashMap();
-    
+
     /**
      * Creates new form Form_laporan_penjualan
      */
@@ -30,10 +31,12 @@ public class Laporan extends javax.swing.JFrame {
         btn_cetak_omsetKotor.setEnabled(false);
         btn_cetak_uangSetoran.setEnabled(false);
     }
-    private void setIdOutlet(int var){
+
+    private void setIdOutlet(int var) {
         outletid = var;
     }
-    public static int getIdOutlet(){
+
+    public static int getIdOutlet() {
         return outletid;
     }
 
@@ -381,14 +384,14 @@ public class Laporan extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void putReport(String whatis){
-        
+    private void putReport(String whatis) {
+
         Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
         Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
         String final_tanggalAwal_rpt = Library.parsing_Jdate(tanggalAwal_rpt, "yyyy-MM-dd");
         String final_tanggalAkhir_rpt = Library.parsing_Jdate(tanggalAkhir_rpt, "yyyy-MM-dd");
-                
-        Library.getReport(final_tanggalAwal_rpt, final_tanggalAkhir_rpt, whatis,getIdOutlet(),outlet_meta);
+
+        Library.getReport(final_tanggalAwal_rpt, final_tanggalAkhir_rpt, whatis, getIdOutlet(), outlet_meta);
     }
     private void btn_cetak_omsetKotorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetak_omsetKotorActionPerformed
         this.putReport("omsetkotor");
@@ -407,7 +410,7 @@ public class Laporan extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void btn_cari_outletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cari_outletActionPerformed
-        readDataOutlet(null,null,jTable_outlet4);
+        readDataOutlet(null, null, jTable_outlet4);
         jDialog_outlet.setLocationRelativeTo(null);
         jDialog_outlet.setVisible(true);
     }//GEN-LAST:event_btn_cari_outletActionPerformed
@@ -418,12 +421,12 @@ public class Laporan extends javax.swing.JFrame {
         int id_nm_outlet = Integer.parseInt(jTable_outlet4.getModel().getValueAt(row, 0).toString());
         String val_almt_outlet = jTable_outlet4.getModel().getValueAt(row, 3).toString();
         setIdOutlet(id_nm_outlet);
-        lbl_outlet.setText(val_nm_outlet);        
+        lbl_outlet.setText(val_nm_outlet);
         lbl_outlet_alamat.setText(val_almt_outlet);
-        
-        outlet_meta.put("om_nama",val_nm_outlet);
-        outlet_meta.put("om_info",val_almt_outlet);
-        
+
+        outlet_meta.put("om_nama", val_nm_outlet);
+        outlet_meta.put("om_info", val_almt_outlet);
+
         //close dialog
         jDialog_outlet.setVisible(false);
     }//GEN-LAST:event_jTable_outlet4MouseClicked
@@ -439,14 +442,42 @@ public class Laporan extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO :
         //pakai sub query sum lagi jika gk ketemu cara untuk proses sum di jreport
-        Date  tanggalAwal_rpt = rpt_tanggal_awal.getDate();
+        int sumOmsetKotor = 0;
+        int sumOmsetBersih = 0;
+        int sumUangStoran = 0;
+        Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
         Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
         String final_tanggalAwal_rpt = Library.parsing_Jdate(tanggalAwal_rpt, "yyyy-MM-dd");
         String final_tanggalAkhir_rpt = Library.parsing_Jdate(tanggalAkhir_rpt, "yyyy-MM-dd");
-        CrudModel.getTotalReport("omsetkotor", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
-        btn_cetak_omsetBersih.setEnabled(true);
-        btn_cetak_omsetKotor.setEnabled(true);
-        btn_cetak_uangSetoran.setEnabled(true);
+        sumOmsetKotor = CrudModel.getTotalReport("omsetkotor", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
+        sumOmsetBersih = CrudModel.getTotalReport("omsetbersih", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
+        sumUangStoran = CrudModel.getTotalReport("omsetbersih", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
+
+        if (sumOmsetKotor != 0) {
+            JOptionPane.showMessageDialog(this, "data omset kotor ditemukan", "notifikasi", 1);
+            System.out.println("total sum : " + sumOmsetKotor);
+            outlet_meta.put("om_sum_omsetkotor", sumOmsetKotor);
+            btn_cetak_omsetKotor.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "tidak ada data omset kotor", "notifikasi", 2);
+        }
+        if (sumOmsetBersih != 0) {
+            JOptionPane.showMessageDialog(this, "data omset bersih ditemukan", "notifikasi", 1);
+            System.out.println("total sum : " + sumOmsetBersih);
+            outlet_meta.put("om_sum_omsetbersih", sumOmsetBersih);
+            btn_cetak_omsetBersih.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "tidak ada data omset bersih", "notifikasi", 2);
+        }
+        if (sumUangStoran != 0) {
+            JOptionPane.showMessageDialog(this, "data uang setoran ditemukan", "notifikasi", 1);
+            System.out.println("total sum : " + sumUangStoran);
+            outlet_meta.put("om_sum_uangstoran", sumUangStoran);
+            btn_cetak_uangSetoran.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "tidak ada data uang storan", "notifikasi", 2);
+        }
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
