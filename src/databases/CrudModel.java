@@ -702,40 +702,75 @@ public class CrudModel extends ConfigDatabase {
     }
 
     /* end CRUD outlet order */
-    
     /* begin reporting area */
-    public static int getTotalReport(String report,int idOutlet,String tglAwal,String tglAkhir){
+    public static int getTotalReport(String report, int idOutlet, String tglAwal, String tglAkhir) {
         int totalData = 0;
         String sql = "";
         switch (report) {
             case "omsetkotor":
-                sql = "SELECT SUM(x.omsetkotor) as data FROM (" +
-                        "SELECT " +
-                        "(transaksi.t_transaksi - pengeluaran.t_pengeluaran) as omsetbersih," +
-                        "(transaksi.t_transaksi + pengeluaran.t_pengeluaran) as omsetkotor " +
-                        "FROM ( " +
-                        "		SELECT id_outlet, tgl_closing,SUM(subtotal) as t_transaksi FROM tbl_transaksi WHERE id_outlet ="+idOutlet+" AND tgl_closing  BETWEEN '"+tglAwal+"' AND '"+tglAkhir+"' GROUP BY tgl_closing " +
-                        "	)  transaksi " +
-                        "	LEFT  JOIN  " +
-                        "	( " +
-                        "		SELECT id_outlet ,SUM(subtotal) as t_pengeluaran FROM tbl_pengeluaran WHERE id_outlet ="+idOutlet+" AND tgl_pengeluaran BETWEEN '"+tglAwal+"' AND '"+tglAkhir+"' GROUP BY tgl_pengeluaran " +
-                        "	) pengeluaran " +
-                        "	USING (id_outlet) " +
-                        "	LEFT JOIN  " +
-                        "	( " +
-                        "		SELECT id_outlet, nama_outlet FROM tbl_master_outlet tmo GROUP BY id_outlet  " +
-                        "	) outlet " +
-                        "	ON outlet.id_outlet = transaksi.id_outlet " +
-                        ") x ";
+                sql = "SELECT SUM(x.omsetkotor) as data FROM ("
+                        + "SELECT "
+                        + "(transaksi.t_transaksi - pengeluaran.t_pengeluaran) as omsetbersih,"
+                        + "(transaksi.t_transaksi + pengeluaran.t_pengeluaran) as omsetkotor "
+                        + "FROM ( "
+                        + "		SELECT id_outlet, tgl_closing,SUM(subtotal) as t_transaksi FROM tbl_transaksi WHERE id_outlet =" + idOutlet + " AND tgl_closing  BETWEEN '" + tglAwal + "' AND '" + tglAkhir + "' GROUP BY tgl_closing "
+                        + "	)  transaksi "
+                        + "	LEFT  JOIN  "
+                        + "	( "
+                        + "		SELECT id_outlet ,SUM(subtotal) as t_pengeluaran FROM tbl_pengeluaran WHERE id_outlet =" + idOutlet + " AND tgl_pengeluaran BETWEEN '" + tglAwal + "' AND '" + tglAkhir + "' GROUP BY tgl_pengeluaran "
+                        + "	) pengeluaran "
+                        + "	USING (id_outlet) "
+                        + "	LEFT JOIN  "
+                        + "	( "
+                        + "		SELECT id_outlet, nama_outlet FROM tbl_master_outlet tmo GROUP BY id_outlet  "
+                        + "	) outlet "
+                        + "	ON outlet.id_outlet = transaksi.id_outlet "
+                        + ") x ";
                 break;
             case "omsetbersih":
-                 
+                sql = "SELECT SUM(x.omsetbersih) as data FROM ("
+                        + "SELECT "
+                        + "(transaksi.t_transaksi - pengeluaran.t_pengeluaran) as omsetbersih,"
+                        + "(transaksi.t_transaksi + pengeluaran.t_pengeluaran) as omsetkotor "
+                        + "FROM ( "
+                        + "		SELECT id_outlet, tgl_closing,SUM(subtotal) as t_transaksi FROM tbl_transaksi WHERE id_outlet =" + idOutlet + " AND tgl_closing  BETWEEN '" + tglAwal + "' AND '" + tglAkhir + "' GROUP BY tgl_closing "
+                        + "	)  transaksi "
+                        + "	LEFT  JOIN  "
+                        + "	( "
+                        + "		SELECT id_outlet ,SUM(subtotal) as t_pengeluaran FROM tbl_pengeluaran WHERE id_outlet =" + idOutlet + " AND tgl_pengeluaran BETWEEN '" + tglAwal + "' AND '" + tglAkhir + "' GROUP BY tgl_pengeluaran "
+                        + "	) pengeluaran "
+                        + "	USING (id_outlet) "
+                        + "	LEFT JOIN  "
+                        + "	( "
+                        + "		SELECT id_outlet, nama_outlet FROM tbl_master_outlet tmo GROUP BY id_outlet  "
+                        + "	) outlet "
+                        + "	ON outlet.id_outlet = transaksi.id_outlet "
+                        + ") x ";
+
                 break;
             case "uangstoran":
-                 
+                                sql = "SELECT SUM(x.omsetbersih) as data FROM ("
+                        + "SELECT "
+                        + "(transaksi.t_transaksi - pengeluaran.t_pengeluaran) as omsetbersih,"
+                        + "(transaksi.t_transaksi + pengeluaran.t_pengeluaran) as omsetkotor "
+                        + "FROM ( "
+                        + "		SELECT id_outlet, tgl_closing,SUM(subtotal) as t_transaksi FROM tbl_transaksi WHERE id_outlet =" + idOutlet + " AND tgl_closing  BETWEEN '" + tglAwal + "' AND '" + tglAkhir + "' GROUP BY tgl_closing "
+                        + "	)  transaksi "
+                        + "	LEFT  JOIN  "
+                        + "	( "
+                        + "		SELECT id_outlet ,SUM(subtotal) as t_pengeluaran FROM tbl_pengeluaran WHERE id_outlet =" + idOutlet + " AND tgl_pengeluaran BETWEEN '" + tglAwal + "' AND '" + tglAkhir + "' GROUP BY tgl_pengeluaran "
+                        + "	) pengeluaran "
+                        + "	USING (id_outlet) "
+                        + "	LEFT JOIN  "
+                        + "	( "
+                        + "		SELECT id_outlet, nama_outlet FROM tbl_master_outlet tmo GROUP BY id_outlet  "
+                        + "	) outlet "
+                        + "	ON outlet.id_outlet = transaksi.id_outlet "
+                        + ") x ";
+
                 break;
         }
-        
+
         ResultSet hasil;
         try {
             Statement stmt = conn.createStatement();
@@ -751,7 +786,7 @@ public class CrudModel extends ConfigDatabase {
         return totalData;
     }
     /* end reporting area */
-    
+
     /*
      *  otentikasi user dengan database
      */
@@ -817,7 +852,7 @@ public class CrudModel extends ConfigDatabase {
             Object[] baris = {"id", "Nama outlet", "kota", "alamat outlet"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_outlet3.setModel(tabmode);
-        }else if (tableName.equals(jTable_outlet4)) {
+        } else if (tableName.equals(jTable_outlet4)) {
             Object[] baris = {"id", "Nama outlet", "kota", "alamat outlet"};
             tabmode = new DefaultTableModel(null, baris);
             jTable_outlet4.setModel(tabmode);
