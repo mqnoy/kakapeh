@@ -18,7 +18,6 @@
 	<queryString>
 		<![CDATA[SELECT 
 transaksi.id_outlet,
-outlet.nama_outlet,
 transaksi.tgl_closing,
 transaksi.t_transaksi,
 pengeluaran.t_pengeluaran,
@@ -28,19 +27,13 @@ FROM (
 	)  transaksi
 	LEFT  JOIN 
 	(
-		SELECT id_outlet ,SUM(subtotal) as t_pengeluaran FROM tbl_pengeluaran WHERE id_outlet =$P{PARAM_ID_OUTLET} AND  tgl_pengeluaran BETWEEN $P{PARAM_PERIOD_BEGIN} AND $P{PARAM_PERIOD_END} GROUP BY tgl_pengeluaran
+		SELECT tgl_pengeluaran,id_outlet ,SUM(subtotal) as t_pengeluaran FROM tbl_pengeluaran WHERE id_outlet =$P{PARAM_ID_OUTLET} AND  tgl_pengeluaran BETWEEN $P{PARAM_PERIOD_BEGIN} AND $P{PARAM_PERIOD_END} GROUP BY tgl_pengeluaran
 	) pengeluaran
-	USING (id_outlet)
-	LEFT JOIN 
-	(
-		SELECT id_outlet, nama_outlet FROM tbl_master_outlet tmo WHERE tmo.id_outlet =$P{PARAM_ID_OUTLET}  
-	) outlet
-	ON outlet.id_outlet = transaksi.id_outlet]]>
+	ON transaksi.tgl_closing = pengeluaran.tgl_pengeluaran]]>
 	</queryString>
 	<field name="id_outlet" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="nama_outlet" class="java.lang.String"/>
 	<field name="tgl_closing" class="java.sql.Date">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
