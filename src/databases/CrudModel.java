@@ -598,7 +598,8 @@ public class CrudModel extends ConfigDatabase {
                     //query update tbl_data_stock di tanggal sama stockawal bertambah
                     sql_stock = "UPDATE tbl_data_stock SET "
                             + " stock_awal=(stock_awal+" + jmlOrder + ") ,"
-                            + " stock_akhir=(stock_awal-" + terpakai + "-" + rusak + ") "
+                            + " stock_akhir=(stock_awal-(terpakai+" + terpakai + ")-(rusak+" + rusak + ") ),"
+                            + " terpakai=terpakai+"+terpakai+" ,rusak=rusak+"+rusak 
                             + " WHERE tgl_stock='" + tgl_order + "' AND id_barang=" + barangID + " AND id_outlet=" + outletID;
                     System.out.println(sql_stock);
                     ps_data_stock = conn.prepareStatement(sql_stock);
