@@ -76,6 +76,12 @@
     </copy>
     <!-- ./copy file config with directory -->
     
+    <!-- copy assets directory -->
+    <copy todir="dist/src/assets/">
+        <fileset dir="src/assets/"/>
+    </copy>
+    <!-- ./copy ssets directory -->
+    
     <!-- copy file jasper with directory -->
     <copy todir="dist/src/reporting/">
         <fileset dir="src/reporting/"/>
