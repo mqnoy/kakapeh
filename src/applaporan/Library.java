@@ -159,6 +159,8 @@ public class Library {
             case "omsetbersih":
                 templateReport = "report_omset_bersih";
                 JasperParams.put("PARAM_T_OMSETBERSIH", OutletMeta.get("om_sum_omsetbersih"));
+                JasperParams.put("PARAM_T_TRANSAKSI", OutletMeta.get("om_sum_transaksi"));
+                JasperParams.put("PARAM_T_PENGELUARAN", OutletMeta.get("om_sum_pengeluaran"));
                 break;
             case "uangsetoran":
                 templateReport = "report_uang_setoran";
