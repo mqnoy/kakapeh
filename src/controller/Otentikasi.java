@@ -17,7 +17,7 @@ public class Otentikasi  {
     CrudModel model = new CrudModel();    
     Library library = new Library();
 
-    private int o_id_kar;
+    public static int o_id_kar;
     private String o_nik;
     private String o_pass;
     public String hakakses = null;// staff dan manager
@@ -39,9 +39,9 @@ public class Otentikasi  {
             }else if(dataLogin.get("jabatan").equals("manager")){
                 this.hakakses = "manager";
             }
-            this.o_id_kar = Integer.parseInt(dataLogin.get("karyawanid").toString());
+            this.setIdKaryawan(Integer.parseInt(dataLogin.get("karyawanid").toString()));
             this.setGrant(true);
-//            System.out.println("Otentikasi =>"+ dataLogin);
+            System.out.println("Otentikasi =>"+ dataLogin.get("karyawanid").toString());
         }else{
             this.setGrant(false);
         }
@@ -50,7 +50,7 @@ public class Otentikasi  {
         this.o_nik = nik;
     }
     public void setPass(String pass){
-        String md5pass = library.strTo_MD5(pass);
+        String md5pass = Library.strTo_MD5(pass);
         this.o_pass = md5pass;
     }
     
@@ -59,15 +59,18 @@ public class Otentikasi  {
         return this.hakakses;
     }
     public void setGrant(boolean val){
-        this.grant = val;
+        grant = val;
     }
     public static boolean getGrant(){
         return grant;
     }
     
     //id karyawan
+    public void setIdKaryawan(int val){
+        o_id_kar = val;
+    }
     public int getIdKaryawan(){
-        return this.o_id_kar;
+        return o_id_kar;
     }
     
     
