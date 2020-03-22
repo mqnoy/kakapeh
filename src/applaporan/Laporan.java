@@ -302,7 +302,7 @@ public class Laporan extends javax.swing.JFrame {
 
         btn_cetak_omsetKotor.setBackground(new java.awt.Color(244, 51, 51));
         btn_cetak_omsetKotor.setForeground(new java.awt.Color(255, 255, 255));
-        btn_cetak_omsetKotor.setText("cetak omset kotor");
+        btn_cetak_omsetKotor.setText("laporan pendapatan kotor");
         btn_cetak_omsetKotor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cetak_omsetKotorActionPerformed(evt);
@@ -320,7 +320,7 @@ public class Laporan extends javax.swing.JFrame {
 
         btn_cetak_omsetBersih.setBackground(new java.awt.Color(244, 51, 51));
         btn_cetak_omsetBersih.setForeground(new java.awt.Color(255, 255, 255));
-        btn_cetak_omsetBersih.setText("cetak omset bersih");
+        btn_cetak_omsetBersih.setText("laporan pendapatan bersih");
         btn_cetak_omsetBersih.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cetak_omsetBersihActionPerformed(evt);
@@ -357,11 +357,11 @@ public class Laporan extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(btn_cetak_omsetBersih)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(9, 9, 9)
                         .addComponent(btn_cetak_omsetKotor)
                         .addGap(18, 18, 18)
+                        .addComponent(btn_cetak_omsetBersih)
+                        .addGap(14, 14, 14)
                         .addComponent(btn_cetak_uangSetoran))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -449,7 +449,7 @@ public class Laporan extends javax.swing.JFrame {
         Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
         String final_tanggalAwal_rpt = Library.parsing_Jdate(tanggalAwal_rpt, "yyyy-MM-dd");
         String final_tanggalAkhir_rpt = Library.parsing_Jdate(tanggalAkhir_rpt, "yyyy-MM-dd");
-        
+
         sumOmsetKotor = CrudModel.getTotalReport("omsetkotor", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
         if (sumOmsetKotor != 0) {
             JOptionPane.showMessageDialog(this, "data omset kotor ditemukan", "notifikasi", 1);
@@ -459,17 +459,21 @@ public class Laporan extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "tidak ada data omset kotor", "notifikasi", 2);
         }
-        
+
         sumOmsetBersih = CrudModel.getTotalReport("omsetbersih", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
         if (sumOmsetBersih != 0) {
+            int sumTransaksi = 0;
+            int sumPengeluaran = 0;
             JOptionPane.showMessageDialog(this, "data omset bersih ditemukan", "notifikasi", 1);
             System.out.println("total sum : " + sumOmsetBersih);
             outlet_meta.put("om_sum_omsetbersih", sumOmsetBersih);
+            outlet_meta.put("om_sum_transaksi", sumTransaksi);
+            outlet_meta.put("om_sum_pengeluaran", sumPengeluaran);
             btn_cetak_omsetBersih.setEnabled(true);
         } else {
             JOptionPane.showMessageDialog(this, "tidak ada data omset bersih", "notifikasi", 2);
         }
-        
+
         sumUangStoran = CrudModel.getTotalReport("uangstoran", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
         if (sumUangStoran != 0) {
             JOptionPane.showMessageDialog(this, "data uang setoran ditemukan", "notifikasi", 1);
