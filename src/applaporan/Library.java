@@ -4,8 +4,11 @@
 package applaporan;
 
 import static databases.CrudModel.conn;
+import java.io.File;
+import org.apache.commons.io.FileUtils;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -89,27 +92,29 @@ public class Library {
 
     public static void main(String[] args) {
         Library lib = new Library();
-//        lib.generateCodeOrder(1,1,"2020-02-28");
-        Map outlet_meta = new HashMap();
-        outlet_meta.put("om_nama", "nama outletnya");
-        outlet_meta.put("om_info", "info outlet");
-        lib.getReport("2020-03-18", "2020-03-18", "omsetkotor", 1, outlet_meta);
     }
 
-    //get full path 
+    /*get full path */
     public static String get_fullPath(String raw_location) {
         // works on *nix
         // works on Windows
-        String fullPath = "";
-        String dir_report = Paths.get(raw_location).toAbsolutePath().toString();
+        String fullPath = "", currentLoc = "";
 
-        boolean directoryExists = new java.io.File(dir_report).exists();
+        String dir_report = Paths.get(raw_location).toAbsolutePath().toString();
+        try {
+            currentLoc = new java.io.File(".").getCanonicalPath();
+            currentLoc = currentLoc + "/" + raw_location;
+        } catch (IOException ex) {
+            Logger.getLogger(Library.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        boolean directoryExists = new java.io.File(currentLoc).exists();
         System.out.println(directoryExists);
 
         if (directoryExists) {
-            fullPath = dir_report;
+            fullPath = currentLoc;
         } else {
-            JOptionPane.showMessageDialog(null, "tidak ditemukan\n" + dir_report, "get_fullPath", 2);
+            JOptionPane.showMessageDialog(null, "tidak ditemukan\n" + currentLoc, "get_fullPath", 2);
         }
         return fullPath;
     }
@@ -131,15 +136,29 @@ public class Library {
      *
      */
     public static void loadConfig() {
+        String dir_iniFile = "";
         try {
-            String dir_iniFile = get_fullPath("config/aplikasi_config.ini");
+            String currentDir = System.getProperty("user.dir");
+            dir_iniFile = currentDir + "/config/aplikasi_config.ini";
             //boolean directoryExists = new java.io.File(dir_iniFile).exists();
             FileInputStream file = new FileInputStream(dir_iniFile);
             configuration.load(file);
         } catch (ConfigurationException | FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Tidak ada file .ini !\n" + ex);
+            JOptionPane.showMessageDialog(null, "loadConfig() : Tidak ada file .ini !\nSilahkan copy file konfigurasi ke " + dir_iniFile + "\n" + ex);
             Logger.getLogger(Library.class.getName()).log(Level.SEVERE, null, ex);
         }
+//            finally{
+//            String source = "C:/your/source";
+//            File srcDir = new File(dir_iniFile);
+//
+//            String destination = "C:/your/destination";
+//            File destDir = new File(dir_iniFile);
+//
+//            try {
+//                FileUtils.copyDirectory(srcDir, destDir);
+//            } catch (IOException e) {
+//            }
+//        }
     }
     /*
      *
