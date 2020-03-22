@@ -152,9 +152,6 @@ FROM (
 				</textElement>
 				<textFieldExpression><![CDATA[$F{omsetkotor}]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement x="0" y="22" width="552" height="1" uuid="337b42a9-988d-464a-bb28-eb1785cbd18b"/>
-			</line>
 		</band>
 	</detail>
 	<columnFooter>

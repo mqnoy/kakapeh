@@ -149,12 +149,6 @@ FROM (
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tgl_closing}]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement x="0" y="22" width="552" height="1" uuid="337b42a9-988d-464a-bb28-eb1785cbd18b"/>
-			</line>
-			<line>
-				<reportElement x="0" y="-3" width="552" height="1" uuid="ee2962f0-f8da-46d4-a794-bcde3a4728fa"/>
-			</line>
 			<textField>
 				<reportElement x="346" y="1" width="100" height="20" uuid="08df28ee-0302-414e-bb06-0e912d85a5c1"/>
 				<textElement>
