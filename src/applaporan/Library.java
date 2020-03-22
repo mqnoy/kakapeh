@@ -138,8 +138,9 @@ public class Library {
     public static void loadConfig() {
         String dir_iniFile = "";
         try {
-            String currentDir = System.getProperty("user.dir");
-            dir_iniFile = currentDir + "/config/aplikasi_config.ini";
+//            String currentDir = System.getProperty("user.dir");
+//            dir_iniFile = currentDir + "/config/aplikasi_config.ini";
+            dir_iniFile = Library.get_fullPath("config/aplikasi_config.ini");
             //boolean directoryExists = new java.io.File(dir_iniFile).exists();
             FileInputStream file = new FileInputStream(dir_iniFile);
             configuration.load(file);

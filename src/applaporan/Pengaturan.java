@@ -238,7 +238,9 @@ public class Pengaturan extends javax.swing.JFrame {
             dbname = txt_pe_dbname.getText().trim();
             
             try {
-                OutputStream output = new FileOutputStream("config/aplikasi_config.ini");
+                String currentDir = System.getProperty("user.dir");
+                String dir_iniFile = currentDir + "/config/aplikasi_config.ini";
+                OutputStream output = new FileOutputStream(dir_iniFile);
                 Properties prop = new Properties();
 
                 // set the properties value
