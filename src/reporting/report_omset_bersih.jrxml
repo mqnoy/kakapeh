@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_omset_bersih" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="90c48cff-7f7a-46ba-bb6e-b25bca8ce694">
 	<property name="ireport.zoom" value="1.6105100000000008"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="50"/>
+	<property name="ireport.y" value="126"/>
 	<parameter name="PARAM_PERIOD_BEGIN" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -15,6 +15,8 @@
 	<parameter name="PARAM_NM_OUTLET" class="java.lang.String"/>
 	<parameter name="PARAM_OUTLET_INFO" class="java.lang.String"/>
 	<parameter name="PARAM_T_OMSETBERSIH" class="java.lang.String"/>
+	<parameter name="PARAM_T_TRANSAKSI" class="java.lang.String"/>
+	<parameter name="PARAM_T_PENGELUARAN" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT 
 transaksi.id_outlet,
@@ -22,13 +24,14 @@ outlet.nama_outlet,
 transaksi.tgl_closing,
 transaksi.t_transaksi,
 pengeluaran.t_pengeluaran,
+pengeluaran.tgl_pengeluaran,
 (transaksi.t_transaksi - pengeluaran.t_pengeluaran) as omsetbersih
 FROM (
 		SELECT id_outlet, tgl_closing,SUM(subtotal) as t_transaksi FROM tbl_transaksi WHERE id_outlet =$P{PARAM_ID_OUTLET} AND  tgl_closing  BETWEEN $P{PARAM_PERIOD_BEGIN} AND $P{PARAM_PERIOD_END} GROUP BY tgl_closing
 	)  transaksi
 	LEFT  JOIN 
 	(
-		SELECT id_outlet ,SUM(subtotal) as t_pengeluaran FROM tbl_pengeluaran WHERE id_outlet =$P{PARAM_ID_OUTLET} AND  tgl_pengeluaran BETWEEN $P{PARAM_PERIOD_BEGIN} AND $P{PARAM_PERIOD_END} GROUP BY tgl_pengeluaran
+		SELECT tgl_pengeluaran,id_outlet ,SUM(subtotal) as t_pengeluaran FROM tbl_pengeluaran WHERE id_outlet =$P{PARAM_ID_OUTLET} AND  tgl_pengeluaran BETWEEN $P{PARAM_PERIOD_BEGIN} AND $P{PARAM_PERIOD_END} GROUP BY tgl_pengeluaran
 	) pengeluaran
 	USING (id_outlet)
 	LEFT JOIN 
@@ -46,6 +49,9 @@ FROM (
 	</field>
 	<field name="t_transaksi" class="java.math.BigDecimal"/>
 	<field name="t_pengeluaran" class="java.math.BigDecimal"/>
+	<field name="tgl_pengeluaran" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="omsetbersih" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -107,62 +113,105 @@ FROM (
 				<text><![CDATA[/]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="4" width="79" height="20" uuid="0afcec2c-53ff-4fb0-a010-e2feb6ee049e"/>
-				<textElement>
-					<font fontName="Times New Roman"/>
-				</textElement>
-				<text><![CDATA[Total omset bersih :]]></text>
+				<reportElement x="7" y="8" width="100" height="20" uuid="3a80cf84-44e1-40ed-9594-785cb96abc28"/>
+				<text><![CDATA[Transaksi]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="83" y="4" width="163" height="20" uuid="7c14a0ec-abfb-4152-a4fc-e51a1e3d9955"/>
-				<textElement>
-					<font fontName="Times New Roman"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{PARAM_T_OMSETBERSIH}]]></textFieldExpression>
-			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="21" splitType="Stretch">
 			<staticText>
-				<reportElement x="50" y="1" width="100" height="20" uuid="3b6bd913-ffd8-4119-9922-b09c64561fdc"/>
+				<reportElement x="7" y="1" width="100" height="20" uuid="3b6bd913-ffd8-4119-9922-b09c64561fdc"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<text><![CDATA[Tanggal closing]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="346" y="1" width="100" height="20" uuid="f03eaf41-d7b5-48ed-9870-44134bb7bed5"/>
-				<textElement>
-					<font fontName="Times New Roman"/>
-				</textElement>
-				<text><![CDATA[Omset bersih]]></text>
+				<reportElement x="107" y="1" width="100" height="20" uuid="3bcf3949-1c33-4f77-bd6b-3e28c463e79a"/>
+				<text><![CDATA[Total transaksi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="1" width="100" height="20" uuid="00d46ad1-a738-415e-ab76-bf05d754e893"/>
+				<text><![CDATA[Tgl pengeluaran]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="1" width="100" height="20" uuid="b3f04732-f40f-44ae-88aa-5a32df8570da"/>
+				<text><![CDATA[Total pengeluaran]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="23" splitType="Stretch">
+		<band height="21" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="50" y="1" width="100" height="20" uuid="3da7fd18-6d1d-40fe-abfc-c49b9ab8f1f8"/>
+				<reportElement x="7" y="0" width="100" height="20" uuid="3da7fd18-6d1d-40fe-abfc-c49b9ab8f1f8"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{tgl_closing}]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement x="0" y="22" width="552" height="1" uuid="337b42a9-988d-464a-bb28-eb1785cbd18b"/>
-			</line>
 			<textField>
-				<reportElement x="346" y="1" width="100" height="20" uuid="7dcc527f-d80a-4435-bc2a-749707829658"/>
-				<textElement>
-					<font fontName="Times New Roman"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{omsetbersih}]]></textFieldExpression>
+				<reportElement x="107" y="0" width="100" height="20" uuid="b33692d9-f238-435f-acca-98e7a6555d8f"/>
+				<textFieldExpression><![CDATA[$F{t_transaksi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="1" width="100" height="20" uuid="c1641269-91c8-4bf1-9489-0c2896f5ccb9"/>
+				<textFieldExpression><![CDATA[$F{tgl_pengeluaran}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="384" y="1" width="100" height="20" uuid="9406eceb-51e9-4db3-8edc-74faca322ee0"/>
+				<textFieldExpression><![CDATA[$F{t_pengeluaran}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="56" splitType="Stretch">
+			<staticText>
+				<reportElement x="310" y="34" width="79" height="20" uuid="0afcec2c-53ff-4fb0-a010-e2feb6ee049e"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Grand Total :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="389" y="34" width="163" height="20" uuid="7c14a0ec-abfb-4152-a4fc-e51a1e3d9955"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARAM_T_OMSETBERSIH}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="8" width="100" height="20" uuid="7a416269-beb7-498c-9b5c-36fc82cf3fab"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Subtotal transaksi]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="107" y="9" width="132" height="20" uuid="6d72495d-10f2-495a-a8a9-ecd2c61f98c8"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARAM_T_TRANSAKSI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="384" y="9" width="157" height="20" uuid="54590192-94a6-400f-98f6-56fa47bc511f"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARAM_T_PENGELUARAN}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="279" y="9" width="100" height="20" uuid="03744da5-d421-41ad-bcb4-298788740382"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[Subtotal pengeluaran]]></text>
+			</staticText>
+			<line>
+				<reportElement x="7" y="5" width="545" height="1" uuid="00950cf1-7e15-4f1e-af48-bf2ccf7f2b76"/>
+			</line>
+		</band>
 	</columnFooter>
 	<pageFooter>
 		<band height="54" splitType="Stretch"/>
