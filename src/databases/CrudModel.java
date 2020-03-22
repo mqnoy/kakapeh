@@ -599,7 +599,7 @@ public class CrudModel extends ConfigDatabase {
                     sql_stock = "UPDATE tbl_data_stock SET "
                             + " stock_awal=(stock_awal+" + jmlOrder + ") ,"
                             + " stock_akhir=(stock_awal-(terpakai+" + terpakai + ")-(rusak+" + rusak + ") ),"
-                            + " terpakai=terpakai+"+terpakai+" ,rusak=rusak+"+rusak 
+                            + " terpakai=terpakai+" + terpakai + " ,rusak=rusak+" + rusak
                             + " WHERE tgl_stock='" + tgl_order + "' AND id_barang=" + barangID + " AND id_outlet=" + outletID;
                     System.out.println(sql_stock);
                     ps_data_stock = conn.prepareStatement(sql_stock);
@@ -704,9 +704,10 @@ public class CrudModel extends ConfigDatabase {
 
     /* end CRUD outlet order */
     /* begin reporting area */
-    public static int getTotalReport(String report, int idOutlet, String tglAwal, String tglAkhir) {
+    public static HashMap getTotalReport(String report, int idOutlet, String tglAwal, String tglAkhir) {
         int totalData = 0;
         String sql = "";
+        HashMap<String, Integer> data = new HashMap<String, Integer>();
         switch (report) {
             case "omsetkotor":
                 sql = "SELECT SUM(x.omsetkotor) as data FROM ("
@@ -723,23 +724,18 @@ public class CrudModel extends ConfigDatabase {
                         + ") x ";
                 break;
             case "omsetbersih":
-                sql = "SELECT SUM(x.omsetbersih) as data FROM ("
-                        + "SELECT "
+                sql = "SELECT "
+                        + "transaksi.t_transaksi as total_transaksi,"
+                        + "pengeluaran.t_pengeluaran as total_pengeluaran,"
                         + "(transaksi.t_transaksi - pengeluaran.t_pengeluaran) as omsetbersih "
                         + "FROM ( "
                         + "		SELECT id_outlet, tgl_closing,SUM(subtotal) as t_transaksi FROM tbl_transaksi WHERE id_outlet =" + idOutlet + " AND tgl_closing  BETWEEN '" + tglAwal + "' AND '" + tglAkhir + "' GROUP BY tgl_closing "
                         + "	)  transaksi "
                         + "	LEFT  JOIN  "
                         + "	( "
-                        + "		SELECT id_outlet ,SUM(subtotal) as t_pengeluaran FROM tbl_pengeluaran WHERE id_outlet =" + idOutlet + " AND tgl_pengeluaran BETWEEN '" + tglAwal + "' AND '" + tglAkhir + "' GROUP BY tgl_pengeluaran "
+                        + "		SELECT tgl_pengeluaran, id_outlet ,SUM(subtotal) as t_pengeluaran FROM tbl_pengeluaran WHERE id_outlet =" + idOutlet + " AND tgl_pengeluaran BETWEEN '" + tglAwal + "' AND '" + tglAkhir + "' GROUP BY tgl_pengeluaran "
                         + "	) pengeluaran "
-                        + "	USING (id_outlet) "
-                        + "	LEFT JOIN  "
-                        + "	( "
-                        + "		SELECT id_outlet, nama_outlet FROM tbl_master_outlet tmo WHERE tmo.id_outlet =" + idOutlet + ""
-                        + "	) outlet "
-                        + "	ON outlet.id_outlet = transaksi.id_outlet "
-                        + ") x ";
+                        + "	ON transaksi.tgl_closing = pengeluaran.tgl_pengeluaran";
 
                 break;
             case "uangstoran":
@@ -751,15 +747,10 @@ public class CrudModel extends ConfigDatabase {
                         + "	)  transaksi "
                         + "	LEFT  JOIN  "
                         + "	( "
-                        + "		SELECT id_outlet ,SUM(subtotal) as t_pengeluaran FROM tbl_pengeluaran WHERE id_outlet =" + idOutlet + " AND tgl_pengeluaran BETWEEN '" + tglAwal + "' AND '" + tglAkhir + "' GROUP BY tgl_pengeluaran "
+                        + "		SELECT tgl_pengeluaran, id_outlet ,SUM(subtotal) as t_pengeluaran FROM tbl_pengeluaran WHERE id_outlet =" + idOutlet + " AND tgl_pengeluaran BETWEEN '" + tglAwal + "' AND '" + tglAkhir + "' GROUP BY tgl_pengeluaran "
                         + "	) pengeluaran "
-                        + "	USING (id_outlet) "
-                        + "	LEFT JOIN  "
-                        + "	( "
-                        + "		SELECT id_outlet, nama_outlet FROM tbl_master_outlet tmo WHERE tmo.id_outlet =" + idOutlet + ""
-                        + "	) outlet "
-                        + "	ON outlet.id_outlet = transaksi.id_outlet "
-                        + ") x ";
+                        + "	ON transaksi.tgl_closing = pengeluaran.tgl_pengeluaran"
+                        +") x ";
 
                 break;
         }
@@ -769,14 +760,26 @@ public class CrudModel extends ConfigDatabase {
             Statement stmt = conn.createStatement();
             hasil = stmt.executeQuery(sql);
             while (hasil.next()) {
-                totalData = hasil.getInt("data");
+                switch (report) {
+                    case "omsetkotor":
+                        data.put("data_t_omsetkotor",hasil.getInt("data"));
+                        break;
+                    case "omsetbersih":
+                        data.put("data_omsetbersih",hasil.getInt("omsetbersih"));
+                        data.put("data_t_transaksi",hasil.getInt("total_transaksi"));
+                        data.put("data_t_pengeluran",hasil.getInt("total_pengeluaran"));
+                        break;
+                    case "uangstoran":
+                        data.put("data_t_uangstoran",hasil.getInt("data"));
+                        break;
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(CrudModel.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println(sql + "=> " + totalData);
 
-        return totalData;
+        return data;
     }
     /* end reporting area */
 
