@@ -650,7 +650,8 @@ public class Form_outlet_order extends javax.swing.JFrame {
         tgl_order = Library.parsing_Jdate(raw_tgl, "yyyy-MM-dd");
 
         //insert data order/ request outlet
-        createDataOrder(karyawanID, tgl_order, txt_kd_order.getText());
+        createDataOrder(otentikasi.getIdKaryawan(), tgl_order, txt_kd_order.getText());
+        System.out.println("id karyawan =>"+otentikasi.getIdKaryawan());
         if (notifikasi_c_order) {
             JOptionPane.showMessageDialog(this, "data order outlet berhasil di simpan", "notifikasi", 1);
         } else {

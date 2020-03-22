@@ -971,7 +971,7 @@ public class Form_transaksi extends javax.swing.JFrame {
         }
 
         // insert tabel transaksi
-        createDataTransaksi(karyawanID, tgl_pengeluaran);
+        createDataTransaksi(otentikasi.getIdKaryawan(), tgl_pengeluaran);
         if (notifikasi_c_transaksi) {
             JOptionPane.showMessageDialog(this, "data transaksi outlet berhasil di simpan", "notifikasi", 1);
         } else {
