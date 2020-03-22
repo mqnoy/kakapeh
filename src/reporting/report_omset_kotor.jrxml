@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="omset_kotor" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="90c48cff-7f7a-46ba-bb6e-b25bca8ce694">
 	<property name="ireport.zoom" value="1.6105100000000008"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="57"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="PARAM_PERIOD_BEGIN" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -21,17 +21,10 @@ transaksi.id_outlet,
 outlet.nama_outlet,
 transaksi.tgl_closing,
 transaksi.t_transaksi,
-pengeluaran.t_pengeluaran,
-(transaksi.t_transaksi - pengeluaran.t_pengeluaran) as omsetbersih,
-(transaksi.t_transaksi + pengeluaran.t_pengeluaran) as omsetkotor
+transaksi.t_transaksi  as omsetkotor
 FROM (
 		SELECT id_outlet, tgl_closing,SUM(subtotal) as t_transaksi FROM tbl_transaksi WHERE id_outlet =$P{PARAM_ID_OUTLET} AND  tgl_closing  BETWEEN $P{PARAM_PERIOD_BEGIN} AND $P{PARAM_PERIOD_END} GROUP BY tgl_closing
 	)  transaksi
-	LEFT  JOIN 
-	(
-		SELECT id_outlet ,SUM(subtotal) as t_pengeluaran FROM tbl_pengeluaran WHERE id_outlet =$P{PARAM_ID_OUTLET} AND  tgl_pengeluaran BETWEEN $P{PARAM_PERIOD_BEGIN} AND $P{PARAM_PERIOD_END} GROUP BY tgl_pengeluaran
-	) pengeluaran
-	USING (id_outlet)
 	LEFT JOIN 
 	(
 		SELECT id_outlet, nama_outlet FROM tbl_master_outlet tmo WHERE tmo.id_outlet =$P{PARAM_ID_OUTLET}  
@@ -46,8 +39,6 @@ FROM (
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="t_transaksi" class="java.math.BigDecimal"/>
-	<field name="t_pengeluaran" class="java.math.BigDecimal"/>
-	<field name="omsetbersih" class="java.math.BigDecimal"/>
 	<field name="omsetkotor" class="java.math.BigDecimal"/>
 	<variable name="total_omsetkotor" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{omsetkotor}]]></variableExpression>
