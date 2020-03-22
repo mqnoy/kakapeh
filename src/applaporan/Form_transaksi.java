@@ -930,7 +930,7 @@ public class Form_transaksi extends javax.swing.JFrame {
             raw_totalTransaksi += Integer.parseInt(jTable_transaksi.getModel().getValueAt(i, 3).toString());
             System.out.println("data transaksi" + raw_totalTransaksi);
         }
-        grandTotal = raw_totalPengeluaran + raw_totalTransaksi;
+        grandTotal = raw_totalTransaksi;
         totalPengeluaran = raw_totalPengeluaran;
         System.out.println("grandTotal =>" + grandTotal);
         //set total semua
