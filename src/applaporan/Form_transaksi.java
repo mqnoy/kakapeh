@@ -5,8 +5,10 @@
  */
 package applaporan;
 
+import controller.MainController;
 import static controller.MainController.notifikasi_c_transaksi;
 import controller.Otentikasi;
+import static controller.Otentikasi.getGrant;
 import static databases.CrudModel.createDataPengeluaran;
 import static databases.CrudModel.createDataTransaksi;
 import static databases.CrudModel.readDataBarang;
@@ -22,10 +24,11 @@ import javax.swing.table.DefaultTableModel;
 public class Form_transaksi extends javax.swing.JFrame {
 
     Otentikasi otentikasi = new Otentikasi();
+    MainController frame = new MainController();
     public Library lib = new Library();
     public String tgl_pengeluaran = "1999-01-01";
     public String kd_pengeluaran_draf = "";
-
+    
     int uangTakterduga = 0;
     static int outletid = 0;
     static int barangid = 0;
@@ -42,15 +45,20 @@ public class Form_transaksi extends javax.swing.JFrame {
      * Creates new form Form_penjualan
      */
     public Form_transaksi() {
-        initComponents();
+        if (getGrant()) {
+            initComponents();
+            btn_item_additional.setEnabled(false);
+            btn_selesai.setEnabled(false);
+            btn_hitung.setEnabled(false);
+            karyawanID = otentikasi.getIdKaryawan(); //prod
+            btn_tambah_additional.setEnabled(false);
+            i_tgl_pengeluaran.requestFocus(true);
+            btn_hapus_trans.setEnabled(false);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "silahkan login dahulu", "tidak ada akses", 2);
+            frame.showLoginApp();
+        }
 
-        btn_item_additional.setEnabled(false);
-        btn_selesai.setEnabled(false);
-        btn_hitung.setEnabled(false);
-//        karyawanID = otentikasi.getIdKaryawan(); //prod
-        btn_tambah_additional.setEnabled(false);
-        i_tgl_pengeluaran.requestFocus(true);
-        btn_hapus_trans.setEnabled(false);
     }
 
     private void setAdditionalBrg(boolean var) {

@@ -5,9 +5,12 @@
  */
 package applaporan;
 
+import controller.MainController;
 import static controller.MainController.notifikasi_c_karyawan;
 import static controller.MainController.notifikasi_d_karyawan;
 import static controller.MainController.notifikasi_u_karyawan;
+import controller.Otentikasi;
+import static controller.Otentikasi.getGrant;
 import static databases.CrudModel.createDataKaryawan;
 import static databases.CrudModel.deleteDataKaryawan;
 import static databases.CrudModel.readDataKaryawan;
@@ -19,15 +22,23 @@ import javax.swing.JOptionPane;
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Form_master_karyawan extends javax.swing.JFrame {
+    Otentikasi otentikasi = new Otentikasi();
+    MainController frame = new MainController();
     private int total_karyawan = 0;
+
     /**
      * Creates new form Form_master_karyawan
      */
     public Form_master_karyawan() {
-        initComponents();
-        readDataKaryawan(null, null, jTable_karyawan);
-        total_karyawan = jTable_karyawan.getRowCount();
-        total_data_karyawan.setText(String.valueOf(total_karyawan));
+        if (getGrant()) {
+            initComponents();
+            readDataKaryawan(null, null, jTable_karyawan);
+            total_karyawan = jTable_karyawan.getRowCount();
+            total_data_karyawan.setText(String.valueOf(total_karyawan));
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "silahkan login dahulu", "tidak ada akses", 2);
+            frame.showLoginApp();
+        }
 
     }
 
@@ -36,7 +47,7 @@ public class Form_master_karyawan extends javax.swing.JFrame {
         total_data_karyawan.setText(String.valueOf(total_karyawan));
         txt_karyawan_nik.setText("");
         cb_karyawan_posisi.setSelectedIndex(0);
-        txt_karyawan_nama.setText("");       
+        txt_karyawan_nama.setText("");
         txt_karyawan_tlp.setText("");
     }
 
@@ -303,10 +314,10 @@ public class Form_master_karyawan extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         String tangkap_val = txt_karyawan_cari.getText();
-  
+
         if (!tangkap_val.isEmpty()) {
             readDataKaryawan(null, tangkap_val, jTable_karyawan);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "kolom cari tidak boleh kosong", "notifikasi", 3);
             readDataKaryawan(null, null, jTable_karyawan);
         }
@@ -377,14 +388,12 @@ public class Form_master_karyawan extends javax.swing.JFrame {
         int col1 = Integer.parseInt(jTable_karyawan.getModel().getValueAt(bar, 0).toString());
         String col2 = jTable_karyawan.getModel().getValueAt(bar, 1).toString();
         String col3 = jTable_karyawan.getModel().getValueAt(bar, 2).toString();
-        String col4 = jTable_karyawan.getModel().getValueAt(bar, 3).toString();        
+        String col4 = jTable_karyawan.getModel().getValueAt(bar, 3).toString();
         String col5 = jTable_karyawan.getModel().getValueAt(bar, 4).toString();
-        
-
 
         txt_karyawan_nik.setText(col2);
         cb_karyawan_posisi.setSelectedItem(col3);
-        txt_karyawan_nama.setText(col4);       
+        txt_karyawan_nama.setText(col4);
         txt_karyawan_tlp.setText(col5);
 
         btn_fkaryawan_hapus.setEnabled(true);

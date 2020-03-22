@@ -5,37 +5,47 @@
  */
 package applaporan;
 
+import controller.MainController;
 import static controller.MainController.notifikasi_c_barang;
 import static controller.MainController.notifikasi_d_barang;
 import static controller.MainController.notifikasi_u_barang;
+import controller.Otentikasi;
+import static controller.Otentikasi.getGrant;
 import static databases.CrudModel.createDataBarang;
 import static databases.CrudModel.deleteDataBarang;
 import static databases.CrudModel.readDataBarang;
 import static databases.CrudModel.updateDataBarang;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Form_master_barang extends javax.swing.JFrame {
-
+    Otentikasi otentikasi = new Otentikasi();
+    MainController frame = new MainController();
     public int total_barang = 0;
 
     /**
      * Creates new form Form_master_barang
      */
     public Form_master_barang() {
-        initComponents();
-        readDataBarang(null, null, jTable_barang);
-        total_barang = jTable_barang.getRowCount();
-        total_data_brg.setText(String.valueOf(total_barang));
-        btn_fbrg_hapus.setEnabled(false);
-        btn_brg_ubah.setEnabled(false);
-    }
+        if (getGrant()) {
+            initComponents();
+            readDataBarang(null, null, jTable_barang);
+            total_barang = jTable_barang.getRowCount();
+            total_data_brg.setText(String.valueOf(total_barang));
+            btn_fbrg_hapus.setEnabled(false);
+            btn_brg_ubah.setEnabled(false);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "silahkan login dahulu", "tidak ada akses", 2);
+            frame.showLoginApp();
+        }
     
-    private void bersih(){
+
+}
+
+private void bersih(){
         txt_brg_nm_barang.setText("");
         cb_brg_kategori.setSelectedIndex(0);
         txt_brg_harga.setText("");
@@ -372,16 +382,32 @@ public class Form_master_barang extends javax.swing.JFrame {
                 if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+                
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Form_master_barang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Form_master_barang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Form_master_barang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Form_master_barang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Form_master_barang.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Form_master_barang.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Form_master_barang.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Form_master_barang.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

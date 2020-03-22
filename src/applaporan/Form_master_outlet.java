@@ -4,32 +4,48 @@
  * and open the template in the editor.
  */
 package applaporan;
+
+import controller.MainController;
 import static controller.MainController.notifikasi_c_outlet;
 import static controller.MainController.notifikasi_d_outlet;
 import static controller.MainController.notifikasi_u_outlet;
+import controller.Otentikasi;
+import static controller.Otentikasi.getGrant;
 import static databases.CrudModel.createDataOutlet;
 import static databases.CrudModel.deleteDataOutlet;
 import static databases.CrudModel.readDataOutlet;
 import static databases.CrudModel.updateDataOutlet;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Form_master_outlet extends javax.swing.JFrame {
+
+    Otentikasi otentikasi = new Otentikasi();
+    MainController frame = new MainController();
     public int total_outlet = 0;
+
     /**
      * Creates new form Form_master_outlet
      */
     public Form_master_outlet() {
-        initComponents();
-        readDataOutlet(null,null,jTable_outlet);
-        btn_foutlet_hapus.setEnabled(false);
-        btn_foutlet_ubah.setEnabled(false);
-        total_outlet = jTable_outlet.getRowCount();
-        total_data_outlet.setText(String.valueOf(total_outlet));
+        if (getGrant()) {
+            initComponents();
+            readDataOutlet(null, null, jTable_outlet);
+            btn_foutlet_hapus.setEnabled(false);
+            btn_foutlet_ubah.setEnabled(false);
+            total_outlet = jTable_outlet.getRowCount();
+            total_data_outlet.setText(String.valueOf(total_outlet));
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "silahkan login dahulu", "tidak ada akses", 2);
+            frame.showLoginApp();
+        }
+
     }
-    private void bersih(){
+
+    private void bersih() {
         txt_outlet_nama.setText("");
         cb_outlet_kota.setSelectedIndex(0);
         txt_outlet_alamat.setText("");
@@ -288,7 +304,7 @@ public class Form_master_outlet extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "data gagal di tambah", "notifikasi", 2);
         }
-        readDataOutlet(null,null,jTable_outlet);
+        readDataOutlet(null, null, jTable_outlet);
         bersih();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -315,10 +331,10 @@ public class Form_master_outlet extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         String tangkap_val = txt_outlet_cari.getText();
-  
+
         if (!tangkap_val.isEmpty()) {
             readDataOutlet(null, tangkap_val, jTable_outlet);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "kolom cari tidak boleh kosong", "notifikasi", 3);
             readDataOutlet(null, null, jTable_outlet);
         }

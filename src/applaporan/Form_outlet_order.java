@@ -8,6 +8,7 @@ package applaporan;
 import controller.MainController;
 import static controller.MainController.notifikasi_c_order;
 import controller.Otentikasi;
+import static controller.Otentikasi.getGrant;
 import static databases.CrudModel.createDataOrder;
 import static databases.CrudModel.readDataBarang;
 import static databases.CrudModel.readDataOutlet;
@@ -32,10 +33,17 @@ public class Form_outlet_order extends javax.swing.JFrame {
      * Creates new form Form_order
      */
     public Form_outlet_order() {
-        initComponents();
-        readDataOutlet(null, null, jTable_outlet_2);
-        btn_selesai.setEnabled(false);
-        btn_tambahkan.setEnabled(false);
+        if (getGrant()) {
+            initComponents();
+            karyawanID = otentikasi.getIdKaryawan();
+            readDataOutlet(null, null, jTable_outlet_2);
+            btn_selesai.setEnabled(false);
+            btn_tambahkan.setEnabled(false);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "silahkan login dahulu", "tidak ada akses", 2);
+            mc.showLoginApp();
+        }
+
     }
 
     /**

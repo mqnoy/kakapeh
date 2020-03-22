@@ -5,6 +5,8 @@
  */
 package applaporan;
 
+import controller.MainController;
+import static controller.Otentikasi.getGrant;
 import databases.CrudModel;
 import static databases.CrudModel.readDataOutlet;
 import java.util.Date;
@@ -17,7 +19,7 @@ import javax.swing.JOptionPane;
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Laporan extends javax.swing.JFrame {
-
+    MainController frame = new MainController();
     static int outletid = 0;
     Map outlet_meta = new HashMap();
 
@@ -25,11 +27,17 @@ public class Laporan extends javax.swing.JFrame {
      * Creates new form Form_laporan_penjualan
      */
     public Laporan() {
-        initComponents();
-        btn_cari_outlet.requestFocus(true);
-        btn_cetak_omsetBersih.setEnabled(false);
-        btn_cetak_omsetKotor.setEnabled(false);
-        btn_cetak_uangSetoran.setEnabled(false);
+        if (getGrant()) {
+            initComponents();
+            btn_cari_outlet.requestFocus(true);
+            btn_cetak_omsetBersih.setEnabled(false);
+            btn_cetak_omsetKotor.setEnabled(false);
+            btn_cetak_uangSetoran.setEnabled(false);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "silahkan login dahulu", "tidak ada akses", 2);
+            frame.showLoginApp();
+        }
+
     }
 
     private void setIdOutlet(int var) {
@@ -442,7 +450,7 @@ public class Laporan extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO :
         //pakai sub query sum lagi jika gk ketemu cara untuk proses sum di jreport
-        HashMap<String ,Integer> get_data = new HashMap<String ,Integer> ();
+        HashMap<String, Integer> get_data = new HashMap<String, Integer>();
         int sumOmsetKotor = 0;
         int sumUangStoran = 0;
         Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
