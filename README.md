@@ -3,6 +3,12 @@
 
 Aplikasi manajemen report
 
+## TODO:
+* fix configuration file location
+* button colour
+* clear(bersih) button function 
+
+
 ## Built With
 * [Jdk8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) - jdk8
 * [Mysql server](https://dev.mysql.com/downloads/mysql/) - Database server
