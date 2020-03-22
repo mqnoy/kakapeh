@@ -442,16 +442,17 @@ public class Laporan extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO :
         //pakai sub query sum lagi jika gk ketemu cara untuk proses sum di jreport
+        HashMap<String ,Integer> get_data = new HashMap<String ,Integer> ();
         int sumOmsetKotor = 0;
-        int sumOmsetBersih = 0;
         int sumUangStoran = 0;
         Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
         Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
         String final_tanggalAwal_rpt = Library.parsing_Jdate(tanggalAwal_rpt, "yyyy-MM-dd");
         String final_tanggalAkhir_rpt = Library.parsing_Jdate(tanggalAkhir_rpt, "yyyy-MM-dd");
 
-        sumOmsetKotor = CrudModel.getTotalReport("omsetkotor", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
-        if (sumOmsetKotor != 0) {
+        get_data = CrudModel.getTotalReport("omsetkotor", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
+        if (get_data.get("data_t_omsetkotor") != 0) {
+            sumOmsetKotor = get_data.get("data_t_omsetkotor");
             JOptionPane.showMessageDialog(this, "data omset kotor ditemukan", "notifikasi", 1);
             System.out.println("total sum : " + sumOmsetKotor);
             outlet_meta.put("om_sum_omsetkotor", sumOmsetKotor);
@@ -460,22 +461,17 @@ public class Laporan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "tidak ada data omset kotor", "notifikasi", 2);
         }
 
-        sumOmsetBersih = CrudModel.getTotalReport("omsetbersih", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
-        if (sumOmsetBersih != 0) {
-            int sumTransaksi = 0;
-            int sumPengeluaran = 0;
+        get_data = CrudModel.getTotalReport("omsetbersih", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
+        if (get_data.get("data_omsetbersih") != 0) {
             JOptionPane.showMessageDialog(this, "data omset bersih ditemukan", "notifikasi", 1);
-            System.out.println("total sum : " + sumOmsetBersih);
-            outlet_meta.put("om_sum_omsetbersih", sumOmsetBersih);
-            outlet_meta.put("om_sum_transaksi", sumTransaksi);
-            outlet_meta.put("om_sum_pengeluaran", sumPengeluaran);
             btn_cetak_omsetBersih.setEnabled(true);
         } else {
             JOptionPane.showMessageDialog(this, "tidak ada data omset bersih", "notifikasi", 2);
         }
 
-        sumUangStoran = CrudModel.getTotalReport("uangstoran", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
-        if (sumUangStoran != 0) {
+        get_data = CrudModel.getTotalReport("uangstoran", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
+        if (get_data.get("data_t_uangstoran") != 0) {
+            sumUangStoran = get_data.get("data_t_uangstoran");
             JOptionPane.showMessageDialog(this, "data uang setoran ditemukan", "notifikasi", 1);
             System.out.println("total sum : " + sumUangStoran);
             outlet_meta.put("om_sum_uangstoran", sumUangStoran);
