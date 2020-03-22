@@ -70,4 +70,15 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <!-- copy file config with directory -->
+    <copy todir="dist/config/">
+        <fileset dir="config/"/>
+    </copy>
+    <!-- ./copy file config with directory -->
+    
+    <!-- copy file jasper with directory -->
+    <copy todir="dist/src/reporting/">
+        <fileset dir="src/reporting/"/>
+    </copy>
+    <!-- ./copy file jasper with directory -->
 </project>
