@@ -36,7 +36,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
      * Creates new form Form_order
      */
     public Form_outlet_order() {
-        if (true) {//getGrant()
+        if (getGrant()) {
             initComponents();
             karyawanID = otentikasi.getIdKaryawan();
             readDataOutlet(null, null, jTable_outlet_2);
