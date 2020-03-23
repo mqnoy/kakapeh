@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Laporan extends javax.swing.JFrame {
+
     MainController frame = new MainController();
     static int outletid = 0;
     Map outlet_meta = new HashMap();
@@ -46,6 +47,13 @@ public class Laporan extends javax.swing.JFrame {
 
     public static int getIdOutlet() {
         return outletid;
+    }
+
+    private void clear() {
+        rpt_tanggal_awal.setCalendar(null);
+        rpt_tanggal_akhir.setCalendar(null);
+        lbl_outlet.setText("lokasi");
+        lbl_outlet_alamat.setText("alamat");
     }
 
     /**
@@ -182,7 +190,6 @@ public class Laporan extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setAlwaysOnTop(true);
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -309,6 +316,11 @@ public class Laporan extends javax.swing.JFrame {
         jButton6.setBackground(new java.awt.Color(244, 51, 51));
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("bersihkan");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         btn_cetak_omsetKotor.setBackground(new java.awt.Color(244, 51, 51));
         btn_cetak_omsetKotor.setForeground(new java.awt.Color(255, 255, 255));
@@ -491,7 +503,13 @@ public class Laporan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "tidak ada data uang storan", "notifikasi", 2);
         }
 
+        clear();
+
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        clear();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
