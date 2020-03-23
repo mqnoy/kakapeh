@@ -5,6 +5,7 @@
  */
 package applaporan;
 
+import com.toedter.calendar.JDateChooser;
 import controller.MainController;
 import static controller.MainController.notifikasi_c_order;
 import controller.Otentikasi;
@@ -35,7 +36,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
      * Creates new form Form_order
      */
     public Form_outlet_order() {
-        if (getGrant()) {
+        if (true) {//getGrant()
             initComponents();
             karyawanID = otentikasi.getIdKaryawan();
             readDataOutlet(null, null, jTable_outlet_2);
@@ -48,6 +49,23 @@ public class Form_outlet_order extends javax.swing.JFrame {
 
     }
 
+    private void clear() {
+        txt_jml_order.setText("0");
+        txt_rusak.setText("0");
+        txt_terpakai.setText("0");
+        txt_cari_outlet.setText("");
+        txt_nama_outlet.setText("-");
+        txt_nama_barang.setText("-");
+        i_tgl_order.setCalendar(null);
+        clearDraft();
+    }
+    private void clearDraft(){
+        DefaultTableModel tbl_odrDraft = (DefaultTableModel) jTable_order_draft.getModel();
+        while (tbl_odrDraft.getRowCount() > 0) {
+            tbl_odrDraft.removeRow(0);
+        }
+        btn_selesai.setEnabled(false);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -475,7 +493,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
 
         jButton2.setBackground(jButton6.getBackground());
         jButton2.setForeground(jButton6.getForeground());
-        jButton2.setText("bersihkan");
+        jButton2.setText("bersih");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -613,7 +631,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
             Logger.getLogger(Form_transaksi.class.getName()).log(Level.SEVERE, null, e);
             JOptionPane.showMessageDialog(rootPane, "isi kolom terlebih dahulu", "notifikasi", 2);
         }
-        
+
     }//GEN-LAST:event_btn_tambahkanActionPerformed
 
     private void i_tgl_orderPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_i_tgl_orderPropertyChange
@@ -634,12 +652,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable_barang_2MouseClicked
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-        DefaultTableModel tbl_odrDraft = (DefaultTableModel) jTable_order_draft.getModel();
-        while (tbl_odrDraft.getRowCount() > 0) {
-            tbl_odrDraft.removeRow(0);
-        }
-        btn_selesai.setEnabled(false);
+        clearDraft();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void txt_nama_barangPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txt_nama_barangPropertyChange
@@ -666,7 +679,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
 
         //insert data order/ request outlet
         createDataOrder(otentikasi.getIdKaryawan(), tgl_order, txt_kd_order.getText());
-        System.out.println("id karyawan =>"+otentikasi.getIdKaryawan());
+        System.out.println("id karyawan =>" + otentikasi.getIdKaryawan());
         if (notifikasi_c_order) {
             JOptionPane.showMessageDialog(this, "data order outlet berhasil di simpan", "notifikasi", 1);
         } else {
@@ -675,7 +688,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_selesaiActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        clear();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
