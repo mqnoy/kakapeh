@@ -75,7 +75,7 @@ password access :
 2016,2016
 
 ## TODO:
-* clear(bersih) button function 
+ 
 
 ## Author
 * kelompok4 kkp
