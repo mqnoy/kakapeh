@@ -28,7 +28,7 @@ public class Laporan extends javax.swing.JFrame {
      * Creates new form Form_laporan_penjualan
      */
     public Laporan() {
-        if (getGrant()) {
+        if (true) {//getGrant()
             initComponents();
             btn_cari_outlet.requestFocus(true);
             btn_cetak_omsetBersih.setEnabled(false);
@@ -91,7 +91,8 @@ public class Laporan extends javax.swing.JFrame {
         btn_cetak_uangSetoran = new javax.swing.JButton();
         btn_cetak_omsetBersih = new javax.swing.JButton();
 
-        jDialog_outlet.setMinimumSize(new java.awt.Dimension(466, 359));
+        jDialog_outlet.setMinimumSize(new java.awt.Dimension(558, 371));
+        jDialog_outlet.setUndecorated(true);
         jDialog_outlet.setResizable(false);
 
         jPanel21.setBackground(new java.awt.Color(255, 255, 255));
@@ -122,6 +123,8 @@ public class Laporan extends javax.swing.JFrame {
         });
         jScrollPane16.setViewportView(jTable_outlet4);
 
+        jButton4.setBackground(new java.awt.Color(244, 51, 51));
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("cari outlet");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,10 +136,12 @@ public class Laporan extends javax.swing.JFrame {
         jPanel20.setLayout(jPanel20Layout);
         jPanel20Layout.setHorizontalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel20Layout.createSequentialGroup()
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createSequentialGroup()
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane16, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
+                    .addGroup(jPanel20Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(txt_cari_outlet1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -155,6 +160,8 @@ public class Laporan extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jButton8.setBackground(new java.awt.Color(244, 51, 51));
+        jButton8.setForeground(new java.awt.Color(255, 255, 255));
         jButton8.setText("x");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,15 +173,19 @@ public class Laporan extends javax.swing.JFrame {
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jPanel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
+                        .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
-                .addGap(0, 12, Short.MAX_VALUE)
                 .addComponent(jButton8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -194,7 +205,7 @@ public class Laporan extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Laporan");
 
@@ -353,23 +364,25 @@ public class Laporan extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_cetak_omsetKotor, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_cetak_omsetBersih, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_cetak_uangSetoran, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 25, Short.MAX_VALUE))
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton6)
-                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton6)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btn_cetak_omsetKotor, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_cetak_omsetBersih, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_cetak_uangSetoran, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 25, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -463,48 +476,56 @@ public class Laporan extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO :
-        //pakai sub query sum lagi jika gk ketemu cara untuk proses sum di jreport
-        HashMap<String, Integer> get_data = new HashMap<String, Integer>();
-        int sumOmsetKotor = 0;
-        int sumUangStoran = 0;
-        Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
-        Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
-        String final_tanggalAwal_rpt = Library.parsing_Jdate(tanggalAwal_rpt, "yyyy-MM-dd");
-        String final_tanggalAkhir_rpt = Library.parsing_Jdate(tanggalAkhir_rpt, "yyyy-MM-dd");
-
-        get_data = CrudModel.getTotalReport("omsetkotor", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
-        if (get_data.get("data_t_omsetkotor") != 0) {
-            sumOmsetKotor = get_data.get("data_t_omsetkotor");
-            JOptionPane.showMessageDialog(this, "data omset kotor ditemukan", "notifikasi", 1);
-            System.out.println("total sum : " + sumOmsetKotor);
-            outlet_meta.put("om_sum_omsetkotor", sumOmsetKotor);
-            btn_cetak_omsetKotor.setEnabled(true);
+        if (rpt_tanggal_awal.getDate() == null || rpt_tanggal_akhir.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Tanggal awal dan akhir tidak boleh kosong!", "notifikasi", 2);
         } else {
-            JOptionPane.showMessageDialog(this, "tidak ada data omset kotor", "notifikasi", 2);
+            //pakai sub query sum lagi jika gk ketemu cara untuk proses sum di jreport
+            HashMap<String, Integer> get_data = new HashMap<String, Integer>();
+            int sumOmsetKotor = 0;
+            int sumUangStoran = 0;
+            Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
+            Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
+            String final_tanggalAwal_rpt = Library.parsing_Jdate(tanggalAwal_rpt, "yyyy-MM-dd");
+            String final_tanggalAkhir_rpt = Library.parsing_Jdate(tanggalAkhir_rpt, "yyyy-MM-dd");
+            if (tanggalAwal_rpt.compareTo(tanggalAkhir_rpt) == 1) {
+                JOptionPane.showMessageDialog(this, "Tanggal awal harus lebih kecil dari tanggal akhir !", "notifikasi", 2);
+            } else {
+                if (getIdOutlet() == 0) {
+                    JOptionPane.showMessageDialog(this, "Silahkan pilih outlet terlebih dahulu ", "notifikasi", 2);
+                    btn_cari_outlet.requestFocus(true);
+                } else {
+                    get_data = CrudModel.getTotalReport("omsetkotor", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
+                    if (get_data.get("data_t_omsetkotor") != 0) {
+                        sumOmsetKotor = get_data.get("data_t_omsetkotor");
+                        JOptionPane.showMessageDialog(this, "data omset kotor ditemukan", "notifikasi", 1);
+                        System.out.println("total sum : " + sumOmsetKotor);
+                        outlet_meta.put("om_sum_omsetkotor", sumOmsetKotor);
+                        btn_cetak_omsetKotor.setEnabled(true);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "tidak ada data omset kotor", "notifikasi", 2);
+                    }
+
+                    get_data = CrudModel.getTotalReport("omsetbersih", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
+                    if (get_data.get("data_omsetbersih") != 0) {
+                        JOptionPane.showMessageDialog(this, "data omset bersih ditemukan", "notifikasi", 1);
+                        btn_cetak_omsetBersih.setEnabled(true);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "tidak ada data omset bersih", "notifikasi", 2);
+                    }
+
+                    get_data = CrudModel.getTotalReport("uangstoran", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
+                    if (get_data.get("data_t_uangstoran") != 0) {
+                        sumUangStoran = get_data.get("data_t_uangstoran");
+                        JOptionPane.showMessageDialog(this, "data uang setoran ditemukan", "notifikasi", 1);
+                        System.out.println("total sum : " + sumUangStoran);
+                        outlet_meta.put("om_sum_uangstoran", sumUangStoran);
+                        btn_cetak_uangSetoran.setEnabled(true);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "tidak ada data uang storan", "notifikasi", 2);
+                    }
+                }
+            }
         }
-
-        get_data = CrudModel.getTotalReport("omsetbersih", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
-        if (get_data.get("data_omsetbersih") != 0) {
-            JOptionPane.showMessageDialog(this, "data omset bersih ditemukan", "notifikasi", 1);
-            btn_cetak_omsetBersih.setEnabled(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "tidak ada data omset bersih", "notifikasi", 2);
-        }
-
-        get_data = CrudModel.getTotalReport("uangstoran", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
-        if (get_data.get("data_t_uangstoran") != 0) {
-            sumUangStoran = get_data.get("data_t_uangstoran");
-            JOptionPane.showMessageDialog(this, "data uang setoran ditemukan", "notifikasi", 1);
-            System.out.println("total sum : " + sumUangStoran);
-            outlet_meta.put("om_sum_uangstoran", sumUangStoran);
-            btn_cetak_uangSetoran.setEnabled(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "tidak ada data uang storan", "notifikasi", 2);
-        }
-
-        clear();
-
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
