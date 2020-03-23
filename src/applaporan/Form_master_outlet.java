@@ -104,6 +104,7 @@ public class Form_master_outlet extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel2.setText("Outlet");
 
         jLabel3.setText("nama outlet");
