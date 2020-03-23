@@ -8,6 +8,7 @@ package applaporan;
 import controller.MainController;
 import controller.Otentikasi;
 import static controller.Otentikasi.getGrant;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,7 +16,9 @@ import javax.swing.JOptionPane;
  * @author Rifky <qnoy.rifky@gmail.com>
  */
 public class Form_login_aplikasi extends javax.swing.JFrame {
+
     MainController frame = new MainController();
+    Otentikasi otentikasi = new Otentikasi();
 
     /**
      * Creates new form Form_login_aplikasi
@@ -23,6 +26,25 @@ public class Form_login_aplikasi extends javax.swing.JFrame {
     public Form_login_aplikasi() {
         initComponents();
         i_nik.requestFocus(true);
+    }
+
+    private void goLogin() {
+        String inputNik = i_nik.getText().trim();//ambil input nik
+        char[] rawPass = i_pass.getPassword();
+        String inputPass = new String(rawPass);
+
+        System.out.println("inputan =>>" + inputNik + " - " + inputPass);
+        otentikasi.setNik(inputNik);
+        otentikasi.setPass(inputPass);
+        otentikasi.login();//otentikasi di mulai
+        System.out.println("akses =>" + getGrant());
+
+        if (getGrant()) {
+            this.dispose();
+            frame.showDashboard();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "nik atau password salah", "tidak ada akses", 1);
+        }
     }
 
     /**
@@ -66,8 +88,20 @@ public class Form_login_aplikasi extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 153, 153));
         jPanel3.setOpaque(false);
 
+        i_nik.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                i_nikKeyPressed(evt);
+            }
+        });
+
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel1.setText("Password");
+
+        i_pass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                i_passKeyPressed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel3.setText("Nik");
@@ -189,25 +223,22 @@ public class Form_login_aplikasi extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_xActionPerformed
 
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
-        // TODO add your handling code here:
-        Otentikasi otentikasi = new Otentikasi();
-        String inputNik = i_nik.getText().trim();//ambil input nik
-        char[] rawPass = i_pass.getPassword();
-        String inputPass = new String(rawPass);
-
-        System.out.println("inputan =>>" +inputNik+ " - " +inputPass);
-        otentikasi.setNik(inputNik);
-        otentikasi.setPass(inputPass);
-        otentikasi.login();//otentikasi di mulai
-        System.out.println("akses =>"+getGrant());
-
-        if (getGrant()) {
-            this.dispose();
-            frame.showDashboard();
-        }else{
-            JOptionPane.showMessageDialog(rootPane, "nik atau password salah", "tidak ada akses", 1);
-        }
+        goLogin();
     }//GEN-LAST:event_btn_loginActionPerformed
+
+    private void i_passKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_i_passKeyPressed
+        //when user press enter
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            goLogin();
+        }
+
+    }//GEN-LAST:event_i_passKeyPressed
+
+    private void i_nikKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_i_nikKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            i_pass.requestFocus(true);
+        }
+    }//GEN-LAST:event_i_nikKeyPressed
 
     /**
      * @param args the command line arguments
