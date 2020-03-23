@@ -126,6 +126,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
 
+        jMenu4.setBackground(new java.awt.Color(255, 255, 255));
         jMenu4.setText("Menu");
 
         jMenu2.setBackground(new java.awt.Color(255, 255, 255));
