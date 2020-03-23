@@ -3,10 +3,7 @@
 
 Aplikasi manajemen report
 
-## TODO:
-* fix configuration file location
-* button colour
-* clear(bersih) button function 
+
 
 
 ## Built With
@@ -51,6 +48,8 @@ import database
 mysql -u yourusername -p db_app_kkp < db_app_kkp.sql.sql
 ```
 
+## RUN Application
+
 import project 
 
 ```
@@ -60,9 +59,23 @@ locate to folder kakapeh ,with NetBeans
 run single frame "Pengaturan" for generating the config then
 edit or ignore the config database configuration in config/aplikasi_config.ini
 
+run with runscript run.sh/.bat
+for linux :
+```
+sudo chmod +x run.sh
+./run.sh
+```
+
+for windows : (make sure jdk8 already installed ) 
+```
+double click run.bat
+```
 
 password access : 
 2016,2016
+
+## TODO:
+* clear(bersih) button function 
 
 ## Author
 * kelompok4 kkp
