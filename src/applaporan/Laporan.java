@@ -54,6 +54,9 @@ public class Laporan extends javax.swing.JFrame {
         rpt_tanggal_akhir.setCalendar(null);
         lbl_outlet.setText("lokasi");
         lbl_outlet_alamat.setText("alamat");
+        btn_cetak_omsetKotor.setEnabled(false);
+        btn_cetak_omsetBersih.setEnabled(false);
+        btn_cetak_uangSetoran.setEnabled(false);
     }
 
     /**
@@ -468,7 +471,13 @@ public class Laporan extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable_outlet4MouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        String keyword = null;
+        if (!txt_cari_outlet1.getText().isEmpty()) {
+            keyword = txt_cari_outlet1.getText().trim();
+            readDataOutlet(null, keyword, jTable_outlet4);
+        } else {
+            JOptionPane.showMessageDialog(null, "nama outlet kosong!", "pencarian", 1);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
