@@ -87,4 +87,13 @@
         <fileset dir="src/reporting/"/>
     </copy>
     <!-- ./copy file jasper with directory -->
+
+    <!-- copy run script -->
+    <copy todir="dist/" >
+            <fileset dir="./runscript">
+                <include name="run.*" />
+            </fileset>
+        </copy>  
+    <!-- ./copy run script -->
+    
 </project>
