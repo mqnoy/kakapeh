@@ -897,7 +897,7 @@ public class Form_transaksi extends javax.swing.JFrame {
             keyword = txt_cari_barang.getText().trim();
             readDataBarang(null, keyword, jTable_barang_3);
         } else {
-            JOptionPane.showMessageDialog(rootPane, "nama barang kosong!", "pencarian", 2);
+            JOptionPane.showMessageDialog(null, "nama barang kosong!", "pencarian", 1);
         }
     }//GEN-LAST:event_jButton10ActionPerformed
 

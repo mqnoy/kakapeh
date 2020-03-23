@@ -589,7 +589,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
             keyword = txt_cari_barang.getText().trim();
             readDataBarang("material", keyword, jTable_barang_2);
         } else {
-            JOptionPane.showMessageDialog(rootPane, "nama barang kosong!", "pencarian", 2);
+            JOptionPane.showMessageDialog(null, "nama barang kosong!", "pencarian", 2);
         }
     }//GEN-LAST:event_jButton10ActionPerformed
 
