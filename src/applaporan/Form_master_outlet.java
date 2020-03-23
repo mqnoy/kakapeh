@@ -87,8 +87,8 @@ public class Form_master_outlet extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setToolTipText("");
 
-        btn_foutlet_ubah.setBackground(jButton2.getBackground());
-        btn_foutlet_ubah.setForeground(jButton2.getForeground());
+        btn_foutlet_ubah.setBackground(new java.awt.Color(244, 51, 51));
+        btn_foutlet_ubah.setForeground(new java.awt.Color(255, 255, 255));
         btn_foutlet_ubah.setText("ubah");
         btn_foutlet_ubah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

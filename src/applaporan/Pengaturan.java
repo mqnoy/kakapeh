@@ -97,8 +97,8 @@ public class Pengaturan extends javax.swing.JFrame {
             }
         });
 
-        btn_simpan.setBackground(btn_load.getBackground());
-        btn_simpan.setForeground(btn_load.getForeground());
+        btn_simpan.setBackground(new java.awt.Color(244, 51, 51));
+        btn_simpan.setForeground(new java.awt.Color(255, 255, 255));
         btn_simpan.setText("simpan konfigurasi");
         btn_simpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

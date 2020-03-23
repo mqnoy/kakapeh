@@ -61,8 +61,8 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/lg_home.png"))); // NOI18N
 
-        jButton1.setBackground(btn_keluar.getBackground());
-        jButton1.setForeground(btn_keluar.getForeground());
+        jButton1.setBackground(new java.awt.Color(244, 51, 51));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("outlet transaksi");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

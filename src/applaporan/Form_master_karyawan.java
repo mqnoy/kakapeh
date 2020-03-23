@@ -87,8 +87,8 @@ public class Form_master_karyawan extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        btn_fkaryawan_ubah.setBackground(jButton2.getBackground());
-        btn_fkaryawan_ubah.setForeground(jButton2.getForeground());
+        btn_fkaryawan_ubah.setBackground(new java.awt.Color(244, 51, 51));
+        btn_fkaryawan_ubah.setForeground(new java.awt.Color(255, 255, 255));
         btn_fkaryawan_ubah.setText("ubah");
         btn_fkaryawan_ubah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

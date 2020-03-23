@@ -87,8 +87,8 @@ private void bersih(){
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        btn_brg_ubah.setBackground(btn_tambah.getBackground());
-        btn_brg_ubah.setForeground(btn_tambah.getForeground());
+        btn_brg_ubah.setBackground(new java.awt.Color(244, 51, 51));
+        btn_brg_ubah.setForeground(new java.awt.Color(255, 255, 255));
         btn_brg_ubah.setText("ubah");
         btn_brg_ubah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
