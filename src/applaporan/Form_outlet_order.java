@@ -77,14 +77,11 @@ public class Form_outlet_order extends javax.swing.JFrame {
 
         jDialog_barang = new javax.swing.JDialog();
         jPanel4 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable_barang_2 = new javax.swing.JTable();
         jButton10 = new javax.swing.JButton();
         txt_cari_barang = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
-        total_data_brg = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -124,8 +121,6 @@ public class Form_outlet_order extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("data");
-
         jLabel9.setText("Barang");
 
         jTable_barang_2.setModel(new javax.swing.table.DefaultTableModel(
@@ -151,10 +146,6 @@ public class Form_outlet_order extends javax.swing.JFrame {
                 jButton10ActionPerformed(evt);
             }
         });
-
-        jLabel14.setText("Total :");
-
-        total_data_brg.setText("0");
 
         jButton7.setBackground(new java.awt.Color(244, 51, 51));
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
@@ -183,14 +174,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(txt_cari_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(3, 3, 3)
-                                .addComponent(jButton10))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(total_data_brg, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jButton10)))
                         .addContainerGap())))
         );
         jPanel4Layout.setVerticalGroup(
@@ -204,13 +188,8 @@ public class Form_outlet_order extends javax.swing.JFrame {
                     .addComponent(txt_cari_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(total_data_brg, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jDialog_barangLayout = new javax.swing.GroupLayout(jDialog_barang.getContentPane());
@@ -672,7 +651,6 @@ public class Form_outlet_order extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_jml_orderPropertyChange
 
     private void btn_selesaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_selesaiActionPerformed
-        // TODO add your handling code here:
         //int karyawanID, String tglOrder, String OderKD
         Date raw_tgl = i_tgl_order.getDate();
         tgl_order = Library.parsing_Jdate(raw_tgl, "yyyy-MM-dd");
@@ -682,6 +660,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
         System.out.println("id karyawan =>" + otentikasi.getIdKaryawan());
         if (notifikasi_c_order) {
             JOptionPane.showMessageDialog(this, "data order outlet berhasil di simpan", "notifikasi", 1);
+            clear();
         } else {
             JOptionPane.showMessageDialog(this, "data order outlet gagal di simpan", "notifikasi", 2);
         }
@@ -743,10 +722,8 @@ public class Form_outlet_order extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JDialog jDialog_barang;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -765,7 +742,6 @@ public class Form_outlet_order extends javax.swing.JFrame {
     public static javax.swing.JTable jTable_barang_2;
     public static javax.swing.JTable jTable_order_draft;
     public static javax.swing.JTable jTable_outlet_2;
-    private javax.swing.JLabel total_data_brg;
     private javax.swing.JTextField txt_cari_barang;
     private javax.swing.JTextField txt_cari_outlet;
     private javax.swing.JTextField txt_jml_order;

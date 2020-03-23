@@ -181,14 +181,11 @@ public class Form_transaksi extends javax.swing.JFrame {
 
         jDialog_barang = new javax.swing.JDialog();
         jPanel4 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable_barang_3 = new javax.swing.JTable();
         jButton10 = new javax.swing.JButton();
         txt_cari_barang = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
-        total_data_brg = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
         buttonGroup1 = new javax.swing.ButtonGroup();
         jDialog_outlet = new javax.swing.JDialog();
@@ -245,8 +242,6 @@ public class Form_transaksi extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("data");
-
         jLabel11.setText("Barang");
 
         jTable_barang_3.setModel(new javax.swing.table.DefaultTableModel(
@@ -288,10 +283,6 @@ public class Form_transaksi extends javax.swing.JFrame {
             }
         });
 
-        jLabel14.setText("Total :");
-
-        total_data_brg.setText("0");
-
         jButton7.setBackground(new java.awt.Color(244, 51, 51));
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("x");
@@ -319,14 +310,7 @@ public class Form_transaksi extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(txt_cari_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(3, 3, 3)
-                                .addComponent(jButton10))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(total_data_brg, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jButton10)))
                         .addContainerGap())))
         );
         jPanel4Layout.setVerticalGroup(
@@ -342,12 +326,8 @@ public class Form_transaksi extends javax.swing.JFrame {
                     .addComponent(txt_cari_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(total_data_brg, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jDialog_barangLayout = new javax.swing.GroupLayout(jDialog_barang.getContentPane());
@@ -1038,6 +1018,7 @@ public class Form_transaksi extends javax.swing.JFrame {
         createDataTransaksi(otentikasi.getIdKaryawan(), tgl_pengeluaran);
         if (notifikasi_c_transaksi) {
             JOptionPane.showMessageDialog(this, "data transaksi outlet berhasil di simpan", "notifikasi", 1);
+            clear();
         } else {
             JOptionPane.showMessageDialog(this, "data transaksi outlet gagal di simpan", "notifikasi", 2);
         }
@@ -1202,11 +1183,9 @@ public class Form_transaksi extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JDialog jDialog_barang;
     private javax.swing.JDialog jDialog_outlet;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
@@ -1235,7 +1214,6 @@ public class Form_transaksi extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_trans_total_item;
     private javax.swing.JRadioButton rd_trans_ada;
     private javax.swing.JRadioButton rd_trans_tdkada;
-    private javax.swing.JLabel total_data_brg;
     private javax.swing.JTextField txt_cari_barang;
     private javax.swing.JTextField txt_cari_outlet1;
     public static javax.swing.JTextField txt_frmt_terjual;
