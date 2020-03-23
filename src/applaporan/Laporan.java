@@ -28,7 +28,7 @@ public class Laporan extends javax.swing.JFrame {
      * Creates new form Form_laporan_penjualan
      */
     public Laporan() {
-        if (true) {//getGrant()
+        if (getGrant()) {
             initComponents();
             btn_cari_outlet.requestFocus(true);
             btn_cetak_omsetBersih.setEnabled(false);
