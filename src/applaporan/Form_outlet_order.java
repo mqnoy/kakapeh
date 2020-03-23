@@ -13,6 +13,8 @@ import static databases.CrudModel.createDataOrder;
 import static databases.CrudModel.readDataBarang;
 import static databases.CrudModel.readDataOutlet;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -567,6 +569,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
             kd_order_draf = lib.generateCodeOrder(1, id_outlet, tgl_order);
             txt_kd_order.setText(kd_order_draf);
         } catch (Exception e) {
+            Logger.getLogger(Form_transaksi.class.getName()).log(Level.SEVERE, null, e);
             JOptionPane.showMessageDialog(this, "masukan tanggal terlebih dahulu", "notifikasi", 2);
             i_tgl_order.requestFocus(true);
         }
@@ -607,6 +610,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
             });
             btn_selesai.setEnabled(true);
         } catch (Exception e) {
+            Logger.getLogger(Form_transaksi.class.getName()).log(Level.SEVERE, null, e);
             JOptionPane.showMessageDialog(rootPane, "isi kolom terlebih dahulu", "notifikasi", 2);
         }
         

@@ -14,6 +14,8 @@ import static databases.CrudModel.createDataTransaksi;
 import static databases.CrudModel.readDataBarang;
 import static databases.CrudModel.readDataOutlet;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -1038,7 +1040,8 @@ public class Form_transaksi extends javax.swing.JFrame {
                 getIdOutlet(), getIdBarang(), txt_frmt_terjual.getText(), getSubtotalMenu()
             });
             btn_selesai.setEnabled(true);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
+            Logger.getLogger(Form_transaksi.class.getName()).log(Level.SEVERE, null, e);
             JOptionPane.showMessageDialog(rootPane, "isi kolom terlebih dahulu", "notifikasi", 2);
         }
         
