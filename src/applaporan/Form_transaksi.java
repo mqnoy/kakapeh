@@ -212,9 +212,10 @@ public class Form_transaksi extends javax.swing.JFrame {
 
         jDialog_barang.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jDialog_barang.setMinimumSize(new java.awt.Dimension(552, 443));
+        jDialog_barang.setUndecorated(true);
         jDialog_barang.setResizable(false);
 
-        jPanel4.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setText("data");
 
@@ -250,6 +251,8 @@ public class Form_transaksi extends javax.swing.JFrame {
             jTable_barang_3.getColumnModel().getColumn(4).setResizable(false);
         }
 
+        jButton10.setBackground(new java.awt.Color(244, 51, 51));
+        jButton10.setForeground(new java.awt.Color(255, 255, 255));
         jButton10.setText("cari");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -261,6 +264,8 @@ public class Form_transaksi extends javax.swing.JFrame {
 
         total_data_brg.setText("0");
 
+        jButton7.setBackground(new java.awt.Color(244, 51, 51));
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("x");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -330,7 +335,8 @@ public class Form_transaksi extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jDialog_outlet.setMinimumSize(new java.awt.Dimension(466, 359));
+        jDialog_outlet.setMinimumSize(new java.awt.Dimension(538, 371));
+        jDialog_outlet.setUndecorated(true);
         jDialog_outlet.setResizable(false);
 
         jPanel21.setBackground(new java.awt.Color(255, 255, 255));
@@ -361,8 +367,8 @@ public class Form_transaksi extends javax.swing.JFrame {
         });
         jScrollPane16.setViewportView(jTable_outlet3);
 
-        jButton4.setBackground(btn_cari_menu.getBackground());
-        jButton4.setForeground(btn_cari_menu.getForeground());
+        jButton4.setBackground(new java.awt.Color(244, 51, 51));
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("cari outlet");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -376,12 +382,14 @@ public class Form_transaksi extends javax.swing.JFrame {
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createSequentialGroup()
+                    .addGroup(jPanel20Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(txt_cari_outlet1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)))
+                        .addComponent(jButton4))
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane16, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel20Layout.setVerticalGroup(
@@ -396,6 +404,8 @@ public class Form_transaksi extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jButton8.setBackground(new java.awt.Color(244, 51, 51));
+        jButton8.setForeground(new java.awt.Color(255, 255, 255));
         jButton8.setText("x");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -406,24 +416,29 @@ public class Form_transaksi extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(jPanel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton8))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
-                .addGap(0, 12, Short.MAX_VALUE)
                 .addComponent(jButton8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jDialog_outletLayout = new javax.swing.GroupLayout(jDialog_outlet.getContentPane());
         jDialog_outlet.getContentPane().setLayout(jDialog_outletLayout);
         jDialog_outletLayout.setHorizontalGroup(
             jDialog_outletLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jDialog_outletLayout.setVerticalGroup(
             jDialog_outletLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -432,6 +447,7 @@ public class Form_transaksi extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1024, 768));
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -446,7 +462,6 @@ public class Form_transaksi extends javax.swing.JFrame {
         jLabel5.setText("nama outlet");
 
         i_tgl_pengeluaran.setBackground(new java.awt.Color(255, 255, 255));
-        i_tgl_pengeluaran.setForeground(new java.awt.Color(0, 0, 0));
         i_tgl_pengeluaran.setDateFormatString("yyyy-MM-dd ");
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Penjualan outlet"));
@@ -1013,16 +1028,20 @@ public class Form_transaksi extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void btn_tambah_transActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambah_transActionPerformed
-        // TODO add your handling code here:
-        int terjual = Integer.parseInt(txt_frmt_terjual.getText());
-        //code insert data ke table pengeluaran
-        setSubtotalMenu(getHrgBarang() * terjual);
+        try {
+            int terjual = Integer.parseInt(txt_frmt_terjual.getText());
+            //code insert data ke table pengeluaran
+            setSubtotalMenu(getHrgBarang() * terjual);
 
-        DefaultTableModel model = (DefaultTableModel) jTable_transaksi.getModel();
-        model.addRow(new Object[]{
-            getIdOutlet(), getIdBarang(), txt_frmt_terjual.getText(), getSubtotalMenu()
-        });
-        btn_selesai.setEnabled(true);
+            DefaultTableModel model = (DefaultTableModel) jTable_transaksi.getModel();
+            model.addRow(new Object[]{
+                getIdOutlet(), getIdBarang(), txt_frmt_terjual.getText(), getSubtotalMenu()
+            });
+            btn_selesai.setEnabled(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "isi kolom terlebih dahulu", "notifikasi", 2);
+        }
+        
     }//GEN-LAST:event_btn_tambah_transActionPerformed
 
     private void jTable_outlet3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_outlet3MouseClicked

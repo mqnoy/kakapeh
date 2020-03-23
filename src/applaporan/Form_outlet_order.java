@@ -99,9 +99,10 @@ public class Form_outlet_order extends javax.swing.JFrame {
 
         jDialog_barang.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jDialog_barang.setMinimumSize(new java.awt.Dimension(552, 443));
+        jDialog_barang.setUndecorated(true);
         jDialog_barang.setResizable(false);
 
-        jPanel4.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setText("data");
 
@@ -122,6 +123,8 @@ public class Form_outlet_order extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(jTable_barang_2);
 
+        jButton10.setBackground(new java.awt.Color(244, 51, 51));
+        jButton10.setForeground(new java.awt.Color(255, 255, 255));
         jButton10.setText("cari");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,6 +136,8 @@ public class Form_outlet_order extends javax.swing.JFrame {
 
         total_data_brg.setText("0");
 
+        jButton7.setBackground(new java.awt.Color(244, 51, 51));
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("x");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,21 +177,20 @@ public class Form_outlet_order extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jButton7)
-                        .addGap(0, 29, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jButton7)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_cari_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(total_data_brg, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(total_data_brg, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jDialog_barangLayout = new javax.swing.GroupLayout(jDialog_barang.getContentPane());
@@ -197,12 +201,11 @@ public class Form_outlet_order extends javax.swing.JFrame {
         );
         jDialog_barangLayout.setVerticalGroup(
             jDialog_barangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDialog_barangLayout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -239,8 +242,8 @@ public class Form_outlet_order extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Daftar outlet");
 
-        jButton1.setBackground(jButton6.getBackground());
-        jButton1.setForeground(jButton6.getForeground());
+        jButton1.setBackground(new java.awt.Color(244, 51, 51));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("cari outlet");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -278,6 +281,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
 
         jPanel3.setOpaque(false);
 
+        txt_jml_order.setText("0");
         txt_jml_order.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 txt_jml_orderPropertyChange(evt);
@@ -319,8 +323,8 @@ public class Form_outlet_order extends javax.swing.JFrame {
             }
         });
 
-        btn_tambahkan.setBackground(jButton6.getBackground());
-        btn_tambahkan.setForeground(jButton6.getForeground());
+        btn_tambahkan.setBackground(new java.awt.Color(244, 51, 51));
+        btn_tambahkan.setForeground(new java.awt.Color(255, 255, 255));
         btn_tambahkan.setText("tambahkan");
         btn_tambahkan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -365,6 +369,10 @@ public class Form_outlet_order extends javax.swing.JFrame {
         });
 
         jLabel8.setText("rusak");
+
+        txt_rusak.setText("0");
+
+        txt_terpakai.setText("0");
 
         jLabel11.setText("terpakai");
 
@@ -443,7 +451,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_terpakai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_kd_order, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -492,15 +500,14 @@ public class Form_outlet_order extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn_selesai)
-                                .addGap(14, 14, 14))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(15, 15, 15)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -511,12 +518,12 @@ public class Form_outlet_order extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btn_selesai)
                             .addComponent(jButton2)
                             .addComponent(jButton5))
-                        .addContainerGap(29, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -593,12 +600,16 @@ public class Form_outlet_order extends javax.swing.JFrame {
 
     private void btn_tambahkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tambahkanActionPerformed
         // TODO add your handling code here:
-
-        DefaultTableModel model = (DefaultTableModel) jTable_order_draft.getModel();
-        model.addRow(new Object[]{
-            txt_kd_order.getText(), mc.getOutletId(), txt_jml_order.getText(), mc.getIdBarang(), txt_terpakai.getText(), txt_rusak.getText()
-        });
-        btn_selesai.setEnabled(true);
+        try {
+            DefaultTableModel model = (DefaultTableModel) jTable_order_draft.getModel();
+            model.addRow(new Object[]{
+                txt_kd_order.getText(), mc.getOutletId(), txt_jml_order.getText(), mc.getIdBarang(), txt_terpakai.getText(), txt_rusak.getText()
+            });
+            btn_selesai.setEnabled(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "isi kolom terlebih dahulu", "notifikasi", 2);
+        }
+        
     }//GEN-LAST:event_btn_tambahkanActionPerformed
 
     private void i_tgl_orderPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_i_tgl_orderPropertyChange

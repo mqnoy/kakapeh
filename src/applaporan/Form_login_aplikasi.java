@@ -48,6 +48,7 @@ public class Form_login_aplikasi extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Login");
+        setAlwaysOnTop(true);
         setName("frame_login"); // NOI18N
         setUndecorated(true);
 
@@ -179,6 +180,7 @@ public class Form_login_aplikasi extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_xActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_xActionPerformed
