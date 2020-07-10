@@ -750,8 +750,14 @@ public class CrudModel extends ConfigDatabase {
                         + "		SELECT tgl_pengeluaran, id_outlet ,SUM(subtotal) as t_pengeluaran FROM tbl_pengeluaran WHERE id_outlet =" + idOutlet + " AND tgl_pengeluaran BETWEEN '" + tglAwal + "' AND '" + tglAkhir + "' GROUP BY tgl_pengeluaran "
                         + "	) pengeluaran "
                         + "	ON transaksi.tgl_closing = pengeluaran.tgl_pengeluaran"
-                        +") x ";
+                        + ") x ";
 
+                break;
+
+            case "datastock":
+                sql = "SELECT count(id_stock) as data FROM tbl_data_stock "
+                        + "WHERE id_outlet = "+idOutlet+" "
+                        + "AND tgl_stock BETWEEN '"+tglAwal+"' AND '"+tglAkhir+"'";
                 break;
         }
 
@@ -762,15 +768,18 @@ public class CrudModel extends ConfigDatabase {
             while (hasil.next()) {
                 switch (report) {
                     case "omsetkotor":
-                        data.put("data_t_omsetkotor",hasil.getInt("data"));
+                        data.put("data_t_omsetkotor", hasil.getInt("data"));
                         break;
                     case "omsetbersih":
-                        data.put("data_omsetbersih",hasil.getInt("omsetbersih"));
-                        data.put("data_t_transaksi",hasil.getInt("total_transaksi"));
-                        data.put("data_t_pengeluran",hasil.getInt("total_pengeluaran"));
+                        data.put("data_omsetbersih", hasil.getInt("omsetbersih"));
+                        data.put("data_t_transaksi", hasil.getInt("total_transaksi"));
+                        data.put("data_t_pengeluran", hasil.getInt("total_pengeluaran"));
                         break;
                     case "uangstoran":
-                        data.put("data_t_uangstoran",hasil.getInt("data"));
+                        data.put("data_t_uangstoran", hasil.getInt("data"));
+                        break;
+                    case "datastock":
+                        data.put("data_stock", hasil.getInt("data"));
                         break;
                 }
             }

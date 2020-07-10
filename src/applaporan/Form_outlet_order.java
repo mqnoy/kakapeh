@@ -562,7 +562,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
             mc.setOutletId(id_outlet);
             txt_nama_outlet.setText(val_nm_outlet);
             Date raw_tgl = i_tgl_order.getDate();
-            tgl_order = Library.parsing_Jdate(raw_tgl, "yyyy-MM-dd 00:00:00");
+            tgl_order = Library.parsing_Jdate(raw_tgl, "yyyy-MM-dd 00:00:00",null);
             kd_order_draf = lib.generateCodeOrder(1, id_outlet, tgl_order);
             txt_kd_order.setText(kd_order_draf);
         } catch (Exception e) {
@@ -653,7 +653,7 @@ public class Form_outlet_order extends javax.swing.JFrame {
     private void btn_selesaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_selesaiActionPerformed
         //int karyawanID, String tglOrder, String OderKD
         Date raw_tgl = i_tgl_order.getDate();
-        tgl_order = Library.parsing_Jdate(raw_tgl, "yyyy-MM-dd");
+        tgl_order = Library.parsing_Jdate(raw_tgl, "yyyy-MM-dd",null);
 
         //insert data order/ request outlet
         createDataOrder(otentikasi.getIdKaryawan(), tgl_order, txt_kd_order.getText());

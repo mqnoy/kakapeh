@@ -57,6 +57,7 @@ public class Laporan extends javax.swing.JFrame {
         btn_cetak_omsetKotor.setEnabled(false);
         btn_cetak_omsetBersih.setEnabled(false);
         btn_cetak_uangSetoran.setEnabled(false);
+        btn_cetak_dt_stock.setEnabled(false);
     }
 
     /**
@@ -93,6 +94,7 @@ public class Laporan extends javax.swing.JFrame {
         btn_cetak_omsetKotor = new javax.swing.JButton();
         btn_cetak_uangSetoran = new javax.swing.JButton();
         btn_cetak_omsetBersih = new javax.swing.JButton();
+        btn_cetak_dt_stock = new javax.swing.JButton();
 
         jDialog_outlet.setMinimumSize(new java.awt.Dimension(558, 371));
         jDialog_outlet.setUndecorated(true);
@@ -363,6 +365,15 @@ public class Laporan extends javax.swing.JFrame {
             }
         });
 
+        btn_cetak_dt_stock.setBackground(new java.awt.Color(244, 51, 51));
+        btn_cetak_dt_stock.setForeground(new java.awt.Color(255, 255, 255));
+        btn_cetak_dt_stock.setText("cetak data stock");
+        btn_cetak_dt_stock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cetak_dt_stockActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -384,7 +395,8 @@ public class Laporan extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btn_cetak_omsetKotor, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btn_cetak_omsetBersih, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_cetak_uangSetoran, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btn_cetak_uangSetoran, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_cetak_dt_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 25, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -400,7 +412,9 @@ public class Laporan extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btn_cetak_omsetBersih)
                         .addGap(14, 14, 14)
-                        .addComponent(btn_cetak_uangSetoran))
+                        .addComponent(btn_cetak_uangSetoran)
+                        .addGap(14, 14, 14)
+                        .addComponent(btn_cetak_dt_stock))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -427,8 +441,8 @@ public class Laporan extends javax.swing.JFrame {
 
         Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
         Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
-        String final_tanggalAwal_rpt = Library.parsing_Jdate(tanggalAwal_rpt, "yyyy-MM-dd");
-        String final_tanggalAkhir_rpt = Library.parsing_Jdate(tanggalAkhir_rpt, "yyyy-MM-dd");
+        String final_tanggalAwal_rpt = Library.parsing_Jdate(tanggalAwal_rpt, "yyyy-MM-dd","id");
+        String final_tanggalAkhir_rpt = Library.parsing_Jdate(tanggalAkhir_rpt, "yyyy-MM-dd","id");
 
         Library.getReport(final_tanggalAwal_rpt, final_tanggalAkhir_rpt, whatis, getIdOutlet(), outlet_meta);
     }
@@ -494,8 +508,8 @@ public class Laporan extends javax.swing.JFrame {
             int sumUangStoran = 0;
             Date tanggalAwal_rpt = rpt_tanggal_awal.getDate();
             Date tanggalAkhir_rpt = rpt_tanggal_akhir.getDate();
-            String final_tanggalAwal_rpt = Library.parsing_Jdate(tanggalAwal_rpt, "yyyy-MM-dd");
-            String final_tanggalAkhir_rpt = Library.parsing_Jdate(tanggalAkhir_rpt, "yyyy-MM-dd");
+            String final_tanggalAwal_rpt = Library.parsing_Jdate(tanggalAwal_rpt, "yyyy-MM-dd",null);
+            String final_tanggalAkhir_rpt = Library.parsing_Jdate(tanggalAkhir_rpt, "yyyy-MM-dd",null);
             if (tanggalAwal_rpt.compareTo(tanggalAkhir_rpt) == 1) {
                 JOptionPane.showMessageDialog(this, "Tanggal awal harus lebih kecil dari tanggal akhir !", "notifikasi", 2);
             } else {
@@ -532,6 +546,14 @@ public class Laporan extends javax.swing.JFrame {
                     } else {
                         JOptionPane.showMessageDialog(this, "tidak ada data uang storan", "notifikasi", 2);
                     }
+                    
+                    get_data = CrudModel.getTotalReport("datastock", getIdOutlet(), final_tanggalAwal_rpt, final_tanggalAkhir_rpt);
+                    if (get_data.get("data_stock") != 0) {
+                        JOptionPane.showMessageDialog(this, "data stock ditemukan", "notifikasi", 1);
+                        btn_cetak_dt_stock.setEnabled(true);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "tidak ada data stock", "notifikasi", 2);
+                    }
                 }
             }
         }
@@ -540,6 +562,11 @@ public class Laporan extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         clear();
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void btn_cetak_dt_stockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetak_dt_stockActionPerformed
+        // TODO add your handling code here:
+        this.putReport("datastock");
+    }//GEN-LAST:event_btn_cetak_dt_stockActionPerformed
 
     /**
      * @param args the command line arguments
@@ -579,6 +606,7 @@ public class Laporan extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cari_outlet;
+    private javax.swing.JButton btn_cetak_dt_stock;
     private javax.swing.JButton btn_cetak_omsetBersih;
     private javax.swing.JButton btn_cetak_omsetKotor;
     private javax.swing.JButton btn_cetak_uangSetoran;

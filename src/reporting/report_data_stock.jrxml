@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_data_stock" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="90c48cff-7f7a-46ba-bb6e-b25bca8ce694">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="36"/>
+	<parameter name="PARAM_PERIOD_BEGIN" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARAM_PERIOD_END" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARAM_ID_OUTLET" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="PARAM_NM_OUTLET" class="java.lang.String"/>
+	<parameter name="PARAM_OUTLET_INFO" class="java.lang.String"/>
+	<parameter name="PARAM_T_UANGSETORAN" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT tds.tgl_stock,tmo.nama_outlet,tmb.nama_barang,tds.stock_awal,tds.stock_akhir FROM tbl_data_stock tds
+LEFT JOIN tbl_master_barang tmb
+ON tmb.id_barang= tds.id_barang
+LEFT JOIN tbl_master_outlet tmo
+ON tmo.id_outlet = tds.id_outlet
+WHERE tds.id_outlet =$P{PARAM_ID_OUTLET} AND  tds.tgl_stock  BETWEEN $P{PARAM_PERIOD_BEGIN} AND $P{PARAM_PERIOD_END}]]>
+	</queryString>
+	<field name="tgl_stock" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_outlet" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_barang" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="stock_awal" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="stock_akhir" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="85" splitType="Stretch">
+			<textField>
+				<reportElement x="107" y="0" width="399" height="33" uuid="326b3e85-cf45-45ff-b18b-11f7732e3852"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARAM_NM_OUTLET}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="107" y="33" width="399" height="38" uuid="6b61a77f-9d34-4d82-96b8-9c8aca61b47e"/>
+				<textElement>
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PARAM_OUTLET_INFO}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement mode="Transparent" x="3" y="5" width="93" height="66" uuid="e63dfee4-c8e0-4c02-b6c5-a7a5579648d5"/>
+				<imageExpression><![CDATA["src/assets/head_report.jpg"]]></imageExpression>
+			</image>
+			<line>
+				<reportElement mode="Opaque" x="3" y="79" width="552" height="1" uuid="d4a40ed4-2bdb-47f1-ad2b-4a6a4472d62b"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="11" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="1" width="100" height="20" uuid="d82d3fc8-68d6-458a-a7fd-cbec69d4b283"/>
+				<text><![CDATA[Tanggal stock]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="224" y="0" width="100" height="20" uuid="fe9120f8-ab94-450a-9a52-49f5eb87272a"/>
+				<text><![CDATA[Nama barang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="107" y="0" width="57" height="20" uuid="eba62985-ea97-4e06-9766-d4b4e057fbf6"/>
+				<text><![CDATA[stock awal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="164" y="0" width="60" height="20" uuid="9c58100a-4fef-43a4-b00b-c01c05cfd270"/>
+				<text><![CDATA[stock akhir]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="3" y="3" width="100" height="20" uuid="6fdbae42-076d-492b-b207-468ec1a974c4"/>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("EEEE, dd MM yyyy", new java.util.Locale("id")).format($F{tgl_stock})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="224" y="2" width="100" height="20" uuid="383e6f9e-6af7-4109-876e-78108ca98329"/>
+				<textFieldExpression><![CDATA[$F{nama_barang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="107" y="2" width="57" height="20" uuid="5aecc13d-ba77-4e78-8c55-925ab74ccf23"/>
+				<textFieldExpression><![CDATA[$F{stock_awal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="164" y="2" width="60" height="20" uuid="3d2839de-2ef9-41fd-b329-37e1851418c1"/>
+				<textFieldExpression><![CDATA[$F{stock_akhir}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

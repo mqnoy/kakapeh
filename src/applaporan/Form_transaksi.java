@@ -1004,7 +1004,7 @@ public class Form_transaksi extends javax.swing.JFrame {
 
     private void btn_selesaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_selesaiActionPerformed
         Date raw_tgl = i_tgl_pengeluaran.getDate();
-        tgl_pengeluaran = Library.parsing_Jdate(raw_tgl, "yyyy-MM-dd");
+        tgl_pengeluaran = Library.parsing_Jdate(raw_tgl, "yyyy-MM-dd",null);
 
         System.out.println(this.getAdditionalBrg());
         if (this.getAdditionalBrg()) {//jika ada pengeluaran
