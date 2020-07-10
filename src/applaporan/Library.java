@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -50,10 +51,17 @@ public class Library {
      *
      * @param raw_date
      * @param raw_format
+     * @param locale
      * @return
      */
-    public static String parsing_Jdate(Date raw_date, String raw_format) {
-        DateFormat sdf = new SimpleDateFormat(raw_format);
+    public static String parsing_Jdate(Date raw_date, String raw_format,String locale) {
+        DateFormat sdf;
+        if(locale != null && raw_format == null){
+            sdf = new SimpleDateFormat(raw_format,new java.util.Locale(locale));
+        }else{
+             sdf = new SimpleDateFormat(raw_format);
+        }
+        
         return sdf.format(raw_date);
     }
     /**/
@@ -183,6 +191,9 @@ public class Library {
             case "uangsetoran":
                 templateReport = "report_uang_setoran";
                 JasperParams.put("PARAM_T_UANGSETORAN", OutletMeta.get("om_sum_uangstoran"));
+                break;
+            case "datastock":
+                templateReport = "report_data_stock";
                 break;
         }
         JasperParams.put("PARAM_ID_OUTLET", idOutlet);
