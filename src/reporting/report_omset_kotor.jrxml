@@ -51,14 +51,14 @@ FROM (
 			<textField>
 				<reportElement x="107" y="0" width="399" height="33" uuid="326b3e85-cf45-45ff-b18b-11f7732e3852"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{PARAM_NM_OUTLET}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="107" y="33" width="399" height="38" uuid="6b61a77f-9d34-4d82-96b8-9c8aca61b47e"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{PARAM_OUTLET_INFO}]]></textFieldExpression>
 			</textField>
@@ -77,42 +77,44 @@ FROM (
 	<pageHeader>
 		<band height="28" splitType="Stretch">
 			<textField>
-				<reportElement x="399" y="4" width="73" height="20" uuid="74533ac7-b737-4528-8a76-ca26730ced0c"/>
+				<reportElement x="389" y="4" width="73" height="20" uuid="74533ac7-b737-4528-8a76-ca26730ced0c"/>
 				<textElement textAlignment="Right">
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{PARAM_PERIOD_BEGIN}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="488" y="4" width="67" height="20" uuid="83f1122a-991a-4c0d-b9e7-295e11bf6897"/>
+				<reportElement x="478" y="4" width="77" height="20" uuid="83f1122a-991a-4c0d-b9e7-295e11bf6897"/>
 				<textElement textAlignment="Right">
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{PARAM_PERIOD_END}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="351" y="4" width="48" height="20" uuid="44eec137-1ddc-486a-95d3-8584f0d6421c"/>
+				<reportElement x="341" y="4" width="48" height="20" uuid="44eec137-1ddc-486a-95d3-8584f0d6421c"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<text><![CDATA[tanggal : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="472" y="4" width="16" height="20" uuid="b693ed96-c606-42ae-99b5-47d0f90baf2c"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="462" y="4" width="16" height="20" uuid="b693ed96-c606-42ae-99b5-47d0f90baf2c"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
 				<text><![CDATA[/]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="3" y="4" width="79" height="20" uuid="0afcec2c-53ff-4fb0-a010-e2feb6ee049e"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<text><![CDATA[Total omset kotor :]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="82" y="4" width="142" height="20" uuid="d6423db8-559c-4964-879c-0048ceccb597"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{PARAM_T_OMSETKOTOR}]]></textFieldExpression>
 			</textField>
@@ -121,16 +123,16 @@ FROM (
 	<columnHeader>
 		<band height="25" splitType="Stretch">
 			<staticText>
-				<reportElement x="50" y="1" width="100" height="20" uuid="3b6bd913-ffd8-4119-9922-b09c64561fdc"/>
+				<reportElement x="7" y="1" width="100" height="20" uuid="3b6bd913-ffd8-4119-9922-b09c64561fdc"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<text><![CDATA[Tanggal closing]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="346" y="1" width="100" height="20" uuid="f03eaf41-d7b5-48ed-9870-44134bb7bed5"/>
+				<reportElement x="341" y="1" width="137" height="20" uuid="f03eaf41-d7b5-48ed-9870-44134bb7bed5"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<text><![CDATA[Omset kotor]]></text>
 			</staticText>
@@ -139,28 +141,57 @@ FROM (
 	<detail>
 		<band height="23" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="50" y="1" width="100" height="20" uuid="3da7fd18-6d1d-40fe-abfc-c49b9ab8f1f8"/>
+				<reportElement x="7" y="1" width="100" height="20" uuid="3da7fd18-6d1d-40fe-abfc-c49b9ab8f1f8"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("EEEE, dd MM yyyy", new java.util.Locale("id")).format($F{tgl_closing})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="346" y="1" width="100" height="20" uuid="68a0fb7c-5560-4ad8-b0ec-dba21e0f9b9a"/>
+				<reportElement x="341" y="1" width="137" height="20" uuid="68a0fb7c-5560-4ad8-b0ec-dba21e0f9b9a"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{omsetkotor}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="119" splitType="Stretch">
+			<staticText>
+				<reportElement x="420" y="27" width="132" height="20" uuid="f87a2daf-8490-45e9-b3aa-e535ffc6c0dc"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Manager]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="394" y="91" width="158" height="19" uuid="e21283d6-ddc7-4da3-a24e-719635573d66"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Herlina Ferliyanti, S.E., MM.]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="438" y="6" width="114" height="20" uuid="d09f5bdb-c2b7-4390-9cbf-6e60f9a9000f"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("EEEE dd MMMM yyyy", new java.util.Locale("id")).format(new Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="394" y="6" width="44" height="20" uuid="df7ae0cf-8211-4c8f-8509-7a5c8ce935e3"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Jakarta,]]></text>
+			</staticText>
+			<line>
+				<reportElement x="394" y="111" width="158" height="1" uuid="e00c31d7-443d-4275-969d-18a6706c8a40"/>
+			</line>
+		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="14" splitType="Stretch"/>
 	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>

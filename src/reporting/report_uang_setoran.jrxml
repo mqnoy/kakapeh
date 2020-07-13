@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_uang_setoran" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="90c48cff-7f7a-46ba-bb6e-b25bca8ce694">
 	<property name="ireport.zoom" value="1.6105100000000008"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="63"/>
+	<property name="ireport.y" value="85"/>
 	<parameter name="PARAM_PERIOD_BEGIN" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -48,14 +48,14 @@ FROM (
 			<textField>
 				<reportElement x="107" y="0" width="399" height="33" uuid="326b3e85-cf45-45ff-b18b-11f7732e3852"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{PARAM_NM_OUTLET}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="107" y="33" width="399" height="38" uuid="6b61a77f-9d34-4d82-96b8-9c8aca61b47e"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{PARAM_OUTLET_INFO}]]></textFieldExpression>
 			</textField>
@@ -74,42 +74,44 @@ FROM (
 	<pageHeader>
 		<band height="28" splitType="Stretch">
 			<textField>
-				<reportElement x="399" y="4" width="73" height="20" uuid="74533ac7-b737-4528-8a76-ca26730ced0c"/>
+				<reportElement x="379" y="4" width="73" height="20" uuid="74533ac7-b737-4528-8a76-ca26730ced0c"/>
 				<textElement textAlignment="Right">
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{PARAM_PERIOD_BEGIN}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="488" y="4" width="67" height="20" uuid="83f1122a-991a-4c0d-b9e7-295e11bf6897"/>
+				<reportElement x="469" y="4" width="85" height="20" uuid="83f1122a-991a-4c0d-b9e7-295e11bf6897"/>
 				<textElement textAlignment="Right">
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{PARAM_PERIOD_END}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="351" y="4" width="48" height="20" uuid="44eec137-1ddc-486a-95d3-8584f0d6421c"/>
+				<reportElement x="331" y="4" width="48" height="20" uuid="44eec137-1ddc-486a-95d3-8584f0d6421c"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<text><![CDATA[tanggal : ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="472" y="4" width="16" height="20" uuid="b693ed96-c606-42ae-99b5-47d0f90baf2c"/>
-				<textElement textAlignment="Center"/>
+				<reportElement x="452" y="4" width="16" height="20" uuid="b693ed96-c606-42ae-99b5-47d0f90baf2c"/>
+				<textElement textAlignment="Center">
+					<font fontName="SansSerif" size="12"/>
+				</textElement>
 				<text><![CDATA[/]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="4" width="93" height="20" uuid="0afcec2c-53ff-4fb0-a010-e2feb6ee049e"/>
+				<reportElement x="3" y="4" width="69" height="20" uuid="0afcec2c-53ff-4fb0-a010-e2feb6ee049e"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<text><![CDATA[Total uang setoran :]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="97" y="4" width="178" height="20" uuid="4cd21338-7430-4346-a299-56762d4d0a3b"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{PARAM_T_UANGSETORAN}]]></textFieldExpression>
 			</textField>
@@ -120,14 +122,14 @@ FROM (
 			<staticText>
 				<reportElement x="50" y="1" width="100" height="20" uuid="3b6bd913-ffd8-4119-9922-b09c64561fdc"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<text><![CDATA[Tanggal closing]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="346" y="1" width="100" height="20" uuid="f03eaf41-d7b5-48ed-9870-44134bb7bed5"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<text><![CDATA[Uang setoran]]></text>
 			</staticText>
@@ -138,26 +140,55 @@ FROM (
 			<textField pattern="dd/MM/yyyy">
 				<reportElement x="50" y="1" width="100" height="20" uuid="3da7fd18-6d1d-40fe-abfc-c49b9ab8f1f8"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("EEEE, dd MM yyyy", new java.util.Locale("id")).format($F{tgl_closing})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="346" y="1" width="100" height="20" uuid="08df28ee-0302-414e-bb06-0e912d85a5c1"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{uangsetoran}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="122" splitType="Stretch">
+			<staticText>
+				<reportElement x="419" y="28" width="132" height="20" uuid="baabad7d-c981-450d-a448-2ed7bbe067cf"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Manager]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="393" y="92" width="158" height="19" uuid="e32a3934-bb16-479a-81f7-3c23a20ec67e"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Herlina Ferliyanti, S.E., MM.]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="437" y="7" width="114" height="20" uuid="54ea45a7-9e20-4e2e-8926-0f07e904d96a"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("EEEE dd MMMM yyyy", new java.util.Locale("id")).format(new Date())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="393" y="7" width="44" height="20" uuid="82dee605-36f7-4193-b37c-caa1ff635d1b"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Jakarta,]]></text>
+			</staticText>
+			<line>
+				<reportElement x="393" y="112" width="158" height="1" uuid="9de942aa-9a2b-4d0f-bb1b-3186df49d731"/>
+			</line>
+		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="14" splitType="Stretch"/>
 	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>
