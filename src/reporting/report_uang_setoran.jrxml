@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_uang_setoran" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="90c48cff-7f7a-46ba-bb6e-b25bca8ce694">
 	<property name="ireport.zoom" value="1.6105100000000008"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="85"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="PARAM_PERIOD_BEGIN" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -120,14 +120,14 @@ FROM (
 	<columnHeader>
 		<band height="25" splitType="Stretch">
 			<staticText>
-				<reportElement x="50" y="1" width="100" height="20" uuid="3b6bd913-ffd8-4119-9922-b09c64561fdc"/>
+				<reportElement x="7" y="1" width="186" height="20" uuid="3b6bd913-ffd8-4119-9922-b09c64561fdc"/>
 				<textElement>
 					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<text><![CDATA[Tanggal closing]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="346" y="1" width="100" height="20" uuid="f03eaf41-d7b5-48ed-9870-44134bb7bed5"/>
+				<reportElement x="346" y="1" width="160" height="20" uuid="f03eaf41-d7b5-48ed-9870-44134bb7bed5"/>
 				<textElement>
 					<font fontName="SansSerif" size="12"/>
 				</textElement>
@@ -138,14 +138,14 @@ FROM (
 	<detail>
 		<band height="27" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="50" y="1" width="100" height="20" uuid="3da7fd18-6d1d-40fe-abfc-c49b9ab8f1f8"/>
+				<reportElement x="7" y="1" width="186" height="20" uuid="3da7fd18-6d1d-40fe-abfc-c49b9ab8f1f8"/>
 				<textElement>
 					<font fontName="SansSerif" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("EEEE, dd MM yyyy", new java.util.Locale("id")).format($F{tgl_closing})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="346" y="1" width="100" height="20" uuid="08df28ee-0302-414e-bb06-0e912d85a5c1"/>
+				<reportElement x="346" y="1" width="160" height="20" uuid="08df28ee-0302-414e-bb06-0e912d85a5c1"/>
 				<textElement>
 					<font fontName="SansSerif" size="12"/>
 				</textElement>
