@@ -1,5 +1,6 @@
 /config/aplikasi_config.ini
 /src/*.ini
+/src/config/*.ini
 /build/
 /dist/
 /nbproject/private/*.properties
